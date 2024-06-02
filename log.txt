@@ -1,0 +1,100 @@
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]: Please do one of the following:
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]: - Move or remove the above files and try again.
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]:   files automatically.
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]: - When used as a NixOS or nix-darwin module, set
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]:     'home-manager.backupFileExtension'
+cze 02 15:09:50 laptop hm-activate-jaanonim[14182]:   to, for example, 'backup' and rebuild.
+cze 02 15:09:50 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 15:09:50 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 15:09:50 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.
+cze 02 15:20:16 laptop systemd[1]: Starting Home Manager environment for jaanonim...
+cze 02 15:20:16 laptop hm-activate-jaanonim[14788]: Rozpoczynam aktywację Home Managera
+cze 02 15:20:16 laptop hm-activate-jaanonim[14788]: Aktywowanie checkFilesChanged
+cze 02 15:20:16 laptop hm-activate-jaanonim[14788]: Aktywowanie checkLinkTargets
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]: Existing file '/home/jaanonim/.config/gtk-3.0/gtk.css' is in the way of '/nix/store/ikhqkyz7w1arzmjc66drp5ws8gxp95hj-home-manager-files/.config/gtk-3.0/gtk.css'
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]: Please do one of the following:
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]: - Move or remove the above files and try again.
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]:   files automatically.
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]: - When used as a NixOS or nix-darwin module, set
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]:     'home-manager.backupFileExtension'
+cze 02 15:20:16 laptop hm-activate-jaanonim[14887]:   to, for example, 'backup' and rebuild.
+cze 02 15:20:16 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 15:20:16 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 15:20:16 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.
+cze 02 15:24:37 laptop systemd[1]: Starting Home Manager environment for jaanonim...
+cze 02 15:24:37 laptop hm-activate-jaanonim[17014]: Rozpoczynam aktywację Home Managera
+cze 02 15:24:37 laptop hm-activate-jaanonim[17014]: Aktywowanie checkFilesChanged
+cze 02 15:24:37 laptop hm-activate-jaanonim[17014]: Aktywowanie checkLinkTargets
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]: Existing file '/home/jaanonim/.config/gtk-3.0/gtk.css' is in the way of '/nix/store/vy9y02z148mvws97kkbvf1rkxij2m315-home-manager-files/.config/gtk-3.0/gtk.css'
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]: Please do one of the following:
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]: - Move or remove the above files and try again.
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]:   files automatically.
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]: - When used as a NixOS or nix-darwin module, set
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]:     'home-manager.backupFileExtension'
+cze 02 15:24:37 laptop hm-activate-jaanonim[17108]:   to, for example, 'backup' and rebuild.
+cze 02 15:24:37 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 15:24:37 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 15:24:37 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.
+cze 02 15:25:27 laptop systemd[1]: Starting Home Manager environment for jaanonim...
+cze 02 15:25:27 laptop hm-activate-jaanonim[17585]: Rozpoczynam aktywację Home Managera
+cze 02 15:25:27 laptop hm-activate-jaanonim[17585]: Aktywowanie checkFilesChanged
+cze 02 15:25:27 laptop hm-activate-jaanonim[17585]: Aktywowanie checkLinkTargets
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]: Existing file '/home/jaanonim/.config/gtk-3.0/gtk.css' is in the way of '/nix/store/vy9y02z148mvws97kkbvf1rkxij2m315-home-manager-files/.config/gtk-3.0/gtk.css'
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]: Please do one of the following:
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]: - Move or remove the above files and try again.
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]:   files automatically.
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]: - When used as a NixOS or nix-darwin module, set
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]:     'home-manager.backupFileExtension'
+cze 02 15:25:27 laptop hm-activate-jaanonim[17685]:   to, for example, 'backup' and rebuild.
+cze 02 15:25:27 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 15:25:27 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 15:25:27 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.
+cze 02 15:27:11 laptop systemd[1]: Starting Home Manager environment for jaanonim...
+cze 02 15:27:11 laptop hm-activate-jaanonim[18200]: Rozpoczynam aktywację Home Managera
+cze 02 15:27:11 laptop hm-activate-jaanonim[18200]: Aktywowanie checkFilesChanged
+cze 02 15:27:11 laptop hm-activate-jaanonim[18200]: Aktywowanie checkLinkTargets
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]: Existing file '/home/jaanonim/.config/gtk-3.0/gtk.css' is in the way of '/nix/store/vy9y02z148mvws97kkbvf1rkxij2m315-home-manager-files/.config/gtk-3.0/gtk.css'
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]: Please do one of the following:
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]: - Move or remove the above files and try again.
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]:   files automatically.
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]: - When used as a NixOS or nix-darwin module, set
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]:     'home-manager.backupFileExtension'
+cze 02 15:27:11 laptop hm-activate-jaanonim[18290]:   to, for example, 'backup' and rebuild.
+cze 02 15:27:11 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 15:27:11 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 15:27:11 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.
+cze 02 15:28:45 laptop systemd[1]: Starting Home Manager environment for jaanonim...
+cze 02 15:28:45 laptop hm-activate-jaanonim[20453]: Rozpoczynam aktywację Home Managera
+cze 02 15:28:45 laptop hm-activate-jaanonim[20453]: Aktywowanie checkFilesChanged
+cze 02 15:28:45 laptop hm-activate-jaanonim[20453]: Aktywowanie checkLinkTargets
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]: Existing file '/home/jaanonim/.config/gtk-3.0/gtk.css' is in the way of '/nix/store/vy9y02z148mvws97kkbvf1rkxij2m315-home-manager-files/.config/gtk-3.0/gtk.css'
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]: Please do one of the following:
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]: - Move or remove the above files and try again.
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]:   files automatically.
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]: - When used as a NixOS or nix-darwin module, set
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]:     'home-manager.backupFileExtension'
+cze 02 15:28:45 laptop hm-activate-jaanonim[20545]:   to, for example, 'backup' and rebuild.
+cze 02 15:28:45 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 15:28:45 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 15:28:45 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.
+cze 02 16:53:41 laptop systemd[1]: Starting Home Manager environment for jaanonim...
+cze 02 16:53:41 laptop hm-activate-jaanonim[22751]: Rozpoczynam aktywację Home Managera
+cze 02 16:53:41 laptop hm-activate-jaanonim[22751]: Aktywowanie checkFilesChanged
+cze 02 16:53:41 laptop hm-activate-jaanonim[22751]: Aktywowanie checkLinkTargets
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]: Existing file '/home/jaanonim/.config/gtk-3.0/gtk.css' is in the way of '/nix/store/9g9n751lyb5n0ksy39jf1gdg6l4wzqy4-home-manager-files/.config/gtk-3.0/gtk.css'
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]: Please do one of the following:
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]: - Move or remove the above files and try again.
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]: - In standalone mode, use 'home-manager switch -b backup' to back up
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]:   files automatically.
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]: - When used as a NixOS or nix-darwin module, set
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]:     'home-manager.backupFileExtension'
+cze 02 16:53:41 laptop hm-activate-jaanonim[22840]:   to, for example, 'backup' and rebuild.
+cze 02 16:53:41 laptop systemd[1]: home-manager-jaanonim.service: Main process exited, code=exited, status=1/FAILURE
+cze 02 16:53:41 laptop systemd[1]: home-manager-jaanonim.service: Failed with result 'exit-code'.
+cze 02 16:53:41 laptop systemd[1]: Failed to start Home Manager environment for jaanonim.

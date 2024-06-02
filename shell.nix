@@ -26,6 +26,7 @@
         nixpkgs-fmt
         alejandra
         nurl
+        nil
         just
         # direnv
       ];

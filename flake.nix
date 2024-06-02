@@ -20,7 +20,15 @@
       };
     };
 
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
   outputs = {
@@ -30,6 +38,7 @@
     nixos-hardware,
     plasma-manager,
     stylix,
+    vscode-server,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -42,7 +51,7 @@
 
     configLib = import ./lib {inherit inputs lib;};
     specialArgs = {inherit inputs outputs configLib nixpkgs;};
-  in rec {
+  in {
     overlays = import ./overlays {inherit inputs;};
 
     nixosModules = import ./modules/nixos;
@@ -65,7 +74,10 @@
       virtualbox = lib.nixosSystem {
         inherit system;
         inherit specialArgs;
-        modules = [./hosts/virtualbox ./hosts/laptop];
+        modules = [
+          ./hosts/virtualbox
+          ./hosts/laptop
+        ];
       };
     };
   };

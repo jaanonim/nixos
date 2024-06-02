@@ -1,10 +1,5 @@
-{
-  inputs,
-  outputs,
-  ...
-}: {
+{...}: {
   imports = [
-    inputs.home-manager.nixosModules.default
     ./localization.nix
     ./nixos.nix
     ./zsh.nix

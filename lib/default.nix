@@ -1,11 +1,12 @@
-{
-  inputs,
-  lib,
-  ...
-}: {
+{...}: {
   root = path: ../. + path;
-  core = ../hosts/common/core;
-  optional = path: ../hosts/common/optional + path;
-  users = path: ../hosts/common/users + path;
-  apps = path: ../hosts/common/optional/apps + path;
+
+  core = ../common/nix/core;
+  optional = path: ../common/nix/optional + path;
+  apps = path: ../common/nix/optional/apps + path;
+
+  users = path: ../common/users + path;
+
+  home_core = ../common/home/core;
+  home_optional = path: ../common/home/optional + path;
 }
