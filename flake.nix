@@ -2,8 +2,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -55,7 +55,7 @@
 
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
-    formatter = forAllSystems (system: nixpkgs.alejandra);
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     devShells = forAllSystems (system: import ./shell.nix nixpkgs.legacyPackages.${system});
 
