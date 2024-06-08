@@ -12,6 +12,8 @@
   #   hash = "sha256-kXWxrugHOlP1MKrGxYjxfiqhXEjoh/iFSvQ/S2q2OIg=";
   # };
 
+  stylix.autoEnable = true;
+
   stylix.image = pkgs.fetchurl {
     url = "https://images.unsplash.com/photo-1554176259-aa961fc32671?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=tyler-lastovich-ddLiNMqWAOM-unsplash.jpg";
     hash = "sha256-+pjhBCVwjuzx/r11nqZJI79FPhuPGqrzD1Hd90nEQys=";
@@ -43,8 +45,8 @@
 
   stylix.opacity.popups = 0.5;
 
-  # stylix.cursor = {
-  #   package = pkgs.catppuccin-cursors;
-  #   name = "Catppuccin Cursors";
-  # };
+  stylix.cursor = {
+    package = pkgs.catppuccin-cursors;
+    name = "Catppuccin Cursors";
+  };
 }

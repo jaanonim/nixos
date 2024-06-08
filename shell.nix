@@ -1,6 +1,3 @@
-#################### DevShell ####################
-#
-# Custom shell for bootstrapping on new hosts, modifying nix-config, and secrets management
 {
   pkgs ?
   # If pkgs is not defined, instantiate nixpkgs from locked commit
@@ -26,8 +23,9 @@
         nixpkgs-fmt
         alejandra
         nurl
-        nil
+        nixd
         just
+        nil
         # direnv
       ];
     };

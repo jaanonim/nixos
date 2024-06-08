@@ -7,7 +7,6 @@ with lib; {
   imports = [
     (fetchTarball "https://github.com/nix-community/nixos-vscode-server/tarball/master")
     <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix>
-    <nixpkgs/nixos/modules/profiles/clone-config.nix>
   ];
 
   users.users.jaanonim.extraGroups = ["vboxsf"];

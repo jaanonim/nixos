@@ -1,4 +1,8 @@
-{configLib, ...}: {
+{
+  configLib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     configLib.core
@@ -17,4 +21,6 @@
   virtualisation.docker.enable = true;
 
   system.stateVersion = "23.11"; # Don't touch
+
+  environment.etc."xdg/autostart/discord.desktop".source = "${pkgs.discord}/share/applications/discord.desktop";
 }

@@ -16,6 +16,9 @@ in {
       extended = true;
       share = true;
     };
+    shellAliases = {
+      ns = "nix shell -c zsh";
+    };
     plugins = [
       {
         name = "zsh-nix-shell";

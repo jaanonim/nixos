@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   tmux-power = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux-power";
     version = "1.0";
@@ -14,8 +10,6 @@
     };
   };
 in {
-  fonts.packages = with pkgs; [(nerdfonts.override {fonts = ["Meslo"];})];
-
   # environment.variables = {
   #   NIX_BUILD_SHELL = pkgs.zsh + /bin/zsh;
   # };
@@ -32,8 +26,8 @@ in {
 
   programs.tmux = {
     enable = true;
-    # baseIndex = 1;
-    # plugins = with pkgs; [ tmuxPlugins.sensible tmux-power ];
+    baseIndex = 1;
+    plugins = [pkgs.tmuxPlugins.sensible tmux-power];
   };
 
   programs.git = {

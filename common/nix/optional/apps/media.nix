@@ -1,6 +1,7 @@
-{pkgs, ...}:
-with pkgs; [
-  gimp
-  blender
-  obs-studio
-]
+{pkgs, ...}: {
+  packages = with pkgs; [
+    gimp
+    blender
+    obs-studio
+  ];
+}

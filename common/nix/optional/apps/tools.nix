@@ -1,7 +1,8 @@
-{pkgs, ...}:
-with pkgs; [
-  emote
-  pika-backup
-  syncthing
-  normcap
-]
+{pkgs, ...}: {
+  packages = with pkgs; [
+    emote
+    pika-backup
+    syncthing
+    normcap
+  ];
+}

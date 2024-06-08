@@ -2,8 +2,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -34,11 +34,6 @@
   outputs = {
     self,
     nixpkgs,
-    home-manager,
-    nixos-hardware,
-    plasma-manager,
-    stylix,
-    vscode-server,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -50,7 +45,7 @@
     ];
 
     configLib = import ./lib {inherit inputs lib;};
-    specialArgs = {inherit inputs outputs configLib nixpkgs;};
+    specialArgs = {inherit inputs outputs configLib nixpkgs lib;};
   in {
     overlays = import ./overlays {inherit inputs;};
 
