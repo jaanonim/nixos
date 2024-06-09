@@ -14,7 +14,7 @@
   default =
     pkgs.mkShell
     {
-      NIX_BUILD_SHELL = "zsh";
+      # NIX_BUILD_SHELL = "zsh";
       NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
       nativeBuildInputs = with pkgs; [
         nix
@@ -23,8 +23,8 @@
         nixpkgs-fmt
         alejandra
         nurl
-        nixd
         just
+        nixd
         nil
         # direnv
       ];

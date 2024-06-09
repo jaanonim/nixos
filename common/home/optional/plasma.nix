@@ -26,6 +26,10 @@
         # Windows-like panel at the bottom
         {
           location = "bottom";
+          height = 40;
+          floating = true;
+          hiding = "none";
+
           widgets = [
             # We can configure the widgets by adding the name and config
             # attributes. For example to add the the kickoff widget and set the
@@ -53,7 +57,7 @@
             }
             # If no configuration is needed, specifying only the name of the
             # widget will add them with the default configuration.
-            "org.kde.plasma.marginsseparator"
+
             # If you need configuration for your widget, instead of specifying the
             # the keys and values directly using the config attribute as shown
             # above, plasma-manager also provides some higher-level interfaces for
@@ -63,11 +67,21 @@
             # first day of the week to sunday and another adding a systray with
             # some modifications in which entries to show.
             {
-              digitalClock = {
-                calendar.firstDayOfWeek = "monday";
-                time.format = "24h";
+              systemMonitor = {
+                title = "Wykorzystanie pamieci/procesora";
+                displayStyle = "org.kde.ksysguard.piechart";
+                sensors = [
+                  {
+                    name = "cpu/all/usage";
+                    color = "0,176,245";
+                    label = "Wykorzystanie";
+                  }
+                ];
+                totalSensors = ["memory/physical/used" "cpu/all/usage"];
+                textOnlySensors = [];
               };
             }
+            "org.kde.plasma.marginsseparator"
             {
               systemTray.items = {
                 # We explicitly show bluetooth and battery
@@ -75,18 +89,31 @@
                   "org.kde.plasma.battery"
                   "org.kde.plasma.networkmanagement"
                   "org.kde.plasma.volume"
+                  "org.kde.kdeconnect"
                   "discord.desktop"
                 ];
                 # And explicitly hide networkmanagement and volume
                 hidden = [
                   "org.kde.plasma.bluetooth"
+                  "org.kde.plasma.nightcolorcontrol"
+                  "org.kde.plasma.clipboard"
+                  "org.kde.plasma.brightness"
                 ];
               };
             }
+            {
+              digitalClock = {
+                calendar.firstDayOfWeek = "monday";
+                time.format = "24h";
+              };
+            }
+            "org.kde.plasma.showdesktop"
           ];
-          hiding = "none";
         }
       ];
+      spectacle.shortcuts = {
+        captureRectangularRegion = "Meta+Shift+S";
+      };
     }
   ];
 }
