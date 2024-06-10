@@ -20,8 +20,8 @@ in {
     keyMode = "vi";
     terminal = "screen-256color";
 
-    plugins = with pkgs; [
-      tmuxPlugins.sensible
+    plugins = [
+      pkgs.tmuxPlugins.sensible
       {
         plugin = tmux-power;
         extraConfig = ''

@@ -12,41 +12,45 @@
   #   hash = "sha256-kXWxrugHOlP1MKrGxYjxfiqhXEjoh/iFSvQ/S2q2OIg=";
   # };
 
-  stylix.autoEnable = true;
+  stylix = {
+    enable = true;
+    autoEnable = true;
 
-  stylix.image = pkgs.fetchurl {
-    url = "https://images.unsplash.com/photo-1554176259-aa961fc32671?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=tyler-lastovich-ddLiNMqWAOM-unsplash.jpg";
-    hash = "sha256-+pjhBCVwjuzx/r11nqZJI79FPhuPGqrzD1Hd90nEQys=";
-  };
-
-  stylix.polarity = "dark";
-
-  stylix.fonts = {
-    serif = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans";
+    image = pkgs.fetchurl {
+      url = "https://images.unsplash.com/photo-1554176259-aa961fc32671?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=tyler-lastovich-ddLiNMqWAOM-unsplash.jpg";
+      hash = "sha256-+pjhBCVwjuzx/r11nqZJI79FPhuPGqrzD1Hd90nEQys=";
     };
 
-    sansSerif = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans";
+    polarity = "dark";
+
+    fonts = {
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+
+      monospace = {
+        package = pkgs.nerdfonts.override {fonts = ["Meslo"];};
+        name = "MesloLGS Nerd Font Mono";
+      };
+
+      sizes = {
+        applications = 10;
+        terminal = 10;
+      };
     };
 
-    monospace = {
-      package = pkgs.nerdfonts.override {fonts = ["Meslo"];};
-      name = "MesloLGS Nerd Font Mono";
+    opacity.popups = 0.5;
+
+    cursor = {
+      package = pkgs.catppuccin-cursors;
+      name = "Catppuccin Cursors";
+      size = 32;
     };
-
-    sizes = {
-      applications = 10;
-      terminal = 10;
-    };
-  };
-
-  stylix.opacity.popups = 0.5;
-
-  stylix.cursor = {
-    package = pkgs.catppuccin-cursors;
-    name = "Catppuccin Cursors";
   };
 }

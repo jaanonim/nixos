@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  configLib,
   ...
 }: {
   imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
@@ -22,6 +23,20 @@
         };
       };
 
+      shortcuts = {
+        "services/com.github.dynobo.normcap.desktop" = {
+          "_launch" = "Meta+Shift+T";
+        };
+        "services/org.kde.plasma-systemmonitor.desktop" = {
+          "_launch" = "Ctrl+Shift+Esc";
+        };
+        kwin = {
+          "Overview" = "Meta+Tab";
+          "Switch One Desktop to the Left" = "Meta+Ctrl+Left";
+          "Switch One Desktop to the Right" = "Meta+Ctrl+Right";
+        };
+      };
+
       panels = lib.mkForce [
         # Windows-like panel at the bottom
         {
@@ -39,7 +54,7 @@
             {
               name = "org.kde.plasma.kickoff";
               config = {
-                General.icon = "nix-snowflake-white";
+                General.icon = builtins.toString (configLib.root /config/profile.png);
               };
             }
             # Adding configuration to the widgets can also for example be used to
@@ -73,7 +88,7 @@
                 sensors = [
                   {
                     name = "cpu/all/usage";
-                    color = "0,176,245";
+                    color = "0,176,245"; # "${lib.stylix.colors.base0D-rgb-r},${lib.stylix.colors.base0D-rgb-g},${lib.stylix.colors.base0D-rgb-b}";
                     label = "Wykorzystanie";
                   }
                 ];
@@ -84,7 +99,6 @@
             "org.kde.plasma.marginsseparator"
             {
               systemTray.items = {
-                # We explicitly show bluetooth and battery
                 shown = [
                   "org.kde.plasma.battery"
                   "org.kde.plasma.networkmanagement"
@@ -92,7 +106,6 @@
                   "org.kde.kdeconnect"
                   "discord.desktop"
                 ];
-                # And explicitly hide networkmanagement and volume
                 hidden = [
                   "org.kde.plasma.bluetooth"
                   "org.kde.plasma.nightcolorcontrol"

@@ -4,7 +4,7 @@
   configLib,
   ...
 }: let
-  # makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest // builtins.removeAttrs _pkg ["packages"]) {} (makeListOfPkgsConfigs paths);
+  makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest // builtins.removeAttrs _pkg ["packages"]) {} (makeListOfPkgsConfigs paths);
   makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) pkgs) paths;
   makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
   packages_paths = [/basic.nix /dev.nix /tools.nix /terminal.nix /media.nix /gaming.nix];

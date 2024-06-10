@@ -22,5 +22,9 @@
 
   system.stateVersion = "23.11"; # Don't touch
 
-  environment.etc."xdg/autostart/discord.desktop".source = "${pkgs.discord}/share/applications/discord.desktop";
+  environment.etc."xdg/autostart/discord.desktop".source = pkgs.runCommand "discord-desktop-minimized" {} ''
+    mkdir -p $out/share/applications
+    substitute ${pkgs.discord}/share/applications/discord.desktop $out/share/applications/discord.desktop \
+      --replace "Exec=Discord" "Exec=Discord --start-minimized"
+  '';
 }
