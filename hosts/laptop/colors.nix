@@ -48,8 +48,8 @@
     opacity.popups = 0.5;
 
     cursor = {
-      package = pkgs.catppuccin-cursors;
-      name = "Catppuccin Cursors";
+      package = pkgs.capitaine-cursors;
+      name = "capitaine-cursors";
       size = 32;
     };
   };

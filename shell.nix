@@ -26,7 +26,7 @@
         just
         nixd
         nil
-        # direnv
+        direnv
       ];
     };
 }

@@ -6,7 +6,6 @@
     kdePackages.gwenview
     vlc
     brave
-    discord
     gnome.gnome-calculator
   ];
 }

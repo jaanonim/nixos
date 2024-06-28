@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   inputs,
   configLib,
@@ -14,6 +15,7 @@
 
       workspace = {
         clickItemTo = "select";
+        lookAndFeel = "org.kde.breezedark.desktop";
       };
 
       kwin = {
@@ -54,7 +56,7 @@
             {
               name = "org.kde.plasma.kickoff";
               config = {
-                General.icon = builtins.toString (configLib.root /config/profile.png);
+                General.icon = builtins.toString (import ./profile_image.nix {inherit pkgs;});
               };
             }
             # Adding configuration to the widgets can also for example be used to
@@ -85,6 +87,7 @@
               systemMonitor = {
                 title = "Wykorzystanie pamieci/procesora";
                 displayStyle = "org.kde.ksysguard.piechart";
+                showTitle = false;
                 sensors = [
                   {
                     name = "cpu/all/usage";
