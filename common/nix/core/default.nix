@@ -1,4 +1,4 @@
-{...}: {
+{outputs, ...}: {
   imports = [
     ./localization.nix
     ./nixos.nix
@@ -7,6 +7,11 @@
     ./networking.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    overlays = builtins.attrValues outputs.overlays;
+    config = {
+      allowUnfree = true;
+    };
+  };
   hardware.enableRedistributableFirmware = true;
 }

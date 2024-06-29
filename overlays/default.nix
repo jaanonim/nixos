@@ -5,9 +5,9 @@
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  nixpkgs.overlays = [
-    (import ./alejandra.nix)
-  ];
+  modifications = final: prev: {
+    # (import ./alejandra.nix)
+  };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'

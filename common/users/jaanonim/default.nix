@@ -7,7 +7,7 @@
   makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest // builtins.removeAttrs _pkg ["packages"]) {} (makeListOfPkgsConfigs paths);
   makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) {inherit pkgs;}) paths;
   makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
-  packages_paths = [/basic.nix /dev.nix /tools.nix /terminal.nix /media.nix /gaming.nix /discord.nix];
+  packages_paths = [/basic.nix /dev.nix /tools.nix /terminal.nix /media.nix /gaming.nix /discord.nix /obsidian.nix];
 in {
   imports = [inputs.home-manager.nixosModules.default];
 
@@ -17,7 +17,7 @@ in {
       users.users.jaanonim = {
         isNormalUser = true;
         description = "jaanonim";
-        extraGroups = ["networkmanager" "wheel" "docker"];
+        extraGroups = ["networkmanager" "wheel"];
         packages = makeUserPkgs packages_paths;
       };
 

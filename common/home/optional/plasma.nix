@@ -2,7 +2,6 @@
   pkgs,
   lib,
   inputs,
-  configLib,
   ...
 }: {
   imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
@@ -56,7 +55,7 @@
             {
               name = "org.kde.plasma.kickoff";
               config = {
-                General.icon = builtins.toString (import ./profile_image.nix {inherit pkgs;});
+                General.icon = "${pkgs.profile-image}/profile.png";
               };
             }
             # Adding configuration to the widgets can also for example be used to

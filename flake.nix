@@ -49,11 +49,18 @@
   in {
     overlays = import ./overlays {inherit inputs;};
 
+    packages =
+      forAllSystems
+      (
+        system: let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+          import ./pkgs {inherit pkgs;}
+      );
+
     nixosModules = import ./modules/nixos;
 
     homeManagerModules = import ./modules/home-manager;
-
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
