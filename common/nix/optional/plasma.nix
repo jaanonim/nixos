@@ -4,13 +4,13 @@
     xserver.enable = true;
 
     # Enable the KDE Plasma Desktop Environment.
+    desktopManager.plasma6.enable = true;
+
     displayManager = {
       sddm = {
         enable = true;
         wayland.enable = true;
       };
-
-      plasma6.enable = true;
       defaultSession = "plasma";
     };
   };

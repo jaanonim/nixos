@@ -8,11 +8,14 @@ rebuild-pre:
 
 rebuild:
 	just rebuild-pre
-	sudo nixos-rebuild switch --impure --flake ./#{{TAG}} --no-warn-dirty
+	sudo nixos-rebuild switch --impure --flake ./#{{TAG}}
 
 rebuild-trace:
 	just rebuild-pre
-	sudo nixos-rebuild switch --impure --flake ./#{{TAG}} --show-trace --no-warn-dirty
+	sudo nixos-rebuild switch --impure --flake ./#{{TAG}} --show-trace
+
+checks:
+	. scripts/checks.sh
 
 update:
 	nix flake update --no-warn-dirty

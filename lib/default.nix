@@ -1,4 +1,4 @@
-{_}: rec {
+_: rec {
   root = path: ../. + path;
 
   core = ../common/nix/core;

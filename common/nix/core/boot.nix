@@ -1,4 +1,4 @@
-{_}: {
+_: {
   boot.loader = {
     timeout = 3;
     grub = {
