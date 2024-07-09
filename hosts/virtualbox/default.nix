@@ -13,9 +13,17 @@ with lib; {
 
   boot.loader.grub.fsIdentifier = "provided";
 
-  services.xserver.videoDrivers = mkOverride 40 ["virtualbox" "vmware" "cirrus" "vesa" "modesetting"];
+  services = {
+    xserver = {
+      videoDrivers = mkOverride 40 ["virtualbox" "vmware" "cirrus" "vesa" "modesetting"];
 
-  services.xserver.desktopManager.plasma5.enable = pkgs.lib.mkForce false;
+      desktopManager.plasma5.enable = pkgs.lib.mkForce false;
+    };
+
+    # VScode ssh access
+    openssh.enable = true;
+    vscode-server.enable = true;
+  };
   # services.xserver.displayManager.sddm.enable = lib.mkForce false;
 
   virtualisation.virtualbox.guest = {
@@ -24,10 +32,6 @@ with lib; {
     seamless = true;
   };
   # virtualisation.virtualbox.guest.x11 = true;
-
-  # VScode ssh access
-  services.openssh.enable = true;
-  services.vscode-server.enable = true;
 
   # home-manager.users.jaanonim.services.vscode-server.enable = true;
 }

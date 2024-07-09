@@ -27,6 +27,8 @@
         nixd
         nil
         direnv
+        statix
+        jq
       ];
     };
 }

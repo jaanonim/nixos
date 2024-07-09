@@ -1,15 +1,19 @@
 {pkgs, ...}: {
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services = {
+    xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+    # Enable the KDE Plasma Desktop Environment.
+    displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
+
+      plasma6.enable = true;
+      defaultSession = "plasma";
+    };
   };
-  services.desktopManager.plasma6.enable = true;
-
-  services.displayManager.defaultSession = "plasma";
   programs.dconf.enable = true;
 
   xdg.portal.enable = true;

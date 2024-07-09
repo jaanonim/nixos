@@ -45,7 +45,7 @@
     ];
 
     configLib = import ./lib {inherit inputs lib;};
-    specialArgs = {inherit inputs outputs configLib nixpkgs lib;};
+    specialArgs = {inherit inputs outputs configLib nixpkgs lib self;};
   in {
     overlays = import ./overlays {inherit inputs;};
 
@@ -65,6 +65,8 @@
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     devShells = forAllSystems (system: import ./shell.nix nixpkgs.legacyPackages.${system});
+
+    checks.x86_64-linux = import ./checks inputs;
 
     nixosConfigurations = {
       laptop = lib.nixosSystem {

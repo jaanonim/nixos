@@ -8,8 +8,9 @@
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "jaanonim";
-  home.homeDirectory = "/home/jaanonim";
-
-  home.stateVersion = "23.11"; # Don't touch
+  home = {
+    username = "jaanonim";
+    homeDirectory = "/home/jaanonim";
+    stateVersion = "23.11"; # Don't touch
+  };
 }

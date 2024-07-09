@@ -2,10 +2,11 @@
   inputs,
   pkgs,
   configLib,
+  self,
   ...
 }: let
   makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest // builtins.removeAttrs _pkg ["packages"]) {} (makeListOfPkgsConfigs paths);
-  makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) {inherit pkgs;}) paths;
+  makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) {inherit pkgs configLib;}) paths;
   makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
   packages_paths = [/basic.nix /dev.nix /tools.nix /terminal.nix /media.nix /gaming.nix /discord.nix /obsidian.nix];
 in {
@@ -22,7 +23,7 @@ in {
       };
 
       home-manager = {
-        extraSpecialArgs = {inherit inputs configLib;};
+        extraSpecialArgs = {inherit inputs configLib self;};
         users = {"jaanonim" = import ./home.nix;};
       };
     }

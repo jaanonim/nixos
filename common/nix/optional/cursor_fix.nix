@@ -1,4 +1,6 @@
-/* idk if it's needed */
+/*
+idk if it's needed
+*/
 {
   config,
   pkgs,

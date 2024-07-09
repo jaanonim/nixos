@@ -1,7 +1,4 @@
-{
-  configLib,
-  ...
-}: {
+{configLib, ...}: {
   imports = [
     ./hardware-configuration.nix
     configLib.core

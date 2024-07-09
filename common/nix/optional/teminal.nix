@@ -13,25 +13,26 @@ in {
   # environment.variables = {
   #   NIX_BUILD_SHELL = pkgs.zsh + /bin/zsh;
   # };
+  programs = {
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+      promptInit = ''
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      '';
+    };
 
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    promptInit = ''
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-    '';
-  };
+    tmux = {
+      enable = true;
+      baseIndex = 1;
+      plugins = [pkgs.tmuxPlugins.sensible tmux-power];
+    };
 
-  programs.tmux = {
-    enable = true;
-    baseIndex = 1;
-    plugins = [pkgs.tmuxPlugins.sensible tmux-power];
-  };
-
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
+    git = {
+      enable = true;
+      lfs.enable = true;
+    };
   };
 }

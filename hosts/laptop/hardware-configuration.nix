@@ -4,10 +4,14 @@
 {lib, ...}: {
   imports = [];
 
-  boot.initrd.availableKernelModules = ["ata_piix" "ohci_pci" "sd_mod" "sr_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = [];
-  boot.extraModulePackages = [];
+  boot = {
+    initrd = {
+      availableKernelModules = ["ata_piix" "ohci_pci" "sd_mod" "sr_mod"];
+      kernelModules = [];
+    };
+    kernelModules = [];
+    extraModulePackages = [];
+  };
 
   # fileSystems."/" = {
   #   device = "/dev/disk/by-uuid/ba7e9bdb-aad3-4cd1-8c51-ee131e7127af";
