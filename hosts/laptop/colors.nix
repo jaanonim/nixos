@@ -34,6 +34,11 @@
         name = "Noto Sans";
       };
 
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+
       monospace = {
         package = pkgs.nerdfonts.override {fonts = ["Meslo"];};
         name = "MesloLGS Nerd Font Mono";

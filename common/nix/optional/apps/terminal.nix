@@ -11,5 +11,6 @@
     zsh-powerlevel10k
     imagemagick
     ffmpeg_7
+    unzip
   ];
 }
