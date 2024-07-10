@@ -17,7 +17,7 @@ in {
       share = true;
     };
     shellAliases = {
-      nd = "nix develop -c zsh --no-warn-dirty";
+      nd = "nix develop -c zsh";
     };
     plugins = [
       {

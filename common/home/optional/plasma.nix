@@ -120,6 +120,7 @@
             {
               digitalClock = {
                 calendar.firstDayOfWeek = "monday";
+                calendar.plugins = ["pimevents"];
                 time.format = "24h";
               };
             }

@@ -13,4 +13,8 @@ _: {
       options = "--delete-older-than 30d";
     };
   };
+
+  # linking libarys
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = []; # add packages here
 }

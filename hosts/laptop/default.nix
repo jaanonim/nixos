@@ -7,7 +7,7 @@
     #    (configLib.optional /devices.nix)
     (configLib.optional /flatpack.nix)
     (configLib.optional /virtualisation.nix)
-    (configLib.optional /cursor_fix.nix)
+    (configLib.optional /cursor-fix.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
