@@ -16,7 +16,12 @@
   };
   programs.dconf.enable = true;
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-kde
+    ];
+  };
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
