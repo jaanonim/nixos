@@ -8,6 +8,7 @@
     (configLib.optional /flatpack.nix)
     (configLib.optional /virtualisation.nix)
     (configLib.optional /cursor-fix.nix)
+    (configLib.optional /vpn.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
