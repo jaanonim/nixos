@@ -107,13 +107,14 @@
                   "org.kde.plasma.networkmanagement"
                   "org.kde.plasma.volume"
                   "org.kde.kdeconnect"
-                  "discord.desktop"
+                  "discord"
                 ];
                 hidden = [
                   "org.kde.plasma.bluetooth"
                   "org.kde.plasma.nightcolorcontrol"
                   "org.kde.plasma.clipboard"
                   "org.kde.plasma.brightness"
+                  "aw-qt"
                 ];
               };
             }
