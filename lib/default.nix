@@ -1,4 +1,4 @@
-_: rec {
+{lib, ...}: rec {
   root = path: ../. + path;
 
   core = ../common/nix/core;
@@ -13,4 +13,6 @@ _: rec {
   get_util = name: args: (
     import (pkgs_utils "/${name}.nix") args
   );
+
+  recursiveMergeAttrs = listOfAttrsets: lib.fold (attrset: acc: lib.recursiveUpdate attrset acc) {} listOfAttrsets;
 }

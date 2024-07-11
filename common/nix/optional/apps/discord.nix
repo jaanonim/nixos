@@ -2,7 +2,6 @@
   packages = with pkgs; [
     discord
   ];
-  autostart = {
-    "xdg/autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
-  };
+
+  environment.etc."xdg/autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
 }
