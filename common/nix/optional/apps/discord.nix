@@ -1,11 +1,8 @@
-{
-  pkgs,
-  configLib,
-  ...
-}: {
+{pkgs, ...}: {
   packages = with pkgs; [
     discord
   ];
-
-  environment.etc."xdg/autostart/discord.desktop".source = "${configLib.get_util "discord-autostart" {inherit pkgs;}}/discord.desktop";
+  autostart = {
+    "xdg/autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
+  };
 }

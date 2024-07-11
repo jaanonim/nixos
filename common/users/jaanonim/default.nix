@@ -5,10 +5,23 @@
   self,
   ...
 }: let
-  makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest // builtins.removeAttrs _pkg ["packages"]) {} (makeListOfPkgsConfigs paths);
+  makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest // builtins.removeAttrs _pkg ["packages" "autostart"]) {} (makeListOfPkgsConfigs paths);
   makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) {inherit pkgs configLib;}) paths;
   makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
-  packages_paths = [/basic.nix /dev.nix /tools.nix /terminal.nix /media.nix /gaming.nix /discord.nix /obsidian.nix /replay-sorcery.nix];
+  makeAutostart = paths: builtins.foldl' (rest: _pkg: rest // (_pkg.autostart or {})) {} (makeListOfPkgsConfigs paths);
+  packages_paths = [
+    /basic.nix
+    /dev.nix
+    /tools.nix
+    /terminal.nix
+    /media.nix
+    /gaming.nix
+    /discord.nix
+    /obsidian.nix
+    /replay-sorcery.nix
+    /syncthing.nix
+    /activitywatch.nix
+  ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
 
@@ -26,6 +39,8 @@ in {
         extraSpecialArgs = {inherit inputs configLib self;};
         users = {"jaanonim" = import ./home.nix;};
       };
+
+      environment.etc = makeAutostart packages_paths;
     }
     // (makeOtherSettings packages_paths);
 }
