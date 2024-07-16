@@ -20,6 +20,7 @@
     /replay-sorcery.nix
     /syncthing.nix
     /activitywatch.nix
+    /nix_dev.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
@@ -31,7 +32,7 @@ in {
           isNormalUser = true;
           description = "jaanonim";
           extraGroups = ["networkmanager" "wheel"];
-          packages = makeUserPkgs packages_paths;
+          packages = (makeUserPkgs packages_paths) ++ [inputs.bible-runner.packages."x86_64-linux".default];
         };
 
         home-manager = {
