@@ -3,10 +3,11 @@
   pkgs,
   configLib,
   self,
+  jaanonim-pkgs,
   ...
 }: let
   makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest ++ [(builtins.removeAttrs _pkg ["packages"])]) [] (makeListOfPkgsConfigs paths);
-  makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) {inherit pkgs configLib;}) paths;
+  makeListOfPkgsConfigs = paths: builtins.map (path: import (configLib.apps path) {inherit pkgs configLib jaanonim-pkgs;}) paths;
   makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
   packages_paths = [
     /basic.nix
@@ -21,6 +22,7 @@
     /syncthing.nix
     /activitywatch.nix
     /nix_dev.nix
+    /plasma.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
@@ -32,7 +34,7 @@ in {
           isNormalUser = true;
           description = "jaanonim";
           extraGroups = ["networkmanager" "wheel"];
-          packages = (makeUserPkgs packages_paths) ++ [inputs.bible-runner.packages."x86_64-linux".default];
+          packages = makeUserPkgs packages_paths;
         };
 
         home-manager = {

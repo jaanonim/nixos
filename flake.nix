@@ -33,8 +33,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    bible-runner = {
-      url = "github:jaanonim/BibleRunner-rs";
+    jaanonim-pkgs = {
+      url = "github:jaanonim/nix-pkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -79,13 +79,13 @@
     nixosConfigurations = {
       laptop = lib.nixosSystem {
         inherit system;
-        inherit specialArgs;
+        specialArgs = specialArgs // {jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system};};
         modules = [./hosts/laptop];
       };
 
       virtualbox = lib.nixosSystem {
         inherit system;
-        inherit specialArgs;
+        specialArgs = specialArgs // {jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system};};
         modules = [
           ./hosts/virtualbox
           ./hosts/laptop
