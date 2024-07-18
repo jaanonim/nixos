@@ -88,6 +88,7 @@
                 title = "Wykorzystanie pamieci/procesora";
                 displayStyle = "org.kde.ksysguard.piechart";
                 showTitle = false;
+                showLegend = false;
                 sensors = [
                   {
                     name = "cpu/all/usage";
