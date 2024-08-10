@@ -26,11 +26,14 @@
       };
 
       shortcuts = {
-        "services/com.github.dynobo.normcap.desktop" = {
-          "_launch" = "Meta+Shift+T";
-        };
         "services/org.kde.plasma-systemmonitor.desktop" = {
           "_launch" = "Ctrl+Shift+Esc";
+        };
+        "com.tomjwatson.Emote.desktop" = {
+          "_launch" = "Meta+;";
+        };
+        "com.github.dynobo.normcap.desktop" = {
+          "_launch" = "Meta+Shift+T";
         };
         kwin = {
           "Overview" = "Meta+Tab";
