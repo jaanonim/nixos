@@ -25,6 +25,7 @@
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
+    krdp
   ];
 
   programs.kdeconnect.enable = true;
