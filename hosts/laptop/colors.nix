@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: let
   wallpaper = pkgs.fetchurl {
@@ -25,11 +26,14 @@ in {
     '')
   ];
 
+  programs.chromium.enable = lib.mkForce false; # for some reson stylix install chromium - work around
   stylix = {
     enable = true;
     autoEnable = true;
 
     image = wallpaper;
+
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 
     polarity = "dark";
 

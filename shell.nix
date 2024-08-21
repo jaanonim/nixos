@@ -29,6 +29,7 @@
         direnv
         statix
         jq
+        nix-tree
       ];
     };
 }
