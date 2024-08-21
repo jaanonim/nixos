@@ -4,6 +4,7 @@
   tmux-power = mkTmuxPlugin {
     pluginName = "tmux-power";
     version = "1.0";
+    rtpFilePath = "tmux-power.tmux";
     src = fetchFromGitHub {
       owner = "wfxr";
       repo = "tmux-power";
