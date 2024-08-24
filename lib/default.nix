@@ -15,4 +15,5 @@
   );
 
   recursiveMergeAttrs = listOfAttrsets: lib.fold (attrset: acc: lib.recursiveUpdate attrset acc) {} listOfAttrsets;
+  kdeFormatConfig = import ./kde-format-config.nix {inherit lib;};
 }

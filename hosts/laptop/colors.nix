@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  configLib,
   ...
 }: let
   wallpaper = pkgs.fetchurl {
@@ -9,15 +10,17 @@
     hash = "sha256-+pjhBCVwjuzx/r11nqZJI79FPhuPGqrzD1Hd90nEQys=";
     name = "wallpaper.jpg";
   };
+  base16SchemeFile = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 in {
   imports = [inputs.stylix.nixosModules.stylix];
 
+  # SDDM cursors
   services.displayManager.sddm.settings = {
     Theme = {
       CursorTheme = "capitaine-cursors";
     };
   };
-
+  # SDDM wallpaper
   environment.systemPackages = [
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
       [General]
@@ -25,15 +28,26 @@ in {
       type=image
     '')
   ];
+  # SDDM colors
+  systemd.tmpfiles.rules = [
+    "L+ /var/lib/sddm/.config/kdeglobals - - - - ${configLib.get_util "kde-color-sheme" {
+      inherit
+        pkgs
+        lib
+        configLib
+        inputs
+        base16SchemeFile
+        ;
+    }}/kdeglobals"
+  ];
 
-  programs.chromium.enable = lib.mkForce false; # for some reson stylix install chromium - work around
   stylix = {
     enable = true;
     autoEnable = true;
 
     image = wallpaper;
 
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
+    base16Scheme = base16SchemeFile;
 
     polarity = "dark";
 
