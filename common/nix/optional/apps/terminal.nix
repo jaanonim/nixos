@@ -13,5 +13,6 @@
     ffmpeg_7
     unzip
     gnugrep
+    lsof
   ];
 }
