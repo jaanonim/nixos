@@ -91,6 +91,14 @@
           ./hosts/laptop
         ];
       };
+
+      iso = lib.nixosSystem {
+        inherit system;
+        specialArgs = specialArgs // {jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system};};
+        modules = [
+          ./hosts/iso
+        ];
+      };
     };
   };
 }

@@ -2,6 +2,7 @@
   root = path: ../. + path;
 
   core = ../common/nix/core;
+  some_core = path: ../common/nix/core + path;
   optional = path: ../common/nix/optional + path;
   apps = path: ../common/nix/optional/apps + path;
 

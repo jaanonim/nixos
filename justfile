@@ -24,3 +24,6 @@ rebuild-update:
 	just update
 	just rebuild
 
+iso:
+	just rebuild-pre
+	nix build .#nixosConfigurations.iso.config.system.build.isoImage

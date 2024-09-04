@@ -1,4 +1,4 @@
-_: {
+{outputs, ...}: {
   nix = {
     settings.experimental-features = ["nix-command" "flakes"];
 
@@ -11,6 +11,13 @@ _: {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
+    };
+  };
+
+  nixpkgs = {
+    overlays = builtins.attrValues outputs.overlays;
+    config = {
+      allowUnfree = true;
     };
   };
 
