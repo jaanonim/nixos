@@ -1,0 +1,3 @@
+{
+  wakatime = ./wakatime.nix;
+}

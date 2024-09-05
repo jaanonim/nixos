@@ -30,6 +30,7 @@
         statix
         jq
         nix-tree
+        sops
       ];
     };
 }

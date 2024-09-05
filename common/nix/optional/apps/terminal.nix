@@ -14,5 +14,6 @@
     unzip
     gnugrep
     lsof
+    htop
   ];
 }

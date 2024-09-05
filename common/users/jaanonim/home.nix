@@ -3,6 +3,7 @@
     configLib.home_core
     (configLib.home_optional /tmux.nix)
     (configLib.home_optional /plasma.nix)
+    (configLib.home_optional /wakatime.nix)
     "${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
   ];
 

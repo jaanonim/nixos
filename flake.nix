@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs = {
@@ -37,6 +42,11 @@
       url = "github:jaanonim/nix-pkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    jaanonim-secrets = {
+      url = "git+ssh://git@github.com/jaanonim/nixos-secrets.git?shallow=1";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -52,8 +62,13 @@
       "x86_64-linux"
     ];
 
+    configModules = {
+      home = import ./modules/home;
+      nix = import ./modules/nix;
+    };
+
     configLib = import ./lib {inherit inputs lib;};
-    specialArgs = {inherit inputs outputs configLib nixpkgs lib self;};
+    specialArgs = {inherit inputs outputs configLib nixpkgs lib self configModules;};
   in {
     overlays = import ./overlays {inherit inputs;};
 
@@ -66,9 +81,9 @@
           import ./pkgs {inherit pkgs;}
       );
 
-    nixosModules = import ./modules/nixos;
+    nixosModules = configModules.home;
 
-    homeManagerModules = import ./modules/home-manager;
+    homeManagerModules = configModules.nix;
 
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 

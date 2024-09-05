@@ -5,6 +5,7 @@
   self,
   jaanonim-pkgs,
   config,
+  configModules,
   ...
 }: let
   makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest ++ [(builtins.removeAttrs _pkg ["packages"])]) [] (makeListOfPkgsConfigs paths);
@@ -42,16 +43,19 @@ in {
 
   config = configLib.recursiveMergeAttrs ([
       {
-        # Define a user account. Don't forget to set a password with ‘passwd’.
+        sops.secrets.jaanonim-password.neededForUsers = true;
+
+        users.mutableUsers = false;
         users.users.jaanonim = {
           isNormalUser = true;
+          hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
           description = "jaanonim";
           extraGroups = ["networkmanager" "wheel"];
           packages = makeUserPkgs packages_paths;
         };
 
         home-manager = {
-          extraSpecialArgs = {inherit inputs configLib self;};
+          extraSpecialArgs = {inherit inputs configLib self configModules;};
           users = {"jaanonim" = import ./home.nix;};
         };
       }

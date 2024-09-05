@@ -27,3 +27,6 @@ rebuild-update:
 iso:
 	just rebuild-pre
 	nix build .#nixosConfigurations.iso.config.system.build.isoImage
+
+update-secrets:
+	nix flake lock --update-input jaanonim-secrets
