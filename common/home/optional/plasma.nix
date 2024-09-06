@@ -1,14 +1,14 @@
-{
-  lib,
-  inputs,
-  configLib,
-  pkgs,
-  ...
+{ lib
+, inputs
+, configLib
+, pkgs
+, ...
 }: {
-  imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
+  imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+
 
   programs.plasma = lib.mkMerge [
-    {enable = true;}
+    { enable = true; }
     # (import ./imported_plasma.nix)
     {
       enable = true;
@@ -20,8 +20,8 @@
 
       kwin = {
         titlebarButtons = {
-          left = [];
-          right = ["minimize" "maximize" "close"];
+          left = [ ];
+          right = [ "minimize" "maximize" "close" ];
         };
       };
 
@@ -49,6 +49,7 @@
           height = 40;
           floating = true;
           hiding = "none";
+          screen = "all";
 
           widgets = [
             # We can configure the widgets by adding the name and config
@@ -99,8 +100,8 @@
                     label = "Wykorzystanie";
                   }
                 ];
-                totalSensors = ["memory/physical/used" "cpu/all/usage"];
-                textOnlySensors = [];
+                totalSensors = [ "memory/physical/used" "cpu/all/usage" ];
+                textOnlySensors = [ ];
               };
             }
             "org.kde.plasma.marginsseparator"
@@ -125,7 +126,7 @@
             {
               digitalClock = {
                 calendar.firstDayOfWeek = "monday";
-                calendar.plugins = ["pimevents"];
+                calendar.plugins = [ "pimevents" ];
                 time.format = "24h";
               };
             }

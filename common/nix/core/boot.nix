@@ -1,10 +1,7 @@
 _: {
   boot.loader = {
     timeout = 3;
-    grub = {
-      enable = true;
-      device = "/dev/sda";
-      useOSProber = true;
-    };
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 }

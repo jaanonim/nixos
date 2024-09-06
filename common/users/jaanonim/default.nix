@@ -32,7 +32,7 @@
     /gaming.nix
     /discord.nix
     /obsidian.nix
-    /gpu-screen-recorder.nix
+    # /gpu-screen-recorder.nix
     /syncthing.nix
     /activitywatch.nix
     /nix_dev.nix
@@ -43,12 +43,12 @@ in {
 
   config = configLib.recursiveMergeAttrs ([
       {
-        sops.secrets.jaanonim-password.neededForUsers = true;
+        # sops.secrets.jaanonim-password.neededForUsers = true;
 
-        users.mutableUsers = false;
+        # users.mutableUsers = false;
         users.users.jaanonim = {
           isNormalUser = true;
-          hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
+          # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
           description = "jaanonim";
           extraGroups = ["networkmanager" "wheel"];
           packages = makeUserPkgs packages_paths;
@@ -56,6 +56,7 @@ in {
 
         home-manager = {
           extraSpecialArgs = {inherit inputs configLib self configModules;};
+          backupFileExtension = "backup";
           users = {"jaanonim" = import ./home.nix;};
         };
       }

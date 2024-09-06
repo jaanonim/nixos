@@ -43,77 +43,85 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+
     jaanonim-secrets = {
-      url = "git+ssh://git@github.com/jaanonim/nixos-secrets.git?shallow=1";
+      url = "git+file:///home/jaanonim/nixos-secrets";
       flake = false;
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    inherit (nixpkgs) lib;
+  outputs =
+    { self
+    , nixpkgs
+    , nixos-hardware
+    , ...
+    } @ inputs:
+    let
+      inherit (self) outputs;
+      inherit (nixpkgs) lib;
 
-    system = "x86_64-linux";
-    forAllSystems = nixpkgs.lib.genAttrs [
-      "x86_64-linux"
-    ];
+      system = "x86_64-linux";
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+      ];
 
-    configModules = {
-      home = import ./modules/home;
-      nix = import ./modules/nix;
+      configModules = {
+        home = import ./modules/home;
+        nix = import ./modules/nix;
+      };
+
+      configLib = import ./lib { inherit inputs lib; };
+      specialArgs = { inherit inputs outputs configLib nixpkgs lib self configModules; };
+    in
+    {
+      overlays = import ./overlays { inherit inputs; };
+
+      packages =
+        forAllSystems
+          (
+            system:
+            let
+              pkgs = nixpkgs.legacyPackages.${system};
+            in
+            import ./pkgs { inherit pkgs; }
+          );
+
+      nixosModules = configModules.home;
+
+      homeManagerModules = configModules.nix;
+
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
+      devShells = forAllSystems (system: import ./shell.nix nixpkgs.legacyPackages.${system});
+
+      checks.x86_64-linux = import ./checks inputs;
+
+      nixosConfigurations = {
+        laptop = lib.nixosSystem {
+          inherit system;
+          specialArgs = specialArgs // { jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system}; };
+          modules = [
+            nixos-hardware.nixosModules.lenovo-ideapad-15ach6
+            ./hosts/laptop
+          ];
+        };
+
+        virtualbox = lib.nixosSystem {
+          inherit system;
+          specialArgs = specialArgs // { jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system}; };
+          modules = [
+            ./hosts/virtualbox
+            ./hosts/laptop
+          ];
+        };
+
+        iso = lib.nixosSystem {
+          inherit system;
+          specialArgs = specialArgs // { jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system}; };
+          modules = [
+            ./hosts/iso
+          ];
+        };
+      };
     };
-
-    configLib = import ./lib {inherit inputs lib;};
-    specialArgs = {inherit inputs outputs configLib nixpkgs lib self configModules;};
-  in {
-    overlays = import ./overlays {inherit inputs;};
-
-    packages =
-      forAllSystems
-      (
-        system: let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-          import ./pkgs {inherit pkgs;}
-      );
-
-    nixosModules = configModules.home;
-
-    homeManagerModules = configModules.nix;
-
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-
-    devShells = forAllSystems (system: import ./shell.nix nixpkgs.legacyPackages.${system});
-
-    checks.x86_64-linux = import ./checks inputs;
-
-    nixosConfigurations = {
-      laptop = lib.nixosSystem {
-        inherit system;
-        specialArgs = specialArgs // {jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system};};
-        modules = [./hosts/laptop];
-      };
-
-      virtualbox = lib.nixosSystem {
-        inherit system;
-        specialArgs = specialArgs // {jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system};};
-        modules = [
-          ./hosts/virtualbox
-          ./hosts/laptop
-        ];
-      };
-
-      iso = lib.nixosSystem {
-        inherit system;
-        specialArgs = specialArgs // {jaanonim-pkgs = inputs.jaanonim-pkgs.packages.${system};};
-        modules = [
-          ./hosts/iso
-        ];
-      };
-    };
-  };
 }
