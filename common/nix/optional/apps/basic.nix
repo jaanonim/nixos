@@ -5,6 +5,7 @@
     kdePackages.okular
     kdePackages.gwenview
     vlc
+    libvlc
     brave
     gnome-calculator
   ];

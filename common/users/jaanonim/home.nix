@@ -4,6 +4,7 @@
     (configLib.home_optional /tmux.nix)
     (configLib.home_optional /plasma.nix)
     (configLib.home_optional /wakatime.nix)
+    (configLib.home_optional /gpu-screen-recorder.nix)
   ];
 
   home.file.".config/fontconfig/conf.d/56-kubuntu-noto.conf".source = configLib.root /config/56-kubuntu-noto.conf; # fix for font in plasma

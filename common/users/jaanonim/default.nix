@@ -32,7 +32,7 @@
     /gaming.nix
     /discord.nix
     /obsidian.nix
-    # /gpu-screen-recorder.nix
+    /gpu-screen-recorder.nix
     /syncthing.nix
     /activitywatch.nix
     /nix_dev.nix
