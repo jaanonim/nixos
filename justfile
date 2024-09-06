@@ -4,7 +4,7 @@ default:
   @just --list
 
 rebuild-pre:
-	# git add .
+	git add .
 
 rebuild:
 	just rebuild-pre
