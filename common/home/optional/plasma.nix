@@ -1,14 +1,32 @@
-{ lib
-, inputs
-, configLib
-, pkgs
-, ...
+{
+  lib,
+  inputs,
+  configLib,
+  pkgs,
+  ...
 }: {
-  imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+  imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
 
+  # TODO: Fix this
+  programs.konsole = {
+    enable = true;
+    # defaultProfile = "Profil 1.profile";
+    # profiles = {
+    #   "my-profile" = {
+    #     name = "my-profile";
+    #     font = {name = "MesloLGS Nerd Font Mono";};
+    #     colorScheme = "my-scheme";
+    #   };
+    # };
+    # extraConfig = {
+    #   "General" = {
+    #     MenuBar = "Disabled";
+    #   };
+    # };
+  };
 
   programs.plasma = lib.mkMerge [
-    { enable = true; }
+    {enable = true;}
     # (import ./imported_plasma.nix)
     {
       enable = true;
@@ -20,8 +38,8 @@
 
       kwin = {
         titlebarButtons = {
-          left = [ ];
-          right = [ "minimize" "maximize" "close" ];
+          left = [];
+          right = ["minimize" "maximize" "close"];
         };
       };
 
@@ -100,8 +118,8 @@
                     label = "Wykorzystanie";
                   }
                 ];
-                totalSensors = [ "memory/physical/used" "cpu/all/usage" ];
-                textOnlySensors = [ ];
+                totalSensors = ["memory/physical/used" "cpu/all/usage"];
+                textOnlySensors = [];
               };
             }
             "org.kde.plasma.marginsseparator"
@@ -126,7 +144,7 @@
             {
               digitalClock = {
                 calendar.firstDayOfWeek = "monday";
-                calendar.plugins = [ "pimevents" ];
+                calendar.plugins = ["pimevents"];
                 time.format = "24h";
               };
             }
