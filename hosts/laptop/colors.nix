@@ -78,7 +78,7 @@ in {
       };
     };
 
-    opacity.popups = 0.5;
+    opacity.popups = 0.7;
 
     cursor = {
       package = pkgs.capitaine-cursors;
