@@ -122,7 +122,6 @@ in {
       enable = true;
 
       powerdevil = {
-        whenLaptopLidClosedActions = "turnOffScreen";
         AC = {
           powerButtonAction = "shutDown";
           autoSuspend.action = "nothing";
