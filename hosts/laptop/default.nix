@@ -10,6 +10,7 @@
     (configLib.optional /cursor-fix.nix)
     (configLib.optional /vpn.nix)
     (configLib.optional /disks.nix)
+    (configLib.optional /bluetooth.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
