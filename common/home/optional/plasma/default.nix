@@ -21,5 +21,7 @@
         right = ["minimize" "maximize" "close"];
       };
     };
+
+    desktop.mouseActions.middleClick = "applicationLauncher";
   };
 }
