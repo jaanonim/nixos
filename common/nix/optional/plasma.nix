@@ -14,21 +14,33 @@
       defaultSession = "plasma";
     };
   };
-  programs.dconf.enable = true;
+
+  programs = {
+    dconf.enable = true;
+    xwayland.enable = true;
+    kdeconnect.enable = true;
+  };
 
   xdg.portal = {
     enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-kde
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    xwaylandvideobridge
+  ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
     krdp
   ];
 
-  programs.kdeconnect.enable = true;
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -37,5 +49,5 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 }
