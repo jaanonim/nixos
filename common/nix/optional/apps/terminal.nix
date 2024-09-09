@@ -15,5 +15,6 @@
     gnugrep
     lsof
     htop
+    bat
   ];
 }
