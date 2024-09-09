@@ -1,6 +1,5 @@
 {
   lib,
-  inputs,
   configLib,
   pkgs,
   ...
@@ -95,114 +94,9 @@
     ];
   };
 in {
-  imports = [inputs.plasma-manager.homeManagerModules.plasma-manager];
-
-  # TODO: Fix this
-  programs.konsole = {
-    enable = true;
-    # defaultProfile = "Profil 1.profile";
-    # profiles = {
-    #   "my-profile" = {
-    #     name = "my-profile";
-    #     font = {name = "MesloLGS Nerd Font Mono";};
-    #     colorScheme = "my-scheme";
-    #   };
-    # };
-    # extraConfig = {
-    #   "General" = {
-    #     MenuBar = "Disabled";
-    #   };
-    # };
-  };
-
-  programs.plasma = lib.mkMerge [
-    {enable = true;}
-    # (import ./imported_plasma.nix)
-    {
-      enable = true;
-
-      powerdevil = {
-        AC = {
-          powerButtonAction = "shutDown";
-          autoSuspend.action = "nothing";
-          # whenLaptopLidClosedActions = "turnOffScreen";
-          turnOffDisplay = {
-            idleTimeout = 3600;
-            idleTimeoutWhenLocked = 600;
-          };
-        };
-        battery = {
-          powerButtonAction = "shutDown";
-          autoSuspend = {
-            action = "sleep";
-            idleTimeout = 1800;
-          };
-          # whenLaptopLidClosedActions = "sleep";
-          turnOffDisplay = {
-            idleTimeout = 900;
-            idleTimeoutWhenLocked = 300;
-          };
-          # dimDisplay = {
-          #   enabled = true;
-          #   idleTimeOut = 600;
-          # };
-        };
-        lowBattery = {
-          powerButtonAction = "shutDown";
-          autoSuspend = {
-            action = "hibernate";
-            idleTimeout = 900;
-          };
-          # whenLaptopLidClosedActions = "sleep";
-          turnOffDisplay = {
-            idleTimeout = 600;
-            idleTimeoutWhenLocked = 300;
-          };
-          # dimDisplay = {
-          #   enabled = true;
-          #   idleTimeOut = 180;
-          # };
-        };
-      };
-
-      workspace = {
-        clickItemTo = "select";
-        lookAndFeel = "org.kde.breezedark.desktop";
-      };
-
-      kwin = {
-        titlebarButtons = {
-          left = [];
-          right = ["minimize" "maximize" "close"];
-        };
-      };
-
-      shortcuts = {
-        "services/org.kde.plasma-systemmonitor.desktop" = {
-          "_launch" = "Ctrl+Shift+Esc";
-        };
-        "com.tomjwatson.Emote.desktop" = {
-          "_launch" = "Meta+;";
-        };
-        "com.github.dynobo.normcap.desktop" = {
-          "_launch" = "Meta+Shift+T";
-        };
-        kwin = {
-          "Overview" = "Meta+Tab";
-          "Switch One Desktop to the Left" = "Meta+Ctrl+Left";
-          "Switch One Desktop to the Right" = "Meta+Ctrl+Right";
-        };
-      };
-
-      panels = lib.mkForce [
-        # Windows-like panel at the bottom
-        (mkPanel 0)
-        (mkPanel 1)
-      ];
-
-      spectacle.shortcuts = {
-        captureRectangularRegion = "Meta+Shift+S";
-      };
-    }
+  programs.plasma.panels = lib.mkForce [
+    # Windows-like panel at the bottom
+    (mkPanel 0)
+    (mkPanel 1)
   ];
 }
