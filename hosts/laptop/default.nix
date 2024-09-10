@@ -11,6 +11,7 @@
     (configLib.optional /vpn.nix)
     (configLib.optional /disks.nix)
     (configLib.optional /bluetooth.nix)
+    (configLib.optional /timers.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
