@@ -18,9 +18,9 @@
       # add the "icon" key to the "General" group for the widget in
       # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
       {
-        name = "org.kde.plasma.kickoff";
-        config = {
-          General.icon = "${configLib.get_util "profile-image" {inherit pkgs;}}/profile.png";
+        kickoff = {
+          icon = "${configLib.get_util "profile-image" {inherit pkgs;}}/profile.png";
+          showActionButtonCaptions = false;
         };
       }
       # Adding configuration to the widgets can also for example be used to
