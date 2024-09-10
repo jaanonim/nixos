@@ -6,6 +6,7 @@ _: {
         powerButtonAction = "shutDown";
         autoSuspend.action = "nothing";
         whenLaptopLidClosed = "turnOffScreen";
+        inhibitLidActionWhenExternalMonitorConnected = false;
         turnOffDisplay = {
           idleTimeout = 3600;
           idleTimeoutWhenLocked = 600;

@@ -9,6 +9,8 @@
     displayManager = {
       sddm = {
         enable = true;
+        enableHidpi = false;
+        autoNumlock = true;
         wayland.enable = true;
       };
       defaultSession = "plasma";
@@ -37,10 +39,6 @@
     elisa
     krdp
   ];
-
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
