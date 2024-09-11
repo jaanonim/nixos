@@ -1,6 +1,17 @@
-{outputs, ...}: {
+{
+  outputs,
+  nixpkgs,
+  lib,
+  ...
+}: {
   nix = {
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+    };
+
+    registry.nixpkgs.flake = nixpkgs;
+    channel.enable = false;
 
     optimise = {
       automatic = true;
@@ -20,6 +31,8 @@
       allowUnfree = true;
     };
   };
+
+  environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
 
   # linking libarys
   programs.nix-ld.enable = true;
