@@ -6,6 +6,7 @@
   jaanonim-pkgs,
   config,
   configModules,
+  lib,
   ...
 }: let
   makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest ++ [(builtins.removeAttrs _pkg ["packages"])]) [] (makeListOfPkgsConfigs paths);
@@ -19,6 +20,7 @@
           self
           jaanonim-pkgs
           config
+          lib
           ;
       })
     paths;

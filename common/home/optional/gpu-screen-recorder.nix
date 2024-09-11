@@ -1,17 +1,20 @@
-{config, ...}: {
-  home.file.".config/gpu-screen-recorder.env".source = builtins.toFile "gpu-screen-recorder.env" ''
-    WINDOW=screen
-    CONTAINER=mp4
-    QUALITY=very_high
-    CODEC=h264
-    AUDIO_CODEC=opus
-    AUDIO_DEVICE=default_output
-    SECONDARY_AUDIO_DEVICE=default_input
-    FRAMERATE=60
-    REPLAYDURATION=60
-    OUTPUTDIR=${config.home.homeDirectory}/Wideo
-    KEYINT=2
-    ENCODER=gpu
-    RESTORE_PORTAL_SESSION=yes
-  '';
+{pkgs, ...}: let
+  saveReplay = pkgs.writeShellApplication {
+    name = "gpu-save-replay";
+    runtimeInputs = [pkgs.procps];
+    text = ''
+      pkill --signal SIGUSR1 -f gpu-screen-recorder && ${pkgs.libnotify}/bin/notify-send "GPU Screen Recorder" "Replay saved."
+    '';
+  };
+in {
+  home.packages = [
+    saveReplay
+  ];
+
+  programs.plasma.hotkeys.commands."replay" = {
+    name = "Save GPU Screen Recorder Replay";
+    key = "Meta+Shift+R";
+    command = "${saveReplay}/bin/gpu-save-replay";
+    logs.enabled = true;
+  };
 }
