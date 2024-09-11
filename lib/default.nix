@@ -1,4 +1,8 @@
-{lib, ...}: rec {
+{
+  lib,
+  pkgs,
+  ...
+}: rec {
   root = path: ../. + path;
 
   core = ../common/nix/core;
@@ -17,4 +21,5 @@
 
   recursiveMergeAttrs = listOfAttrsets: lib.fold (attrset: acc: lib.recursiveUpdate attrset acc) {} listOfAttrsets;
   kdeFormatConfig = import ./kde-format-config.nix {inherit lib;};
+  makeDesktopIcon = pkgs.callPackage ./make-desktop-icon.nix {};
 }
