@@ -22,6 +22,9 @@
       };
     };
 
-    desktop.mouseActions.middleClick = "applicationLauncher";
+    desktop.mouseActions = {
+      middleClick = "applicationLauncher";
+      rightClick = "contextMenu";
+    };
   };
 }
