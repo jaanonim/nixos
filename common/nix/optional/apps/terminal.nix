@@ -16,5 +16,6 @@
     lsof
     htop
     bat
+    nvtopPackages.nvidia
   ];
 }
