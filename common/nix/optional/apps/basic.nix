@@ -8,5 +8,6 @@
     libvlc
     brave
     gnome-calculator
+    youtube-music
   ];
 }
