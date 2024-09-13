@@ -1,8 +1,6 @@
 {
   pkgs,
   inputs,
-  lib,
-  configLib,
   ...
 }: let
   wallpaper = pkgs.fetchurl {
@@ -10,36 +8,8 @@
     hash = "sha256-+pjhBCVwjuzx/r11nqZJI79FPhuPGqrzD1Hd90nEQys=";
     name = "wallpaper.jpg";
   };
-  base16SchemeFile = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 in {
   imports = [inputs.stylix.nixosModules.stylix];
-
-  # SDDM cursors
-  services.displayManager.sddm.settings = {
-    Theme = {
-      CursorTheme = "capitaine-cursors";
-    };
-  };
-  # SDDM wallpaper
-  environment.systemPackages = [
-    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
-      [General]
-      background=${wallpaper}
-      type=image
-    '')
-  ];
-  # SDDM colors
-  systemd.tmpfiles.rules = [
-    "L+ /var/lib/sddm/.config/kdeglobals - - - - ${configLib.get_util "kde-color-sheme" {
-      inherit
-        pkgs
-        lib
-        configLib
-        inputs
-        base16SchemeFile
-        ;
-    }}/kdeglobals"
-  ];
 
   stylix = {
     enable = true;
@@ -47,7 +17,7 @@ in {
 
     image = wallpaper;
 
-    base16Scheme = base16SchemeFile;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 
     polarity = "dark";
 

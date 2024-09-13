@@ -2,8 +2,12 @@
   lib,
   configLib,
   pkgs,
+  config,
+  inputs,
   ...
-}: let
+} @ args: let
+  base16SchemeFile = config.stylix.base16Scheme;
+  base16Scheme = (inputs.stylix.inputs.base16.lib args).mkSchemeAttrs base16SchemeFile;
   mkPanel = screen: {
     location = "bottom";
     height = 40;
@@ -56,7 +60,7 @@
           sensors = [
             {
               name = "cpu/all/usage";
-              color = "0,176,245"; # "${lib.stylix.colors.base0D-rgb-r},${lib.stylix.colors.base0D-rgb-g},${lib.stylix.colors.base0D-rgb-b}";
+              color = with base16Scheme; "${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}";
               label = "Wykorzystanie";
             }
           ];
