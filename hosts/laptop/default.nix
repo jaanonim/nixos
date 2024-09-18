@@ -10,6 +10,7 @@
     (configLib.optional /cursor-fix.nix)
     (configLib.optional /vpn.nix)
     (configLib.optional /disks.nix)
+    (configLib.optional /security.nix)
     (configLib.optional /bluetooth.nix)
     (configLib.optional /timers.nix)
     (configLib.optional /sddm.nix)
