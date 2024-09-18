@@ -6,6 +6,14 @@ _: {
     extraConfig = {
       init.defaultBranch = "main";
       core.autocrlf = "input";
+      github.user = "jaanonim";
     };
+    signing = {
+      signByDefault = true;
+      key = "933AF32D3ABD5CAF";
+    };
+  };
+  programs.gpg = {
+    enable = true;
   };
 }
