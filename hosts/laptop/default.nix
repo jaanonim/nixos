@@ -22,5 +22,9 @@
   networking.hostName = "laptop";
   services.openssh.enable = true;
 
+  myConfig = {
+    displayServer = "x11";
+  };
+
   system.stateVersion = "24.05"; # Don't touch
 }
