@@ -84,18 +84,25 @@
       nix = import ./modules/nix;
     };
 
-    configLib = import ./lib {
+    basicInputs = {
       inherit inputs lib;
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     };
+
+    configLib = import ./lib basicInputs;
     specialArgs = {
       inherit inputs outputs configLib nixpkgs lib self configModules;
-      jaanonim-pkgs = {
-        jaanonim-secrets = inputs.jaanonim-secrets.packages.${system}.default;
-        bible-runner = inputs.bible-runner.packages.${system}.default;
-        creator = inputs.creator.packages.${system}.default;
-        nsearch = inputs.nsearch.packages.${system}.default;
-      };
+      jaanonim-pkgs =
+        {
+          jaanonim-secrets = inputs.jaanonim-secrets.packages.${system}.default;
+          bible-runner = inputs.bible-runner.packages.${system}.default;
+          creator = inputs.creator.packages.${system}.default;
+          nsearch = inputs.nsearch.packages.${system}.default;
+        }
+        // (import ./overlays/pkgs basicInputs);
     };
   in {
     overlays = import ./overlays {inherit inputs;};

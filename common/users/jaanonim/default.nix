@@ -9,22 +9,32 @@
   lib,
   ...
 }: let
+  extraSpecialArgs = {
+    inherit
+      inputs
+      configLib
+      self
+      jaanonim-pkgs
+      configModules
+      ;
+  };
+  pkgsSpecialArgs =
+    extraSpecialArgs
+    // {
+      inherit
+        pkgs
+        config
+        lib
+        ;
+    };
+
   makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest ++ [(builtins.removeAttrs _pkg ["packages"])]) [] (makeListOfPkgsConfigs paths);
   makeListOfPkgsConfigs = paths:
     builtins.map (path:
-      import (configLib.apps path) {
-        inherit
-          inputs
-          pkgs
-          configLib
-          self
-          jaanonim-pkgs
-          config
-          lib
-          ;
-      })
+      import (configLib.apps path) pkgsSpecialArgs)
     paths;
   makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
+
   packages_paths = [
     /basic.nix
     /dev.nix
@@ -39,6 +49,7 @@
     /activitywatch.nix
     /nix_dev.nix
     /plasma.nix
+    /unity_dev.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
@@ -57,7 +68,7 @@ in {
         };
 
         home-manager = {
-          extraSpecialArgs = {inherit inputs configLib self configModules;};
+          inherit extraSpecialArgs;
           backupFileExtension = "backup";
           users = {"jaanonim" = import ./home.nix;};
         };
