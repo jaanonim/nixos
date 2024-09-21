@@ -5,7 +5,9 @@ idk if it's needed
   config,
   pkgs,
   ...
-}: {
+}: let
+  cursor = config.stylix.cursor.package;
+in {
   system.fsPackages = [pkgs.bindfs];
   fileSystems = let
     mkRoSymBind = path: {
@@ -20,12 +22,12 @@ idk if it's needed
     };
     aggregatedIcons = pkgs.buildEnv {
       name = "system-icons";
-      paths = with pkgs; [breeze-icons breeze-qt5 breeze-gtk];
+      paths = [pkgs.breeze-icons pkgs.breeze-qt5 pkgs.breeze-gtk cursor];
       pathsToLink = ["/share/icons"];
     };
     aggregatedThemes = pkgs.buildEnv {
       name = "system-themes";
-      paths = with pkgs; [breeze-qt5 breeze-gtk];
+      paths = [pkgs.breeze-qt5 pkgs.breeze-gtk cursor];
       pathsToLink = ["/share/themes"];
     };
   in {
@@ -33,4 +35,5 @@ idk if it's needed
     "/usr/share/icons" = mkRoSymBind (aggregatedIcons + "/share/icons");
     "/usr/share/fonts" = mkRoSymBind (aggregatedFonts + "/share/fonts");
   };
+  environment.systemPackages = [cursor];
 }
