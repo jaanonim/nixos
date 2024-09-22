@@ -25,7 +25,7 @@ _: {
         };
         dimDisplay = {
           enable = true;
-          idleTimeOut = 600;
+          idleTimeout = 600;
         };
       };
       lowBattery = {
@@ -41,7 +41,7 @@ _: {
         };
         dimDisplay = {
           enable = true;
-          idleTimeOut = 180;
+          idleTimeout = 180;
         };
       };
     };
