@@ -38,6 +38,7 @@
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
     krdp
+    discover
   ];
 
   # Configure keymap in X11
