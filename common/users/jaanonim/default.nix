@@ -63,7 +63,7 @@ in {
           isNormalUser = true;
           # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
           description = "jaanonim";
-          extraGroups = ["networkmanager" "wheel"];
+          extraGroups = ["networkmanager" "wheel" "kvm"];
           packages = makeUserPkgs packages_paths;
         };
 

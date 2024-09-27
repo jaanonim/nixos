@@ -7,8 +7,7 @@
     [
       # jetbrains.clion
       # jetbrains.pycharm-professional
-      jetbrains.rider
-      # android-studio
+      android-studio
       vscode
       unityhub
     ]
