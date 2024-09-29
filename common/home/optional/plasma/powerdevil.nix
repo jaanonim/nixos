@@ -1,6 +1,9 @@
 _: {
   programs.plasma = {
-    kscreenlocker.timeout = 15;
+    kscreenlocker = {
+      autoLock = false;
+      timeout = 15;
+    };
     powerdevil = {
       AC = {
         powerButtonAction = "shutDown";
