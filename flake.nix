@@ -57,6 +57,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    forklab = {
+      url = "github:jaanonim/forklab";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nsearch = {
       url = "github:niksingh710/nsearch";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +105,7 @@
           jaanonim-secrets = inputs.jaanonim-secrets.packages.${system}.default;
           bible-runner = inputs.bible-runner.packages.${system}.default;
           creator = inputs.creator.packages.${system}.default;
+          forklab = inputs.forklab.packages.${system}.default;
           nsearch = inputs.nsearch.packages.${system}.default;
         }
         // (import ./overlays/pkgs basicInputs);
