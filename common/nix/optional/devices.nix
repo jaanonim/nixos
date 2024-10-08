@@ -1,5 +1,8 @@
-_: {
-  services.printing.enable = true;
+{pkgs, ...}: {
+  services.printing = {
+    enable = true;
+    drivers = [pkgs.brlaser];
+  };
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
