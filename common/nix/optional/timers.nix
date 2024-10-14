@@ -10,7 +10,7 @@
 
   systemd.services."yt" = {
     script = ''
-      brave https://youtu.be/E5DFG2xwT00
+      brave /home/jaanonim/Muzyka/go_to_sleep.mp4
     '';
     serviceConfig = {
       Type = "oneshot";
