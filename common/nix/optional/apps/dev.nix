@@ -6,7 +6,7 @@
   packages = with pkgs;
     [
       # jetbrains.clion
-      # jetbrains.pycharm-professional
+      jetbrains.pycharm-professional
       jetbrains.idea-ultimate
       android-studio
       vscode
