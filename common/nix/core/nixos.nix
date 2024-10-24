@@ -1,5 +1,6 @@
 {
   outputs,
+  inputs,
   nixpkgs,
   lib,
   ...
@@ -7,7 +8,7 @@
   nix = {
     settings = {
       experimental-features = ["nix-command" "flakes"];
-      nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+      nix-path = lib.mkForce "nixpkgs=${inputs.nixpkgs}";
     };
 
     registry.nixpkgs.flake = nixpkgs;
