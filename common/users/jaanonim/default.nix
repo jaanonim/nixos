@@ -37,7 +37,6 @@
 
   packages_paths = [
     /basic.nix
-    /dev.nix
     /tools.nix
     /terminal.nix
     /media.nix
@@ -49,7 +48,9 @@
     /activitywatch.nix
     /nix_dev.nix
     /plasma.nix
+    /dev.nix
     /unity_dev.nix
+    /android_dev.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
