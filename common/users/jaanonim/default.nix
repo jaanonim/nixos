@@ -68,6 +68,13 @@ in {
           packages = makeUserPkgs packages_paths;
         };
 
+        security.sudo.extraRules = [
+          {
+            users = ["jaanonim"];
+            commands = ["ALL"];
+          }
+        ];
+
         home-manager = {
           inherit extraSpecialArgs;
           backupFileExtension = "backup";
