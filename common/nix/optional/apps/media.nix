@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   packages = with pkgs; [
     gimp
-    blender
+    # blender
     obs-studio
   ];
 }
