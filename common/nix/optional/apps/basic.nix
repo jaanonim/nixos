@@ -9,5 +9,6 @@
     brave
     gnome-calculator
     youtube-music
+    signal-desktop
   ];
 }
