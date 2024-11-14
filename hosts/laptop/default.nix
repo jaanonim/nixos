@@ -14,6 +14,7 @@
     (configLib.optional /bluetooth.nix)
     (configLib.optional /timers.nix)
     (configLib.optional /sddm.nix)
+    (configLib.optional /udev.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix

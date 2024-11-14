@@ -66,6 +66,8 @@
       url = "github:niksingh710/nsearch";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    probe-rs-rules.url = "github:jneem/probe-rs-rules";
   };
 
   ### Outputs
@@ -74,6 +76,7 @@
     self,
     nixpkgs,
     nixos-hardware,
+    probe-rs-rules,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -137,6 +140,7 @@
         inherit system specialArgs;
         modules = [
           nixos-hardware.nixosModules.lenovo-ideapad-15ach6
+          probe-rs-rules.nixosModules.${system}.default
           ./hosts/laptop
         ];
       };
