@@ -49,7 +49,7 @@
     /nix_dev.nix
     /plasma.nix
     /dev.nix
-    /unity_dev.nix
+    # /unity_dev.nix
     /android_dev.nix
   ];
 in {
