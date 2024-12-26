@@ -15,6 +15,7 @@
     (configLib.optional /timers.nix)
     (configLib.optional /sddm.nix)
     (configLib.optional /udev.nix)
+    (configLib.optional /audio.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
