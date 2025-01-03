@@ -19,7 +19,7 @@
         ''-a "$(pactl get-default-sink).monitor"''
         ''-a "$(pactl get-default-source)"''
         # Video settings
-        ''-w "screen"''
+        ''-w "HDMI-A-1"''
         ''-f 60''
         ''-r 60''
         ''-c mp4''
@@ -55,7 +55,7 @@ in {
       enable = true;
       description = "GPU Screen Recorder Service";
       environment = {
-        WINDOW = "screen";
+        WINDOW = "HDMI-A-1";
         CONTAINER = "mp4";
         QUALITY = "very_high";
         CODEC = "auto";
