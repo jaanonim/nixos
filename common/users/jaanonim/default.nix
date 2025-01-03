@@ -46,11 +46,11 @@
     /gpu-screen-recorder.nix
     /syncthing.nix
     /activitywatch.nix
-    /nix_dev.nix
     /plasma.nix
     /dev.nix
+    /nix_dev.nix
     # /unity_dev.nix
-    /android_dev.nix
+    # /android_dev.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
