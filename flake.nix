@@ -33,6 +33,11 @@
       };
     };
 
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
+
     ### Just for virtualbox
 
     vscode-server = {

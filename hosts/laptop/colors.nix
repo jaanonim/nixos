@@ -17,7 +17,7 @@ in {
 
     image = wallpaper;
 
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
+    base16Scheme = "${inputs.tt-schemes}/base16/material-darker.yaml";
 
     polarity = "dark";
 
