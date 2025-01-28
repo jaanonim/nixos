@@ -11,4 +11,5 @@
     youtube-music
     signal-desktop
   ];
+  programs.chromium.extraOpts.IncognitoModeAvailability = 1;
 }
