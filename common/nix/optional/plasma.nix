@@ -31,10 +31,6 @@
     config.common.default = "kde";
   };
 
-  environment.systemPackages = [
-    pkgs.xwaylandvideobridge
-  ];
-
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
     krdp
