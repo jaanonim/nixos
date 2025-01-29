@@ -26,7 +26,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix/2985ee9b2836a725b04628d24f934212b96eacbe"; # locked to specific commit because of issue with base16 config.yaml
+      url = "github:danth/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
