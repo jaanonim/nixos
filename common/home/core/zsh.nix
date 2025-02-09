@@ -18,7 +18,7 @@ in {
     };
     shellAliases = {
       nd = "nix develop -c zsh";
-      ns = "nix-shell -p $(nsearch)";
+      ns = "NIXPKGS_ALLOW_UNFREE=1 nix-shell -p $(nsearch)";
       ports = "lsof -i -P -n | grep LISTEN";
       nas = "ssh 192.168.1.102";
       homepi = "ssh 192.168.1.150";
