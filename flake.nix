@@ -26,7 +26,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:danth/stylix/55418e8fc8d4696af619176a22cefcfac56ad2ef"; # Lock until https://github.com/danth/stylix/issues/835 will be resolved
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
