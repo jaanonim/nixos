@@ -10,6 +10,10 @@ rebuild:
 	just rebuild-pre
 	sudo nixos-rebuild switch --impure --flake ./#{{TAG}}
 
+repair:
+	just rebuild-pre
+	sudo nixos-rebuild switch --repair --impure --flake ./#{{TAG}}
+
 rebuild-trace:
 	just rebuild-pre
 	sudo nixos-rebuild switch --impure --flake ./#{{TAG}} --show-trace
