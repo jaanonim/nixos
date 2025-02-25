@@ -6,7 +6,7 @@
     (configLib.optional /plasma.nix)
     (configLib.optional /devices.nix)
     (configLib.optional /flatpack.nix)
-    (configLib.optional /virtualisation.nix)
+    # (configLib.optional /virtualisation.nix)
     (configLib.optional /cursor-fix.nix)
     (configLib.optional /vpn.nix)
     (configLib.optional /disks.nix)
@@ -16,6 +16,7 @@
     (configLib.optional /sddm.nix)
     (configLib.optional /udev.nix)
     (configLib.optional /audio.nix)
+    (configLib.optional /docker.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
