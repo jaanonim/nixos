@@ -22,12 +22,12 @@ in {
     };
     aggregatedIcons = pkgs.buildEnv {
       name = "system-icons";
-      paths = [pkgs.breeze-icons pkgs.breeze-qt5 pkgs.breeze-gtk cursor];
+      paths = [pkgs.kdePackages.breeze-icons pkgs.kdePackages.breeze pkgs.kdePackages.breeze-gtk cursor];
       pathsToLink = ["/share/icons"];
     };
     aggregatedThemes = pkgs.buildEnv {
       name = "system-themes";
-      paths = [pkgs.breeze-qt5 pkgs.breeze-gtk cursor];
+      paths = [pkgs.kdePackages.breeze pkgs.kdePackages.breeze-gtk cursor];
       pathsToLink = ["/share/themes"];
     };
   in {
