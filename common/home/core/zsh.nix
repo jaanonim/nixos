@@ -7,6 +7,9 @@
 in {
   programs.zsh = {
     enable = true;
+    localVariables = {
+      ZSH_COMPDUMP = "$HOME/.cache/zsh/zcompcache";
+    };
     history = {
       size = 10000000;
       save = 10000000;
