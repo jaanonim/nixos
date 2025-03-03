@@ -10,5 +10,5 @@
       # jetbrains.idea-ultimate
       vscode
     ]
-    ++ (with jaanonim-pkgs; [creator forklab]);
+    ++ (with jaanonim-pkgs; [creator forklab rider]);
 }

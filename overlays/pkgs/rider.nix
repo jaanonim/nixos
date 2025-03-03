@@ -4,10 +4,11 @@
   ...
 }: let
   extra-path = with pkgs; [
-    dotnetCorePackages.sdk_6_0
+    # dotnetCorePackages.sdk_6_0
+    dotnetCorePackages.sdk_9_0
     dotnetPackages.Nuget
     mono
-    msbuild
+    # msbuild
     # Add any extra binaries you want accessible to Rider here
   ];
 
