@@ -6,6 +6,7 @@ _: {
     grub = {
       efiSupport = true;
       device = "nodev";
+      configurationLimit = 16;
     };
   };
 }
