@@ -51,6 +51,7 @@
     /nix_dev.nix
     # /unity_dev.nix
     # /android_dev.nix
+    # /gns3.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
