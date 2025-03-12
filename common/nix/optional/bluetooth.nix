@@ -1,17 +1,18 @@
 _: {
+  hardware.enableAllFirmware = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     settings = {
       General = {
-        Name = "Computer";
-        ControllerMode = "dual";
+        Name = "Laptop";
+        ControllerMode = "bredr";
         FastConnectable = "true";
         Experimental = "true";
-        Enable = "Source,Sink,Media,Socket";
       };
-      Policy = {AutoEnable = "true";};
-      LE = {EnableAdvMonInterleaveScan = "true";};
+      Policy = {
+        AutoEnable = "true";
+      };
     };
   };
 }
