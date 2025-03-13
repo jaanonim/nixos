@@ -6,7 +6,7 @@
     (configLib.optional /plasma.nix)
     (configLib.optional /devices.nix)
     (configLib.optional /flatpack.nix)
-    # (configLib.optional /virtualisation.nix)
+    (configLib.optional /virtualisation.nix)
     (configLib.optional /cursor-fix.nix)
     (configLib.optional /vpn.nix)
     (configLib.optional /disks.nix)
