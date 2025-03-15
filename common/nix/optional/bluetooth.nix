@@ -6,7 +6,7 @@ _: {
     settings = {
       General = {
         Name = "Laptop";
-        ControllerMode = "bredr";
+        ControllerMode = "dual";
         FastConnectable = "true";
         Experimental = "true";
       };
