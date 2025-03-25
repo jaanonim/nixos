@@ -9,6 +9,7 @@
     settings = {
       experimental-features = ["nix-command" "flakes"];
       nix-path = lib.mkForce "nixpkgs=${inputs.nixpkgs}";
+      download-buffer-size = 524288000; # 500 MB
     };
 
     registry.nixpkgs.flake = nixpkgs;
