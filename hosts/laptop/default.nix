@@ -23,7 +23,10 @@
   ];
 
   networking.hostName = "laptop";
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = false;
+    settings.PasswordAuthentication = false;
+  };
 
   system.stateVersion = "24.05"; # Don't touch
 }
