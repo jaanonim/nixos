@@ -15,6 +15,7 @@
     gnugrep
     lsof
     htop
+    btop
     bat
     nvtopPackages.nvidia
   ];
