@@ -14,6 +14,7 @@ _: {
           idleTimeout = 3600;
           idleTimeoutWhenLocked = 600;
         };
+        dimDisplay.enable = false;
       };
       battery = {
         powerButtonAction = "shutDown";
