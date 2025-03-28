@@ -52,6 +52,7 @@
     # /unity_dev.nix
     # /android_dev.nix
     # /gns3.nix
+    /wireshark.nix
   ];
 in {
   imports = [inputs.home-manager.nixosModules.default];
