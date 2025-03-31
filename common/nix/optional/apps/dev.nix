@@ -7,8 +7,9 @@
     [
       # jetbrains.clion
       jetbrains.pycharm-professional
-      # jetbrains.idea-ultimate
+      jetbrains.idea-ultimate
       vscode
+      libsForQt5.umbrello
     ]
     ++ (with jaanonim-pkgs; [creator forklab rider]);
 }
