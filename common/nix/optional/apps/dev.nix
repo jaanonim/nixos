@@ -7,7 +7,8 @@
     [
       # jetbrains.clion
       jetbrains.pycharm-professional
-      jetbrains.idea-ultimate
+      # jetbrains.idea-ultimate
+      jetbrains.goland
       vscode
       libsForQt5.umbrello
     ]
