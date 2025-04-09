@@ -17,6 +17,7 @@
     (configLib.optional /udev.nix)
     (configLib.optional /audio.nix)
     (configLib.optional /docker.nix)
+    # (configLib.optional /vfio.nix)
 
     (configLib.users /jaanonim)
     ./colors.nix
