@@ -40,7 +40,7 @@ in {
     ];
     oh-my-zsh = {
       enable = true;
-      plugins = ["git" "rust" "python" "sudo" "fzf"];
+      plugins = ["git" "rust" "python" "sudo" "fzf" "man" "tldr"];
     };
   };
 
