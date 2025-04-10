@@ -5,7 +5,7 @@
     wget
     git
     tmux
-    tldr
+    tlrc #TODO: add config to hm
     zoxide
     zsh-autosuggestions
     zsh-powerlevel10k
