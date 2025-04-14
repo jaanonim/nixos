@@ -11,7 +11,7 @@
     qemu-system-x86_64 \
       -enable-kvm \
       -m 16G \
-      -cpu host,kvm=on \
+      -cpu host,kvm=on,+topoext \
       -smp 6 \
       -device vfio-pci,host=${gpu-pci-address},rombar=0 \
       -drive cache=none,file=/mnt/dane/Virtual/windows10.qcow2,format=qcow2 \
@@ -20,7 +20,7 @@
       -spice port=5900,disable-ticketing=on \
       -device ivshmem-plain,memdev=ivshmem,bus=pci.0 \
       -object memory-backend-file,id=ivshmem,share=on,mem-path=/dev/shm/looking-glass,size=32M \
-      -audiodev pipewire,id=audio0 \
+      -audiodev spice,id=audio0 \
       -device ich9-intel-hda \
       -device hda-duplex,audiodev=audio0 \
       -device virtio-serial-pci \
