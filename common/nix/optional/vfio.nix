@@ -20,6 +20,9 @@
       -spice port=5900,disable-ticketing=on \
       -device ivshmem-plain,memdev=ivshmem,bus=pci.0 \
       -object memory-backend-file,id=ivshmem,share=on,mem-path=/dev/shm/looking-glass,size=32M \
+      -audiodev pipewire,id=audio0 \
+      -device ich9-intel-hda \
+      -device hda-duplex,audiodev=audio0 \
       -device virtio-serial-pci \
       -chardev spicevmc,id=vdagent,name=vdagent \
       -device virtserialport,chardev=vdagent,name=com.redhat.spice.0 &
