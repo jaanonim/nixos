@@ -9,7 +9,6 @@
     brave
     gnome-calculator
     youtube-music
-    signal-desktop
   ];
   programs.chromium.extraOpts.IncognitoModeAvailability = 1;
 }
