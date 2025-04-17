@@ -35,6 +35,7 @@
     elisa
     krdp
     discover
+    xwaylandvideobridge
   ];
 
   # Configure keymap in X11
