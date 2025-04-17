@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   gpu-pci-address = "0000:01:00.0";
   gpu-pci-id = "10de 25a2";
   user = "jaanonim";
@@ -18,8 +22,8 @@
       -net nic -net user \
       -display none \
       -spice port=5900,disable-ticketing=on \
-      -device ivshmem-plain,memdev=ivshmem,bus=pci.0 \
-      -object memory-backend-file,id=ivshmem,share=on,mem-path=/dev/shm/looking-glass,size=32M \
+      -device ivshmem-plain,id=shmem0,memdev=looking-glass \
+      -object memory-backend-file,id=looking-glass,mem-path=/dev/kvmfr0,size=32M,share=yes \
       -audiodev spice,id=audio0 \
       -device ich9-intel-hda \
       -device hda-duplex,audiodev=audio0 \
@@ -41,7 +45,7 @@
     echo "Switching GPU to VFIO for VM usage …"
     if [ -L /sys/bus/pci/devices/${gpu-pci-address}/driver ]; then
       echo "Unbinding device ${gpu-pci-address} from its host driver."
-      sudo -i -u ${user} lsof /dev/nvidia* |awk 'NR > 1 {print $2}' |xargs kill || true
+      sudo -i -u ${user} lsof /dev/nvidia* |awk 'NR > 1 {print $2}' |xargs kill -9 || true
       modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
       echo ${gpu-pci-address} > /sys/bus/pci/devices/${gpu-pci-address}/driver/unbind || true
       echo "Unbinding successfully"
@@ -75,60 +79,44 @@
     wait ''${SWITCH_PID}
   '';
 in {
-  # Enable AMD IOMMU and additional kernel parameters:
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    kvmfr
+  ];
+
   boot.kernelParams = [
-    "amd_iommu=on" # Enable AMD IOMMU support
-    "iommu=pt" # Use pass-through mode for IOMMU
+    "amd_iommu=on"
+    "iommu=pt"
     "kvmfr.static_size_mb=32"
   ];
 
-  # Load the VFIO kernel modules needed for PCI passthrough:
   boot.kernelModules = [
     "vfio"
     "vfio_iommu_type1"
     "vfio_pci"
     "vfio_virqfd"
-    # "kvmfr"
+    "kvmfr"
   ];
 
-  # Enable QEMU/KVM virtualization:
   virtualisation.libvirtd.qemu = {
     package = pkgs.qemu_kvm;
-    # extraOptions = ["--enable-kvm"];
   };
 
-  # Install the Looking Glass client if available.
   environment.systemPackages = with pkgs; [
     qemu_kvm
-    looking-glass-client # Ensure this package exists in your channel; if not, you may need to build it manually.
+    looking-glass-client
     start-vm
     bind-vm
     unbind-vm
   ];
 
-  # Add a basic Looking Glass client configuration file.
-  # Adjust the values (frame dimensions, enabling the mouse cursor, etc.) to your setup.
   environment.etc."looking-glass-client.ini".text = ''
-    [general]
-    # The width and height should match the resolution set in your Windows VM’s Looking Glass server config.
-    frame_width = 1920
-    frame_height = 1080
-    # Enable or disable the mouse cursor capture
-    cursor = true
-    # Other client options can be set here as needed.
     [win]
     showFPS = yes
     [input]
     escapeKey = KEY_RIGHTCTRL
   '';
 
-  # Optionally, if you need to adjust shared memory permissions for Looking Glass, you can add a systemd tmpfiles rule.
-  # This example creates the shared memory file with proper permissions if required by your Looking Glass setup.
-  systemd.tmpfiles.rules = [
-    "f /dev/shm/looking-glass 0660 ${user} kvm -"
-  ];
-
-  # services.udev.extraRules = ''
-  #   SUBSYSTEM=="kvmfr", OWNER="${user}", GROUP="kvm", MODE="0660"
-  # '';
+  services.udev.extraRules = ''
+    SUBSYSTEM=="kvmfr", OWNER="${user}", GROUP="kvm", MODE="0660"
+  '';
 }
