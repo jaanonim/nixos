@@ -9,16 +9,24 @@
 
   run-vm = pkgs.writeShellScriptBin "run-vm" ''
     set -e
+
+    if [ -z "$1" ]; then
+      echo "No disk image path provided. Using default: /mnt/dane/Virtual/windows10.qcow2"
+      DISK_IMAGE="/mnt/dane/Virtual/windows10.qcow2"
+    else
+      DISK_IMAGE="$1"
+    fi
+
     ${bind-vm}/bin/bind-vm
 
-    echo "Starting Windows 10 VM …"
+    echo "Starting Windows 10 VM with disk image: ''${DISK_IMAGE} …"
     qemu-system-x86_64 \
       -enable-kvm \
       -m 16G \
       -cpu host,kvm=on,+topoext \
       -smp 6 \
       -device vfio-pci,host=${gpu-pci-address},rombar=0 \
-      -drive cache=none,file=/mnt/dane/Virtual/windows10.qcow2,format=qcow2 \
+      -drive cache=none,file=''${DISK_IMAGE},format=qcow2 \
       -net nic -net user \
       -display none \
       -spice port=5900,disable-ticketing=on \
@@ -71,7 +79,7 @@
   '';
 
   start-vm = pkgs.writeShellScriptBin "start-vm" ''
-    sudo ${run-vm}/bin/run-vm &
+    sudo ${run-vm}/bin/run-vm "$@" &
     SWITCH_PID=$!
     sleep 10
     echo "Launching Looking Glass client …"
