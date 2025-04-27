@@ -1,7 +1,7 @@
 _: {
   virtualisation.docker = {
     enable = true;
-    enableNvidia = true;
+    enableOnBoot = false;
     autoPrune.enable = true;
   };
   users.extraGroups.docker.members = ["jaanonim"];
