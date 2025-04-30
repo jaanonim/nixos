@@ -7,7 +7,11 @@
   gpu-pci-id = "10de 25a2";
   user = "jaanonim";
 
-  run-vm = pkgs.writeShellScriptBin "run-vm" ''
+  vm-kill-gpu = pkgs.writeShellScriptBin "vm-kill-gpu" ''
+    lsof /dev/nvidia* |awk 'NR > 1 {print $2}' |xargs kill -9
+  '';
+
+  vm-start = pkgs.writeShellScriptBin "vm-start" ''
     set -e
 
     if [ -z "$1" ]; then
@@ -17,7 +21,7 @@
       DISK_IMAGE="$1"
     fi
 
-    ${bind-vm}/bin/bind-vm
+    ${vm-bind}/bin/vm-bind
 
     echo "Starting Windows 10 VM with disk image: ''${DISK_IMAGE} …"
     qemu-system-x86_64 \
@@ -44,10 +48,10 @@
     wait ''${VM_PID}
 
     sleep 2
-    ${unbind-vm}/bin/unbind-vm
+    ${vm-unbind}/bin/vm-unbind
   '';
 
-  bind-vm = pkgs.writeShellScriptBin "bind-vm" ''
+  vm-bind = pkgs.writeShellScriptBin "vm-bind" ''
     set -e
 
     echo "Switching GPU to VFIO for VM usage …"
@@ -66,7 +70,7 @@
     echo "${gpu-pci-id}" > /sys/bus/pci/drivers/vfio-pci/new_id || true
   '';
 
-  unbind-vm = pkgs.writeShellScriptBin "unbind-vm" ''
+  vm-unbind = pkgs.writeShellScriptBin "vm-unbind" ''
     set -e
 
     echo "VM has exited. Switching GPU back to the NVIDIA driver …"
@@ -78,8 +82,8 @@
     echo "GPU has been rebound to the NVIDIA driver."
   '';
 
-  start-vm = pkgs.writeShellScriptBin "start-vm" ''
-    sudo ${run-vm}/bin/run-vm "$@" &
+  vm-run = pkgs.writeShellScriptBin "vm-run" ''
+    sudo ${vm-start}/bin/vm-start "$@" &
     SWITCH_PID=$!
     sleep 10
     echo "Launching Looking Glass client …"
@@ -112,9 +116,10 @@ in {
   environment.systemPackages = with pkgs; [
     qemu_kvm
     looking-glass-client
-    start-vm
-    bind-vm
-    unbind-vm
+    vm-run
+    vm-bind
+    vm-unbind
+    vm-kill-gpu
   ];
 
   environment.etc."looking-glass-client.ini".text = ''
