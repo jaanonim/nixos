@@ -84,6 +84,7 @@
             "org.kde.plasma.clipboard"
             "org.kde.plasma.brightness"
             "aw-qt"
+            "Tail Tray"
           ];
         };
       }
