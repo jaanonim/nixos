@@ -18,6 +18,10 @@
           "obsydian-jaanonim" = {
             path = "/mnt/dane/Obsydian/jaanonim/";
             devices = ["s8"];
+            versioning = {
+              type = "simple";
+              params.keep = "30";
+            };
           };
         };
       };
