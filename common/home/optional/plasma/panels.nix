@@ -25,6 +25,9 @@
         kickoff = {
           icon = "${configLib.get_util "profile-image" {inherit pkgs;}}/profile.png";
           showActionButtonCaptions = false;
+          settings = {
+            switchCategoryOnHover = true;
+          };
         };
       }
       # Adding configuration to the widgets can also for example be used to
