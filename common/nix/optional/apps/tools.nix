@@ -14,8 +14,8 @@ in {
   packages = with pkgs; [
     emote
     pika-backup
-    # don't work for now
-    # normcap
-    # normcapDesktop
+    helvum
+    normcap
+    normcapDesktop
   ];
 }
