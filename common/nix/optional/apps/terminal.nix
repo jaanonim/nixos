@@ -17,6 +17,6 @@
     htop
     btop
     bat
-    nvtopPackages.nvidia
+    # nvtopPackages.nvidia
   ];
 }
