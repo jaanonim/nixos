@@ -2,6 +2,7 @@
   outputs,
   inputs,
   nixpkgs,
+  pkgs,
   lib,
   ...
 }: {
@@ -39,5 +40,5 @@
 
   # linking libarys
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = []; # add packages here
+  programs.nix-ld.libraries = with pkgs; []; # add packages here
 }
