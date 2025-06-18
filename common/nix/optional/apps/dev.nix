@@ -8,9 +8,9 @@
       # jetbrains.clion
       jetbrains.pycharm-professional
       # jetbrains.idea-ultimate
-      jetbrains.goland
+      # jetbrains.goland
       vscode
       libsForQt5.umbrello
     ]
-    ++ (with jaanonim-pkgs; [creator forklab rider]);
+    ++ (with jaanonim-pkgs; [creator forklab]);
 }
