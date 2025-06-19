@@ -10,9 +10,10 @@
     };
   };
 in {
-  # environment.variables = {
-  #   NIX_BUILD_SHELL = pkgs.zsh + /bin/zsh;
-  # };
+  environment.defaultPackages = with pkgs; [
+    ghostty
+  ];
+
   programs = {
     zsh = {
       enable = true;

@@ -5,6 +5,7 @@
     (configLib.home_optional /plasma)
     (configLib.home_optional /wakatime.nix)
     (configLib.home_optional /gpu-screen-recorder.nix)
+    (configLib.home_optional /ghostty.nix)
     # (configLib.home_optional /unity_dev.nix)
   ];
 

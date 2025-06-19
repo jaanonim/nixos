@@ -36,6 +36,7 @@
     krdp
     discover
     xwaylandvideobridge
+    konsole
   ];
 
   # Configure keymap in X11

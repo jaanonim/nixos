@@ -1,7 +1,6 @@
 {inputs, ...}: {
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
-    ./konsole.nix
     ./panels.nix
     ./powerdevil.nix
     ./shortcuts.nix
@@ -29,6 +28,11 @@
 
     configFile.kded5rc = {
       "Module-gtkconfig"."autoload" = false;
+    };
+
+    configFile.kdeglobals.General = {
+      TerminalApplication = "ghostty";
+      TerminalService = "com.mitchellh.ghostty.desktop";
     };
   };
 }

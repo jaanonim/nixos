@@ -10,6 +10,9 @@ _: {
       "com.github.dynobo.normcap.desktop" = {
         "_launch" = "Meta+Shift+T";
       };
+      "com.mitchellh.ghostty.desktop" = {
+        "_launch" = "Ctrl+Alt+T";
+      };
       kwin = {
         "Overview" = "Meta+Tab";
         "Switch One Desktop to the Left" = "Meta+Ctrl+Left";
