@@ -34,3 +34,6 @@ iso:
 
 update-secrets:
 	nix flake lock --update-input jaanonim-secrets
+
+show-update:
+	nix flake update --no-warn-dirty --output-lock-file <(cat flake.nix)
