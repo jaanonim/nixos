@@ -10,7 +10,6 @@
       # jetbrains.idea-ultimate
       # jetbrains.goland
       vscode
-      libsForQt5.umbrello
     ]
     ++ (with jaanonim-pkgs; [creator forklab]);
 }
