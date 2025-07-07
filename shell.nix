@@ -17,19 +17,19 @@
       # NIX_BUILD_SHELL = "zsh";
       NIX_CONFIG = "extra-experimental-features = nix-command flakes";
       nativeBuildInputs = with pkgs; [
-        nix
-        home-manager
         git
-        nixpkgs-fmt
-        alejandra
-        nurl
         just
-        nixd
-        nil
+        jq
         direnv
         statix
-        jq
+        nix
+        nixd
+        nurl
         nix-tree
+        alejandra
+        home-manager
+        nix-output-monitor
+        nix-inspect
         sops
       ];
     };
