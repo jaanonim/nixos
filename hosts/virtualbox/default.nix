@@ -22,7 +22,7 @@ with lib; {
 
     # VScode ssh access
     openssh.enable = true;
-    vscode-server.enable = true;
+    # vscode-server.enable = true;
   };
   # services.xserver.displayManager.sddm.enable = lib.mkForce false;
 

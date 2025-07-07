@@ -38,13 +38,6 @@
       flake = false;
     };
 
-    ### Just for virtualbox
-
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ### My packages
 
     jaanonim-secrets = {
