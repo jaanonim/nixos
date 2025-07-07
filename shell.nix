@@ -27,8 +27,8 @@
         nurl
         nix-tree
         alejandra
+        nh
         home-manager
-        nix-output-monitor
         nix-inspect
         sops
       ];
