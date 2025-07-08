@@ -8,7 +8,8 @@
   configModules,
   lib,
   ...
-}: let
+}:
+with lib; let
   extraSpecialArgs = {
     inherit
       inputs
@@ -54,35 +55,74 @@
     # /gns3.nix
     # /wireshark.nix
   ];
+
+  cfg = config.my;
 in {
-  imports = [inputs.home-manager.nixosModules.default];
+  options.my = {
+    mainUser = mkOption {
+      type = types.str;
+      default = "jaanonim";
+      example = "user";
+      description = "Main user username";
+    };
+    userPackages = mkOption {
+      type = types.listOf types.path;
+      default = packages_paths;
+      example = [];
+      description = "Main user packages";
+    };
+    extraUserPackages = mkOption {
+      type = types.listOf types.package;
+      default = [];
+      description = "Main user extra packages";
+    };
+    extraUserGroups = mkOption {
+      type = types.listOf types.str;
+      default = ["wheel"];
+      example = [];
+      description = "Main user extra groups";
+    };
+    homeManager = mkEnableOption "home-manager";
+  };
+
+  imports = mkIf cfg.homeManager [inputs.home-manager.nixosModules.default];
 
   config = configLib.recursiveMergeAttrs ([
       {
         # sops.secrets.jaanonim-password.neededForUsers = true;
 
         # users.mutableUsers = false;
-        users.users.jaanonim = {
+        users.users.${cfg.mainUser} = {
           isNormalUser = true;
           # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
-          description = "jaanonim";
-          extraGroups = ["networkmanager" "wheel"];
-          packages = makeUserPkgs packages_paths;
+          description = cfg.mainUser;
+          extraGroups = extraUserGroups;
+          packages = (makeUserPkgs cfg.userPackages) ++ cfg.extraUserPackages;
         };
 
         security.sudo.extraRules = [
           {
-            users = ["jaanonim"];
+            users = [cfg.mainUser];
             commands = ["ALL"];
           }
         ];
 
-        home-manager = {
+        home-manager = mkIf cfg.homeManager {
           inherit extraSpecialArgs;
           backupFileExtension = "backup";
-          users = {"jaanonim" = import ./home.nix;};
+          users.${cfg.mainUser}.home = {
+            username = cfg.mainUser;
+            homeDirectory = "/home/${cfg.mainUser}";
+
+            programs.home-manager.enable = true;
+
+            useGlobalPkgs = true;
+            useUserPackages = true;
+
+            stateVersion = "23.11"; # Don't touch
+          };
         };
       }
     ]
-    ++ (makeOtherSettings packages_paths));
+    ++ (makeOtherSettings cfg.userPackages));
 }
