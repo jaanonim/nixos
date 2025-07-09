@@ -1,12 +1,18 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  my = config.my;
+in {
   packages = with pkgs; [syncthing];
 
   services = {
     syncthing = {
       enable = true;
-      user = "jaanonim";
-      dataDir = "/home/jaanonim/Sync";
-      configDir = "/home/jaanonim/.config/syncthing";
+      user = my.mainUser;
+      dataDir = "/home/${my.mainUser}/Sync";
+      configDir = "/home/${my.mainUser}/.config/syncthing";
 
       overrideDevices = true;
       overrideFolders = true;

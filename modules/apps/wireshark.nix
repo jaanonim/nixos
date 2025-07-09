@@ -1,8 +1,12 @@
-{pkgs, ...}: {
-  packages = with pkgs; [
-    wireshark
-  ];
+{
+  pkgs,
+  config,
+  ...
+}: let
+  my = config.my;
+in {
+  packages = with pkgs; [wireshark];
 
   programs.wireshark.enable = true;
-  users.extraGroups.wireshark.members = ["jaanonim"];
+  users.extraGroups.wireshark.members = [my.mainUser];
 }

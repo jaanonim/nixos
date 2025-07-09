@@ -1,13 +1,16 @@
 {
-  configModules,
   config,
+  lib,
   ...
-}: {
+}:
+with lib; let
+  my = config.my;
+in {
   imports = [
-    configModules.home.wakatime
+    ../external/wakatime.nix
   ];
 
-  programs.wakatime = {
+  home-manager.users.${my.mainUser}.programs.wakatime = mkIf my.homeManager {
     enable = true;
     settings = {
       settings = {

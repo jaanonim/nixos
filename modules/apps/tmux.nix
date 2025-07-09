@@ -1,19 +1,32 @@
-{pkgs, ...}: let
-  inherit (pkgs) fetchFromGitHub;
-  inherit (pkgs.tmuxPlugins) mkTmuxPlugin;
-  tmux-power = mkTmuxPlugin {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  tmux-power = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux-power";
     version = "1.0";
     rtpFilePath = "tmux-power.tmux";
-    src = fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "wfxr";
       repo = "tmux-power";
       rev = "16bbde801378a70512059541d104c5ae35be32b9";
       hash = "sha256-IyYQyIONMnVBwhhcI3anOPxKpv2TfI2KZgJ5o5JtZ8I=";
     };
   };
+  my = config.my;
 in {
+  packages = with pkgs; [tmux];
+
   programs.tmux = {
+    enable = true;
+    baseIndex = 1;
+    plugins = [pkgs.tmuxPlugins.sensible tmux-power];
+  };
+
+  home-manager.users.${my.mainUser}.programs.tmux = mkIf my.homeManager {
     enable = true;
     mouse = true;
     clock24 = true;

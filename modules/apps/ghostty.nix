@@ -1,5 +1,15 @@
-_: {
-  programs.ghostty = {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  my = config.my;
+in {
+  packages = with pkgs; [ghostty];
+
+  home-manager.users.${my.mainUser}.programs.ghostty = mkIf my.homeManager {
     enable = true;
     enableZshIntegration = true;
     settings = {
