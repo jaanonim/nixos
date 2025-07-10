@@ -1,13 +1,8 @@
 {
   pkgs,
   lib,
-  configLib,
-  inputs,
-  base16SchemeFile,
   ...
-} @ args: let
-  base16Scheme = (inputs.stylix.inputs.base16.lib args).mkSchemeAttrs base16SchemeFile;
-
+}: base16Scheme: let
   colorschemeSlug =
     lib.concatStrings
     (builtins.filter builtins.isString
@@ -74,7 +69,7 @@
   };
 in
   pkgs.runCommand "kde-color-sheme" {
-    colorscheme = configLib.kdeFormatConfig colorscheme;
+    colorscheme = lib.kdeFormatConfig colorscheme;
   } ''
     write_text() {
       mkdir --parents "$(dirname "$2")"

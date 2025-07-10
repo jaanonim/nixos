@@ -1,16 +1,14 @@
 {
   pkgs,
   lib,
-  configLib,
   inputs,
   config,
   ...
-}:
+} @ args:
 with lib; let
   my = config.my;
   cfg = config.my.sddm;
-
-  base16SchemeFile = config.stylix.base16Scheme;
+  base16Scheme = (inputs.stylix.inputs.base16.lib args).mkSchemeAttrs config.stylix.base16Scheme;
   wallpaper = config.stylix.image;
   cursor = config.stylix.cursor.name;
 in {
@@ -52,15 +50,7 @@ in {
       ];
       # SDDM colors
       systemd.tmpfiles.rules = [
-        "L+ /var/lib/sddm/.config/kdeglobals - - - - ${configLib.get_util "kde-color-sheme" {
-          inherit
-            pkgs
-            lib
-            configLib
-            inputs
-            base16SchemeFile
-            ;
-        }}/kdeglobals"
+        "L+ /var/lib/sddm/.config/kdeglobals - - - - ${lib.kdeColorScheme base16Scheme}/kdeglobals"
       ];
     };
 }

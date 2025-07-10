@@ -12,13 +12,15 @@ in {
     tablet = mkEnableOption "tablet";
   };
 
-  services = {
-    printing = mkIf cfg.printer {
-      enable = true;
-      drivers = [pkgs.brlaser];
+  config = {
+    services = {
+      printing = mkIf cfg.printer {
+        enable = true;
+        drivers = [pkgs.brlaser];
+      };
+      libinput.enable = cfg.touchpad;
     };
-    libinput.enable = cfg.touchpad;
-  };
 
-  hardware.opentabletdriver.enable = cfg.tablet;
+    hardware.opentabletdriver.enable = cfg.tablet;
+  };
 }

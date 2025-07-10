@@ -1,22 +1,13 @@
 {
   inputs,
-  configLib,
   self,
-  jaanonim-pkgs,
   config,
-  configModules,
   lib,
   ...
 }:
 with lib; let
   extraSpecialArgs = {
-    inherit
-      inputs
-      configLib
-      self
-      jaanonim-pkgs
-      configModules
-      ;
+    inherit inputs self jaanonim-pkgs;
   };
   cfg = config.my;
 in {
@@ -33,17 +24,6 @@ in {
       example = "/home/user";
       description = "Main user home directory";
     };
-    userPackages = mkOption {
-      type = types.listOf types.path;
-      default = packages_paths;
-      example = [];
-      description = "Main user packages";
-    };
-    extraUserPackages = mkOption {
-      type = types.listOf types.package;
-      default = [];
-      description = "Main user extra packages";
-    };
     extraUserGroups = mkOption {
       type = types.listOf types.str;
       default = ["wheel"];
@@ -53,7 +33,7 @@ in {
     homeManager = mkEnableOption "home-manager";
   };
 
-  imports = mkIf cfg.homeManager [inputs.home-manager.nixosModules.default];
+  imports = [inputs.home-manager.nixosModules.default];
 
   config = {
     # sops.secrets.jaanonim-password.neededForUsers = true;
@@ -63,8 +43,7 @@ in {
       isNormalUser = true;
       # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
       description = cfg.mainUser;
-      extraGroups = extraUserGroups;
-      packages = cfg._packages ++ cfg.extraUserPackages;
+      extraGroups = cfg.extraUserGroups;
     };
 
     security.sudo.extraRules = [

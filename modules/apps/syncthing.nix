@@ -1,14 +1,16 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}: let
+}:
+with lib; let
   my = config.my;
 in {
-  my._packages = with pkgs; [syncthing];
+  config = mkIf (builtins.any (ele: (ele == (lib.removeSuffix ".nix" (baseNameOf __curPos.file)))) my.apps) {
+    my._packages = with pkgs; [syncthing];
 
-  services = {
-    my._syncthing = {
+    services.syncthing = {
       enable = true;
       user = my.mainUser;
       dataDir = "/home/${my.mainUser}/Sync";
@@ -32,10 +34,10 @@ in {
         };
       };
     };
-  };
 
-  networking.firewall = {
-    allowedTCPPorts = [8384 22000];
-    allowedUDPPorts = [22000 21027];
+    networking.firewall = {
+      allowedTCPPorts = [8384 22000];
+      allowedUDPPorts = [22000 21027];
+    };
   };
 }

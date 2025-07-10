@@ -51,11 +51,24 @@ in {
       example = [pkgs.hello];
       description = "Extra libraries to be linked globally";
     };
+    allowUnfree = mkOption {
+      type = types.bool;
+      default = true;
+      example = false;
+      description = "Allow unfree pkgs";
+    };
+    cuda = mkOption {
+      type = types.bool;
+      default = true;
+      example = false;
+      description = "Enable cuda support in nixpkgs";
+    };
   };
 
   config = {
     environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
     nix = {
+      warn-dirty = false;
       channel.enable = false; # use flakes
       registry.nixpkgs.flake = nixpkgs;
 
@@ -86,10 +99,14 @@ in {
     };
 
     nixpkgs = {
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-      };
+      config =
+        mkIf cfg.allowUnfree {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        }
+        // mkIf cfg.cuda {
+          cudaSupport = true;
+        };
     };
   };
 }

@@ -9,5 +9,8 @@ in {
   options.my = {
     flatpak = mkEnableOption "flatpak";
   };
-  services.flatpak.enable = my.flatpak;
+
+  config = {
+    services.flatpak.enable = my.flatpak;
+  };
 }

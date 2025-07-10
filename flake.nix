@@ -1,5 +1,5 @@
 {
-  description = "Nixos config flake";
+  description = "Jaanonim's nixos config flake";
 
   inputs = {
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -67,93 +67,22 @@
 
   ### Outputs
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-hardware,
-    probe-rs-rules,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    inherit (nixpkgs) lib;
-
-    system = "x86_64-linux";
-    forAllSystems = nixpkgs.lib.genAttrs [
-      "x86_64-linux"
-    ];
-
-    configModules = {
-      home = import ./modules/home;
-      nix = import ./modules/nix;
-    };
-
-    basicInputs = {
-      inherit inputs lib;
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    };
-
-    configLib = import ./lib basicInputs;
+  outputs = inputs @ {flake-parts, ...}: let
+    # https://nixos.zulipchat.com/#narrow/stream/419910-flake-parts/topic/Overriding.20.60lib.60.20in.20flake-parts
     specialArgs = {
-      inherit inputs outputs configLib nixpkgs lib self configModules;
-      jaanonim-pkgs =
-        {
-          jaanonim-secrets = inputs.jaanonim-secrets.packages.${system}.default;
-          bible-runner = inputs.bible-runner.packages.${system}.default;
-          creator = inputs.creator.packages.${system}.default;
-          forklab = inputs.forklab.packages.${system}.default;
-          nsearch = inputs.nsearch.packages.${system}.default;
-        }
-        // (import ./overlays/pkgs basicInputs);
+      lib = inputs.nixpkgs.lib.extend (_: _: (import ./lib {inherit inputs;}));
     };
-  in {
-    overlays = import ./overlays {inherit inputs;};
+  in
+    flake-parts.lib.mkFlake {inherit inputs specialArgs;} {
+      imports = [
+        ./hosts
+      ];
 
-    packages =
-      forAllSystems
-      (
-        system: let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-          import ./pkgs {inherit pkgs;}
-      );
+      systems = ["x86_64-linux" "aarch64-linux"];
 
-    nixosModules = configModules.home;
-
-    homeManagerModules = configModules.nix;
-
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-
-    devShells = forAllSystems (system: import ./shell.nix nixpkgs.legacyPackages.${system});
-
-    checks.x86_64-linux = import ./checks inputs;
-
-    nixosConfigurations = {
-      laptop = lib.nixosSystem {
-        inherit system specialArgs;
-        modules = [
-          nixos-hardware.nixosModules.lenovo-ideapad-15ach6
-          probe-rs-rules.nixosModules.${system}.default
-          ./hosts/laptop
-        ];
-      };
-
-      virtualbox = lib.nixosSystem {
-        inherit system specialArgs;
-        modules = [
-          ./hosts/virtualbox
-          ./hosts/laptop
-        ];
-      };
-
-      iso = lib.nixosSystem {
-        inherit system specialArgs;
-        modules = [
-          ./hosts/iso
-        ];
+      perSystem = {pkgs, ...}: {
+        devShells.default = import ./shell.nix pkgs;
+        checks = import ./checks inputs;
       };
     };
-  };
 }

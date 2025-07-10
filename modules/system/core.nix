@@ -1,11 +1,5 @@
-{
-  lib,
-  config,
-  ...
-}:
-with lib; let
-  cfg = config.my;
-in {
+{lib, ...}:
+with lib; {
   options.my = {
     hostname = mkOption {
       type = types.str;
