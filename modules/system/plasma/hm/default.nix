@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  configLib,
+  ...
+}: {
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
     ./panels.nix
@@ -35,4 +39,6 @@
       TerminalService = "com.mitchellh.ghostty.desktop";
     };
   };
+
+  home.file.".config/fontconfig/conf.d/56-kubuntu-noto.conf".source = configLib.root /config/56-kubuntu-noto.conf; # fix for font in plasma
 }

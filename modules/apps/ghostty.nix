@@ -7,7 +7,7 @@
 with lib; let
   my = config.my;
 in {
-  packages = with pkgs; [ghostty];
+  my._packages = with pkgs; [ghostty];
 
   home-manager.users.${my.mainUser}.programs.ghostty = mkIf my.homeManager {
     enable = true;

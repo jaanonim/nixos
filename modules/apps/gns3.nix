@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  packages = with pkgs; [
+  my._packages = with pkgs; [
     gns3-gui
     inetutils
   ];

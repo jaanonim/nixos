@@ -11,7 +11,7 @@
     keywords = ["Text" "Extraction" "OCR"];
   };
 in {
-  packages = with pkgs; [
+  my._packages = with pkgs; [
     emote
     pika-backup
     helvum

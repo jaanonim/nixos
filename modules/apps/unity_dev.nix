@@ -8,7 +8,7 @@
 with lib; let
   my = config.my;
 in {
-  packages = with pkgs; [
+  my._packages = with pkgs; [
     jaanonim-pkgs.rider
     unityhub
   ];

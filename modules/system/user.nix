@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   configLib,
   self,
   jaanonim-pkgs,
@@ -19,43 +18,6 @@ with lib; let
       configModules
       ;
   };
-  pkgsSpecialArgs =
-    extraSpecialArgs
-    // {
-      inherit
-        pkgs
-        config
-        lib
-        ;
-    };
-
-  makeOtherSettings = paths: builtins.foldl' (rest: _pkg: rest ++ [(builtins.removeAttrs _pkg ["packages"])]) [] (makeListOfPkgsConfigs paths);
-  makeListOfPkgsConfigs = paths:
-    builtins.map (path:
-      import (configLib.apps path) pkgsSpecialArgs)
-    paths;
-  makeUserPkgs = paths: builtins.foldl' (rest: _pkg: rest ++ _pkg.packages) [] (makeListOfPkgsConfigs paths);
-
-  packages_paths = [
-    /basic.nix
-    /tools.nix
-    /terminal.nix
-    /media.nix
-    /gaming.nix
-    /discord.nix
-    /obsidian.nix
-    /gpu-screen-recorder.nix
-    /syncthing.nix
-    /activitywatch.nix
-    /plasma.nix
-    /dev.nix
-    /nix_dev.nix
-    # /unity_dev.nix
-    # /android_dev.nix
-    # /gns3.nix
-    # /wireshark.nix
-  ];
-
   cfg = config.my;
 in {
   options.my = {
@@ -64,6 +26,12 @@ in {
       default = "jaanonim";
       example = "user";
       description = "Main user username";
+    };
+    homeDirectory = mkOption {
+      type = types.str;
+      default = "/home/${mainUser}";
+      example = "/home/user";
+      description = "Main user home directory";
     };
     userPackages = mkOption {
       type = types.listOf types.path;
@@ -87,42 +55,39 @@ in {
 
   imports = mkIf cfg.homeManager [inputs.home-manager.nixosModules.default];
 
-  config = configLib.recursiveMergeAttrs ([
+  config = {
+    # sops.secrets.jaanonim-password.neededForUsers = true;
+
+    # users.mutableUsers = false;
+    users.users.${cfg.mainUser} = {
+      isNormalUser = true;
+      # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
+      description = cfg.mainUser;
+      extraGroups = extraUserGroups;
+      packages = cfg._packages ++ cfg.extraUserPackages;
+    };
+
+    security.sudo.extraRules = [
       {
-        # sops.secrets.jaanonim-password.neededForUsers = true;
-
-        # users.mutableUsers = false;
-        users.users.${cfg.mainUser} = {
-          isNormalUser = true;
-          # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
-          description = cfg.mainUser;
-          extraGroups = extraUserGroups;
-          packages = (makeUserPkgs cfg.userPackages) ++ cfg.extraUserPackages;
-        };
-
-        security.sudo.extraRules = [
-          {
-            users = [cfg.mainUser];
-            commands = ["ALL"];
-          }
-        ];
-
-        home-manager = mkIf cfg.homeManager {
-          inherit extraSpecialArgs;
-          backupFileExtension = "backup";
-          users.${cfg.mainUser}.home = {
-            username = cfg.mainUser;
-            homeDirectory = "/home/${cfg.mainUser}";
-
-            programs.home-manager.enable = true;
-
-            useGlobalPkgs = true;
-            useUserPackages = true;
-
-            stateVersion = "23.11"; # Don't touch
-          };
-        };
+        users = [cfg.mainUser];
+        commands = ["ALL"];
       }
-    ]
-    ++ (makeOtherSettings cfg.userPackages));
+    ];
+
+    home-manager = mkIf cfg.homeManager {
+      inherit extraSpecialArgs;
+      backupFileExtension = "backup";
+      users.${cfg.mainUser}.home = {
+        username = cfg.mainUser;
+        homeDirectory = cfg.homeDirectory;
+
+        programs.home-manager.enable = true;
+
+        useGlobalPkgs = true;
+        useUserPackages = true;
+
+        stateVersion = "23.11"; # Don't touch
+      };
+    };
+  };
 }

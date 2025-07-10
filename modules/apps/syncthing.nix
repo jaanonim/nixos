@@ -5,10 +5,10 @@
 }: let
   my = config.my;
 in {
-  packages = with pkgs; [syncthing];
+  my._packages = with pkgs; [syncthing];
 
   services = {
-    syncthing = {
+    my._syncthing = {
       enable = true;
       user = my.mainUser;
       dataDir = "/home/${my.mainUser}/Sync";

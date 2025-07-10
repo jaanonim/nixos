@@ -14,7 +14,7 @@
     # Add any extra binaries you want accessible to Rider here
   ];
 
-  extra-lib = with pkgs; [
+  extra-lib = [
     # Add any extra libraries you want accessible to Rider here
   ];
 in rec {

@@ -1,9 +1,12 @@
 {
   pkgs,
   lib,
+  config,
   ...
-}: let
-  inherit (lib) concatStringsSep;
+}:
+with lib; let
+  my = config.my;
+
   gsr = pkgs.gpu-screen-recorder;
   gsr-start = pkgs.writeShellApplication {
     name = "gsr-start";
@@ -12,7 +15,7 @@
       ${gsr}/bin/gpu-screen-recorder ${concatStringsSep " " [
         ''-v no''
         ''-mf no''
-        ''-o /home/jaanonim/Wideo''
+        ''-o ${my.homeDirectory}/Wideo''
         # ''-restore-portal-session yes''
         # Audio settings
         ''-ac opus''
@@ -28,9 +31,17 @@
       ]}
     '';
   };
+  save-replay = pkgs.writeShellApplication {
+    name = "gpu-save-replay";
+    runtimeInputs = [pkgs.procps];
+    text = ''
+      pkill --signal SIGUSR1 -f gpu-screen-recorder && ${pkgs.libnotify}/bin/notify-send "GPU Screen Recorder" "Replay saved."
+    '';
+  };
 in {
-  packages = [
+  my._packages = [
     pkgs.gpu-screen-recorder-gtk
+    save-replay
     gsr
   ];
 
@@ -77,5 +88,12 @@ in {
       };
       wantedBy = ["default.target"];
     };
+  };
+
+  home-manager.users.${my.mainUser}.programs.plasma.hotkeys.commands."replay" = mkIf (my.desktop.plasmaManager && my.homeManager) {
+    name = "Save GPU Screen Recorder Replay";
+    key = "Meta+Shift+R";
+    command = "${saveReplay}/bin/gpu-save-replay";
+    logs.enabled = true;
   };
 }

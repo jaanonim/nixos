@@ -5,7 +5,7 @@
       --replace "Exec=Discord" "Exec=Discord --start-minimized"
   '';
 in {
-  packages = [
+  my._packages = [
     pkgs.discord
   ];
 

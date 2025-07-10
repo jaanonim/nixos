@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  packages = with pkgs; [
+  my._packages = with pkgs; [
     gimp
     # blender
     obs-studio

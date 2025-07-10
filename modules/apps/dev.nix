@@ -3,7 +3,7 @@
   jaanonim-pkgs,
   ...
 }: {
-  packages = with pkgs;
+  my._packages = with pkgs;
     [
       # jetbrains.clion
       jetbrains.pycharm-professional

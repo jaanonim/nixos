@@ -18,7 +18,7 @@ with lib; let
   };
   my = config.my;
 in {
-  packages = with pkgs; [tmux];
+  my._packages = with pkgs; [tmux];
 
   programs.tmux = {
     enable = true;

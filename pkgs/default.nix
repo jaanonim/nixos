@@ -1,4 +1,1 @@
-{pkgs, ...}: {
-  # discord-autostart = pkgs.callPackage ./utils/discord-autostart.nix {};
-  # profile-image = pkgs.callPackage ./utils/profile-image.nix {};
-}
+args: builtins.foldl' (a: b: a // b) {} (builtins.map (path: import "${./.}/${path}" args) (builtins.attrNames (builtins.removeAttrs (builtins.readDir ./.) ["default.nix"])))

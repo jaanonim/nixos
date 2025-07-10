@@ -51,6 +51,7 @@ in {
       default = true;
       description = "Enable kdeconnect";
     };
+    plasmaManager = mkEnableOption "plasma manager";
   };
 
   imports = mkIf cfg.enable [./cursor-fix.nix];
@@ -104,6 +105,6 @@ in {
         konsole
       ];
 
-      home-manager.users.${my.mainUser} = import ./hm {inherit args;};
+      home-manager.users.${my.mainUser} = mkIf (cfg.plasmaManager && my.homeManager) import ./hm {inherit args;};
     };
 }

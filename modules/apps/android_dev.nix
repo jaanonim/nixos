@@ -5,7 +5,7 @@
 }: let
   my = config.my;
 in {
-  packages = with pkgs; [
+  my._packages = with pkgs; [
     android-studio
   ];
   programs.adb.enable = true;

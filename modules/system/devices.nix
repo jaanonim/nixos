@@ -1,11 +1,24 @@
-{pkgs, ...}: {
+{
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.my.audio;
+in {
+  options.my.devices = {
+    printer = mkEnableOption "printer";
+    touchpad = mkEnableOption "touchpad";
+    tablet = mkEnableOption "tablet";
+  };
+
   services = {
-    printing = {
+    printing = mkIf cfg.printer {
       enable = true;
       drivers = [pkgs.brlaser];
     };
-    libinput.enable = true;
+    libinput.enable = cfg.touchpad;
   };
 
-  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver.enable = cfg.tablet;
 }

@@ -6,7 +6,7 @@
 with lib; let
   my = config.my;
 in {
-  packages = with pkgs; [git];
+  my._packages = with pkgs; [git];
 
   programs.git = {
     enable = true;

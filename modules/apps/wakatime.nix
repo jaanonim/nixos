@@ -10,14 +10,17 @@ in {
     ../external/wakatime.nix
   ];
 
-  home-manager.users.${my.mainUser}.programs.wakatime = mkIf my.homeManager {
-    enable = true;
-    settings = {
+  home-manager.users.${my.mainUser} = mkIf my.homeManager {
+    programs.wakatime = {
+      enable = true;
       settings = {
-        status_bar_coding_activity = false;
-        status_bar_enabled = false;
-        api_key_vault_cmd = "cat ${config.sops.secrets.wakatime-api.path}";
+        settings = {
+          status_bar_coding_activity = false;
+          status_bar_enabled = false;
+          api_key_vault_cmd = "cat ${config.sops.secrets.wakatime-api.path}";
+        };
       };
     };
+    sops.secrets."wakatime-api" = mkIf my.sops {};
   };
 }
