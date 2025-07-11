@@ -35,6 +35,8 @@
       flake = false;
     };
 
+    probe-rs-rules.url = "github:jneem/probe-rs-rules";
+
     ### My packages
 
     jaanonim-secrets = {
@@ -61,8 +63,6 @@
       url = "github:niksingh710/nsearch";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    probe-rs-rules.url = "github:jneem/probe-rs-rules";
   };
 
   ### Outputs
@@ -83,6 +83,7 @@
       perSystem = {pkgs, ...}: {
         devShells.default = import ./shell.nix pkgs;
         checks = import ./checks inputs;
+        packages = {docs = pkgs.callPackage ./docs.nix {} {inherit inputs pkgs;};};
       };
     };
 }

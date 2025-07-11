@@ -91,11 +91,13 @@ in {
       };
     };
 
-    home-manager.users.${my.mainUser}.programs.plasma.hotkeys.commands."replay" = mkIf (my.desktop.plasmaManager && my.homeManager) {
-      name = "Save GPU Screen Recorder Replay";
-      key = "Meta+Shift+R";
-      command = "${saveReplay}/bin/gpu-save-replay";
-      logs.enabled = true;
+    home-manager.users.${my.mainUser} = mkIf (my.desktop.plasmaManager && my.homeManager) {
+      programs.plasma.hotkeys.commands."replay" = {
+        name = "Save GPU Screen Recorder Replay";
+        key = "Meta+Shift+R";
+        command = "${save-replay}/bin/gpu-save-replay";
+        logs.enabled = true;
+      };
     };
   });
 }

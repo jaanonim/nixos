@@ -10,5 +10,5 @@ in {
     pkgs = inputs.nixpkgs;
   };
   makeDesktopIcon = inputs.nixpkgs.callPackage ./make-desktop-icon.nix {};
-  makeConfig = import ./make-config.nix {inherit inputs;};
+  makeConfig = import ./make-config.nix {inherit inputs lib;};
 }

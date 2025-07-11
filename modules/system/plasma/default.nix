@@ -26,7 +26,7 @@ in {
       description = "Window manager (wayland or x11)";
     };
     xdgPortal = {
-      enable = mkEnable {
+      enable = mkOption {
         type = types.bool;
         default = true;
         description = "Enable xdg portals";
@@ -54,7 +54,7 @@ in {
     plasmaManager = mkEnableOption "plasma manager";
   };
 
-  imports = mkIf cfg.enable [./cursor-fix.nix];
+  imports = [./cursor-fix.nix];
 
   config =
     mkIf cfg.enable {
@@ -85,10 +85,9 @@ in {
     }
     // mkIf (cfg.enable && cfg.desktopEnvironment == "plasma") {
       services = {
-        displayManager = {
-          defaultSession = "plasma";
-          plasma6.enable = true;
-        };
+        displayManager.defaultSession = "plasma";
+
+        desktopManager.plasma6.enable = true;
 
         power-profiles-daemon = {
           enable = true;

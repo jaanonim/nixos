@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}: {
   system,
   osConfig,
   baseModules ? [
@@ -7,7 +11,7 @@
   hardwareModules ? [],
   profileModules ? [],
 }:
-inputs.nixpkgs.lib.nixosSystem {
+inputs.nixpkgs.lib.nixosSystem rec {
   inherit system;
   pkgs = import inputs.nixpkgs {
     inherit system;
@@ -21,6 +25,6 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {
     inherit inputs;
 
-    jaanonim-pkgs = inputs.self.jaanonim-pkgs.${system};
+    jaanonim-pkgs = import ../pkgs {inherit inputs lib system pkgs;};
   };
 }

@@ -6,15 +6,15 @@
 }:
 with lib; let
   cfg = config.my.shell;
-  hm = config.my.homeManager;
+  my = config.my;
 in {
   options.my.shell = {
     zsh = {
-      enable = mkOptionEnable "zsh as default shell";
-      powerlevel10k = mkOptionEnable "powerlevel10k theme";
-      zshNixShell = mkOptionEnable "zsh nix shell";
+      enable = mkEnableOption "zsh as default shell";
+      powerlevel10k = mkEnableOption "powerlevel10k theme";
+      zshNixShell = mkEnableOption "zsh nix shell";
       ohMyZsh = {
-        enable = mkOptionEnable "Oh my zsh";
+        enable = mkEnableOption "Oh my zsh";
         plugins = mkOption {
           type = types.listOf types.str;
           default = ["git" "rust" "python" "sudo" "fzf" "man" "tldr"];
@@ -60,7 +60,7 @@ in {
       '';
     };
 
-    home-manager.users.${my.mainUser} = mkIf hm {
+    home-manager.users.${my.mainUser} = mkIf my.homeManager {
       programs.zsh = {
         enable = true;
         localVariables = {

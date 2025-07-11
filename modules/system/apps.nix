@@ -44,7 +44,7 @@ in {
     };
   };
 
-  imports = []; #builtins.map (path: ../apps + /${path}) (builtins.attrNames (builtins.readDir ../apps));
+  imports = builtins.map (path: ../apps + /${path}) (builtins.attrNames (builtins.readDir ../apps));
 
   config = {
     users.users.${my.mainUser}.packages = my._packages ++ my.extraUserPackages;

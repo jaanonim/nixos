@@ -20,7 +20,7 @@ in {
     };
     homeDirectory = mkOption {
       type = types.str;
-      default = "/home/${mainUser}";
+      default = "/home/${cfg.mainUser}";
       example = "/home/user";
       description = "Main user home directory";
     };
@@ -36,12 +36,8 @@ in {
   imports = [inputs.home-manager.nixosModules.default];
 
   config = {
-    # sops.secrets.jaanonim-password.neededForUsers = true;
-
-    # users.mutableUsers = false;
     users.users.${cfg.mainUser} = {
       isNormalUser = true;
-      # hashedPasswordFile = config.sops.secrets.jaanonim-password.path;
       description = cfg.mainUser;
       extraGroups = cfg.extraUserGroups;
     };
@@ -56,16 +52,19 @@ in {
     home-manager = mkIf cfg.homeManager {
       inherit extraSpecialArgs;
       backupFileExtension = "backup";
-      users.${cfg.mainUser}.home = {
-        username = cfg.mainUser;
-        homeDirectory = cfg.homeDirectory;
 
+      useGlobalPkgs = true;
+      useUserPackages = true;
+
+      users.${cfg.mainUser} = {
         programs.home-manager.enable = true;
 
-        useGlobalPkgs = true;
-        useUserPackages = true;
+        home = {
+          username = cfg.mainUser;
+          homeDirectory = cfg.homeDirectory;
 
-        stateVersion = "23.11"; # Don't touch
+          stateVersion = "23.11"; # Don't touch
+        };
       };
     };
   };

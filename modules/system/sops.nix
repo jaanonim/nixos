@@ -10,9 +10,10 @@ with lib; let
 in {
   options.my = {
     sops = mkEnableOption "sops";
+    setPassword = mkEnableOption "password for main user from sops";
   };
 
-  imports = mkIf my.sops [inputs.sops-nix.nixosModules.sops];
+  imports = [inputs.sops-nix.nixosModules.sops];
 
   config = mkIf my.sops {
     sops = {
@@ -23,6 +24,15 @@ in {
         keyFile = "/var/lib/sops-nix/key.txt";
         generateKey = true;
       };
+    };
+    # // mkIf my.setPassword {
+    #   secrets."${my.mainUser}-password".neededForUsers = true;
+    # };
+
+    users = mkIf my.setPassword {
+      # mutableUsers = false;
+      # users.${my.mainUser}.hashedPasswordFile = config.sops.secrets."${my.mainUser}-password".path;
+      users.${my.mainUser}.hashedPassword = "$y$j9T$CEENnZFWSSZy9uQOPkxpa0$sYTbOomy2Q4h13cVdqUwyvQPK9nGlYGy4XoE6WhtBp9";
     };
 
     home-manager.users.${my.mainUser} = mkIf my.homeManager {

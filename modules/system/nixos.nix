@@ -1,6 +1,8 @@
 {
   lib,
   config,
+  inputs,
+  pkgs,
   ...
 }:
 with lib; let
@@ -66,11 +68,11 @@ in {
   };
 
   config = {
-    environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
+    environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
     nix = {
-      warn-dirty = false;
+      # warn-dirty = false;
       channel.enable = false; # use flakes
-      registry.nixpkgs.flake = nixpkgs;
+      registry.nixpkgs.flake = inputs.nixpkgs;
 
       settings = {
         experimental-features = ["nix-command" "flakes"];
@@ -81,7 +83,7 @@ in {
         trusted-users = allowedUsers ++ cfg.extraAllowedUsers;
       };
 
-      optimise = mkIf cfg.optimise {
+      optimise = mkIf cfg.optimize {
         automatic = true;
         dates = cfg.optimiseDates;
       };
@@ -91,22 +93,11 @@ in {
         dates = cfg.gcDates;
         options = "--delete-older-than ${intervals.${cfg.gcDates}}";
       };
-
-      programs.nix-ld = mkIf (builtins.length cfg.libraries != 0) {
-        programs.nix-ld.enable = true;
-        programs.nix-ld.libraries = cfg.libraries;
-      };
     };
 
-    nixpkgs = {
-      config =
-        mkIf cfg.allowUnfree {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        }
-        // mkIf cfg.cuda {
-          cudaSupport = true;
-        };
+    programs.nix-ld = mkIf (builtins.length cfg.libraries != 0) {
+      enable = true;
+      libraries = cfg.libraries;
     };
   };
 }

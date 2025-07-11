@@ -13,10 +13,12 @@ in {
     gpuPciAddress = mkOption {
       type = types.str;
       default = "0000:01:00.0";
+      description = "PCI address for gpu";
     };
     gpuPciId = mkOption {
       type = types.str;
       default = "10de 25a2";
+      description = "PCI id for gpu";
     };
 
     vm = {
@@ -31,7 +33,7 @@ in {
         description = "Number of cpu cores for vm.";
       };
       ram = mkOption {
-        type = types.string;
+        type = types.str;
         default = "16G";
         description = "Amount of memory for vm.";
       };

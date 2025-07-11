@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = config.my.audio;
+  cfg = config.my.devices;
 in {
   options.my.devices = {
     printer = mkEnableOption "printer";
