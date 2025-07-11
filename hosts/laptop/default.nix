@@ -1,33 +1,19 @@
-{configLib, ...}: {
-  imports = [
-    ./hardware-configuration.nix
-    configLib.core
-    (configLib.optional /teminal.nix)
-    (configLib.optional /plasma.nix)
-    (configLib.optional /devices.nix)
-    (configLib.optional /flatpack.nix)
-    (configLib.optional /virtualisation.nix)
-    (configLib.optional /cursor-fix.nix)
-    (configLib.optional /vpn.nix)
-    (configLib.optional /disks.nix)
-    (configLib.optional /security.nix)
-    (configLib.optional /bluetooth.nix)
-    (configLib.optional /timers.nix)
-    (configLib.optional /sddm.nix)
-    (configLib.optional /udev.nix)
-    (configLib.optional /audio.nix)
-    (configLib.optional /docker.nix)
-    (configLib.optional /vfio.nix)
+{
+  lib,
+  self,
+  inputs,
+  ...
+}: {
+  flakePart.nixosConfigurations.laptop = lib.makeConfig {
+    osConfig = self.nixosConfigurations.laptop.config;
 
-    (configLib.users /jaanonim)
-    ./colors.nix
-  ];
-
-  networking.hostName = "laptop";
-  services.openssh = {
-    enable = false;
-    settings.PasswordAuthentication = false;
+    system = "x86_64-linux";
+    hardwareModules = [
+      inputs.nixos-hardware.nixosModules.lenovo-ideapad-15ach6
+      ./hardware-configuration.nix
+    ];
+    profileModules = [
+      ./configuration.nix
+    ];
   };
-
-  system.stateVersion = "24.05"; # Don't touch
 }
