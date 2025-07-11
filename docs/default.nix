@@ -9,7 +9,7 @@
 }: let
   modules = [
     {_module.check = false;}
-    ./modules/system
+    ../modules/system
   ];
 
   options =

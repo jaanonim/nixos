@@ -83,7 +83,7 @@
       perSystem = {pkgs, ...}: {
         devShells.default = import ./shell.nix pkgs;
         checks = import ./checks inputs;
-        packages = {docs = pkgs.callPackage ./docs.nix {} {inherit inputs pkgs;};};
+        packages = {docs = pkgs.callPackage ./docs {} {inherit inputs pkgs;};};
       };
     };
 }
