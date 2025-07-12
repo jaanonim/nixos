@@ -40,6 +40,7 @@
       # "syncthing" #TODO: fix
       "activitywatch"
       "plasma"
+      "ghostty"
       "dev"
       "nix_dev"
     ];
