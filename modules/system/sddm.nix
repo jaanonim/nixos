@@ -22,35 +22,37 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable {
-      services.displayManager.sddm = {
-        enable = true;
-        enableHidpi = false;
-        autoNumlock = true;
-        wayland.enable = my.display.displayManager == "wayland";
-      };
-    }
-    // mkIf (cfg.enable && cfg.useStylix) {
+  config = mkIf cfg.enable {
+    services.displayManager.sddm = {
+      enable = true;
+      enableHidpi = false;
+      autoNumlock = true;
+      wayland = mkIf (my.desktop.displayManager == "wayland") {enable = true;};
+
       # SDDM cursor
-      services.displayManager.sddm = {
-        settings = {
-          Theme = {
-            CursorTheme = cursor;
-          };
+      settings = mkIf cfg.useStylix {
+        Theme = {
+          CursorTheme = cursor;
         };
       };
-      # SDDM wallpaper
-      environment.systemPackages = [
+    };
+
+    # SDDM wallpaper
+    environment = mkIf cfg.useStylix {
+      systemPackages = [
         (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
           [General]
           background=${wallpaper}
           type=image
         '')
       ];
-      # SDDM colors
-      systemd.tmpfiles.rules = [
+    };
+
+    # SDDM colors
+    systemd.tmpfiles = mkIf cfg.useStylix {
+      rules = [
         "L+ /var/lib/sddm/.config/kdeglobals - - - - ${lib.kdeColorScheme base16Scheme}/kdeglobals"
       ];
     };
+  };
 }

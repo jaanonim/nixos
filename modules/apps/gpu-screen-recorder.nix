@@ -91,7 +91,7 @@ in {
       };
     };
 
-    home-manager.users.${my.mainUser} = mkIf (my.desktop.plasmaManager && my.homeManager) {
+    home-manager.users.${my.mainUser} = mkIf (my.desktop.plasma.plasmaManager && my.homeManager) {
       programs.plasma.hotkeys.commands."replay" = {
         name = "Save GPU Screen Recorder Replay";
         key = "Meta+Shift+R";

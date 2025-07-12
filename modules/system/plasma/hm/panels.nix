@@ -1,13 +1,12 @@
 {
   lib,
-  configLib,
-  pkgs,
   config,
   inputs,
+  pkgs,
   ...
-} @ args: let
+}: let
   base16SchemeFile = config.stylix.base16Scheme;
-  base16Scheme = (inputs.stylix.inputs.base16.lib args).mkSchemeAttrs base16SchemeFile;
+  base16Scheme = (inputs.stylix.inputs.base16.lib {inherit pkgs lib;}).mkSchemeAttrs base16SchemeFile;
   mkPanel = screen: {
     location = "bottom";
     height = 40;
@@ -23,7 +22,7 @@
       # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
       {
         kickoff = {
-          icon = "${configLib.get_util "profile-image" {inherit pkgs;}}/profile.png";
+          icon = "${lib.profileImage}/profile.png";
           showActionButtonCaptions = false;
           settings = {
             switchCategoryOnHover = true;

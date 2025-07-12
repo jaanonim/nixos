@@ -3,6 +3,7 @@
   self,
   config,
   lib,
+  jaanonim-pkgs,
   ...
 }:
 with lib; let

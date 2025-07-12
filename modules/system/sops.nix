@@ -24,10 +24,10 @@ in {
         keyFile = "/var/lib/sops-nix/key.txt";
         generateKey = true;
       };
+      secrets = mkIf my.setPassword {
+        "${my.mainUser}-password".neededForUsers = true;
+      };
     };
-    # // mkIf my.setPassword {
-    #   secrets."${my.mainUser}-password".neededForUsers = true;
-    # };
 
     users = mkIf my.setPassword {
       # mutableUsers = false;

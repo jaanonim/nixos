@@ -1,6 +1,6 @@
 {
   inputs,
-  configLib,
+  lib,
   ...
 }: {
   imports = [
@@ -40,5 +40,5 @@
     };
   };
 
-  home.file.".config/fontconfig/conf.d/56-kubuntu-noto.conf".source = configLib.root /config/56-kubuntu-noto.conf; # fix for font in plasma
+  home.file.".config/fontconfig/conf.d/56-kubuntu-noto.conf".source = lib.root /config/56-kubuntu-noto.conf; # fix for font in plasma
 }

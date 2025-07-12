@@ -13,4 +13,5 @@ in rec {
   kdeColorScheme = import ./kde-color-scheme.nix {inherit lib pkgs kdeFormatConfig;};
   makeDesktopIcon = pkgs.callPackage ./make-desktop-icon.nix {};
   makeConfig = import ./make-config.nix {inherit inputs lib;};
+  profileImage = import ./profile-image.nix {inherit pkgs;};
 }
