@@ -27,8 +27,8 @@ in {
       description = "Target player package";
     };
     filePath = mkOption {
-      type = types.path;
-      default = /home/jaanonim/Muzyka/go_to_sleep.mp4;
+      type = types.str;
+      default = "/home/jaanonim/Muzyka/go_to_sleep.mp4";
       description = "File to be played";
     };
   };
@@ -45,7 +45,7 @@ in {
 
     systemd.services."yt" = {
       script = ''
-        ${cfg.player} ${escapeShellArg filePath}
+        ${cfg.player} ${escapeShellArg cfg.filePath}
       '';
       serviceConfig = {
         Type = "oneshot";

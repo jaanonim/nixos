@@ -23,13 +23,13 @@ in {
 
     vm = {
       defaultImage = mkOption {
-        type = types.path;
-        default = /mnt/dane/Virtual/windows10.qcow2;
+        type = types.str;
+        default = "/mnt/dane/Virtual/windows10.qcow2";
         description = "Path to image that will be booted by default.";
       };
       cpu = mkOption {
-        type = types.number;
-        default = 6;
+        type = types.str;
+        default = "6";
         description = "Number of cpu cores for vm.";
       };
       ram = mkOption {
@@ -49,8 +49,8 @@ in {
       set -e
 
       if [ -z "$1" ]; then
-        echo "No disk image path provided. Using default: ${cfg.defaultImage}"
-        DISK_IMAGE="${cfg.defaultImage}"
+        echo "No disk image path provided. Using default: ${cfg.vm.defaultImage}"
+        DISK_IMAGE="${cfg.vm.defaultImage}"
       else
         DISK_IMAGE="$1"
       fi

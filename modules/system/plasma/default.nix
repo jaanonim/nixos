@@ -54,7 +54,7 @@ in {
     plasmaManager = mkEnableOption "plasma manager";
   };
 
-  imports = [./cursor-fix.nix];
+  # imports = [./cursor-fix.nix]; #TODO fix
 
   config =
     mkIf cfg.enable {
@@ -85,9 +85,9 @@ in {
     }
     // mkIf (cfg.enable && cfg.desktopEnvironment == "plasma") {
       services = {
-        displayManager.defaultSession = "plasma";
-
         desktopManager.plasma6.enable = true;
+
+        displayManager.defaultSession = "plasma";
 
         power-profiles-daemon = {
           enable = true;
@@ -104,6 +104,6 @@ in {
         konsole
       ];
 
-      home-manager.users.${my.mainUser} = mkIf (cfg.plasmaManager && my.homeManager) import ./hm {inherit args;};
+      home-manager.users.${my.mainUser} = mkIf (cfg.plasmaManager && my.homeManager) (import ./hm {inherit args;});
     };
 }

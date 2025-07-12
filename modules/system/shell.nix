@@ -95,7 +95,7 @@ in {
       };
 
       home.file.".p10k.zsh" = mkIf cfg.zsh.powerlevel10k {
-        source = configLib.root /config/.p10k.zsh;
+        source = lib.root /config/.p10k.zsh;
         executable = true;
       };
     };

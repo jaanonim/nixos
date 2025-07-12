@@ -40,6 +40,7 @@ in {
       isNormalUser = true;
       description = cfg.mainUser;
       extraGroups = cfg.extraUserGroups;
+      home = cfg.homeDirectory;
     };
 
     security.sudo.extraRules = [

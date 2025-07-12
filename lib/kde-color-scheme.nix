@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  kdeFormatConfig,
   ...
 }: base16Scheme: let
   colorschemeSlug =
@@ -69,7 +70,7 @@
   };
 in
   pkgs.runCommand "kde-color-sheme" {
-    colorscheme = lib.kdeFormatConfig colorscheme;
+    colorscheme = kdeFormatConfig colorscheme;
   } ''
     write_text() {
       mkdir --parents "$(dirname "$2")"

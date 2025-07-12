@@ -24,6 +24,8 @@ inputs.nixpkgs.lib.nixosSystem rec {
   modules = baseModules ++ hardwareModules ++ profileModules;
   specialArgs = {
     inherit inputs;
+    # pass re-extend lib with system info
+    lib = inputs.nixpkgs.lib.extend (_: _: (import ./default.nix {inherit inputs system;}));
 
     jaanonim-pkgs = import ../pkgs {inherit inputs lib system pkgs;};
   };
