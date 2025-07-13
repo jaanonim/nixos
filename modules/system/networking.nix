@@ -1,0 +1,40 @@
+{
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  my = config.my;
+  cfg = config.my.networking;
+in {
+  options.my.networking = {
+    networkmanager = mkEnableOption "Network manager to control networking settings";
+    firewall = mkEnableOption "Firewall";
+    dns = mkOption {
+      type = types.listOf types.str;
+      default = ["192.168.1.150" "1.1.1.1" "1.0.0.1"];
+      example = ["1.1.1.1" "1.0.0.1"];
+      description = "List of DNS servers to use";
+    };
+    ssh = mkEnableOption "ssh server";
+  };
+
+  config = {
+    networking = {
+      enableIPv6 = true;
+      firewall.enable = cfg.firewall;
+      nameservers = cfg.dns;
+      hostName = my.hostname;
+    };
+
+    services.openssh = {
+      enable = cfg.ssh;
+      settings.PasswordAuthentication = false;
+    };
+
+    systemd.services.NetworkManager-wait-online.enable = my.boot.optimize;
+
+    networking.networkmanager.enable = cfg.networkmanager;
+    users.extraGroups = mkIf cfg.networkmanager {networkmanager.members = [my.mainUser];};
+  };
+}
