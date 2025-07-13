@@ -17,7 +17,8 @@ in {
         enable = mkEnableOption "Oh my zsh";
         plugins = mkOption {
           type = types.listOf types.str;
-          default = ["git" "rust" "python" "sudo" "fzf" "man" "tldr"];
+          default = ["sudo" "fzf"];
+          example = ["git" "rust" "python" "sudo" "fzf" "man" "tldr"];
           description = "List of oh my zsh plugins";
         };
       };
@@ -26,11 +27,7 @@ in {
     aliases = mkOption {
       type = types.attrsOf types.str;
       default = {
-        nd = "nix develop -c zsh";
         ns = "NIXPKGS_ALLOW_UNFREE=1 nix-shell -p $(nsearch)";
-        ports = "lsof -i -P -n | grep LISTEN";
-        nas = "ssh 192.168.1.102";
-        homepi = "ssh 192.168.1.150";
       };
       example = {
         name = "command";

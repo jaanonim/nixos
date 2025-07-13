@@ -3,7 +3,7 @@ with lib; {
   options.my = {
     hostname = mkOption {
       type = types.str;
-      default = "Laptop";
+      example = "Laptop";
       description = "Hostname for machine";
     };
   };

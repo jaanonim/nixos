@@ -12,8 +12,7 @@ in {
     firewall = mkEnableOption "Firewall";
     dns = mkOption {
       type = types.listOf types.str;
-      default = ["192.168.1.150" "1.1.1.1" "1.0.0.1"];
-      example = ["1.1.1.1" "1.0.0.1"];
+      default = ["1.1.1.1" "1.0.0.1"];
       description = "List of DNS servers to use";
     };
     ssh = mkEnableOption "ssh server";

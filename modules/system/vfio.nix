@@ -12,19 +12,19 @@ in {
     enable = mkEnableOption "vifo - gpu vm passthrough";
     gpuPciAddress = mkOption {
       type = types.str;
-      default = "0000:01:00.0";
+      example = "0000:01:00.0";
       description = "PCI address for gpu";
     };
     gpuPciId = mkOption {
       type = types.str;
-      default = "10de 25a2";
+      example = "10de 25a2";
       description = "PCI id for gpu";
     };
 
     vm = {
       defaultImage = mkOption {
         type = types.str;
-        default = "/mnt/dane/Virtual/windows10.qcow2";
+        example = "/mnt/dane/Virtual/windows10.qcow2";
         description = "Path to image that will be booted by default.";
       };
       cpu = mkOption {

@@ -12,11 +12,13 @@ in {
         optimize = mkOption {
           type = types.bool;
           default = true;
+          example = false;
           description = "Optimize for faster boot time";
         };
         bootloaderTimeout = mkOption {
           type = types.int;
-          default = 1;
+          default = 3;
+          example = 1;
           description = "Grub system picker timeout";
         };
         grubConfigurationLimit = mkOption {

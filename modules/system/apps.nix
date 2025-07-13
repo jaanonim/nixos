@@ -5,31 +5,12 @@
 }:
 with lib; let
   my = config.my;
-  defaultApps = [
-    "basic"
-    "tools"
-    "terminal"
-    "media"
-    "gaming"
-    "discord"
-    "obsidian"
-    "gpu-screen-recorder"
-    "syncthing"
-    "activitywatch"
-    "plasma"
-    "dev"
-    "nix_dev"
-    # "unity_dev"
-    # "android_dev"
-    # "gns3"
-    # "wireshark"
-  ];
 in {
   options.my = {
     apps = mkOption {
       type = types.listOf types.str;
-      default = defaultApps;
-      example = ["basic" "dev"];
+      default = ["git" "terminal" "tmux"];
+      example = [];
       description = "What apps packages to use";
     };
     extraUserPackages = mkOption {

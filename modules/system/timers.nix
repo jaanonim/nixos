@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -12,23 +11,22 @@ in {
     enable = mkEnableOption "yt timer";
     time = mkOption {
       type = types.str;
-      default = "23:45:00";
       example = "12:00:00";
       description = "Time to play video";
     };
     player = mkOption {
       type = types.str;
-      default = "brave";
+      example = "brave";
       description = "Target player name";
     };
     playerPackage = mkOption {
       type = types.package;
-      default = pkgs.brave;
+      example = lib.literalExpression "pkgs.brave";
       description = "Target player package";
     };
     filePath = mkOption {
       type = types.str;
-      default = "/home/jaanonim/Muzyka/go_to_sleep.mp4";
+      example = "/home/jaanonim/Muzyka/go_to_sleep.mp4";
       description = "File to be played";
     };
   };

@@ -9,9 +9,7 @@ in {
   options.my = {
     disks = mkOption {
       type = types.attrsOf types.str;
-      default = {
-        "/mnt/dane" = "/dev/disk/by-uuid/ee53362c-cad2-4ac1-9060-02c868233572";
-      };
+      default = {};
       example = {
         "path" = "device";
       };

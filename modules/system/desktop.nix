@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 with lib; let
@@ -12,7 +11,8 @@ in {
     enable = mkEnableOption "desktop environment";
     xserver = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
+      example = true;
       description = "Enable xserver";
     };
     defaultDesktop = mkOption {
@@ -33,17 +33,15 @@ in {
       };
       portals = mkOption {
         type = types.listOf types.package;
-        default = with pkgs; [
-          kdePackages.xdg-desktop-portal-kde
-          xdg-desktop-portal-gtk
-        ];
-        example = [];
+        default = [];
+        example = lib.literalExpression ''with pkgs; [ kdePackages.xdg-desktop-portal-kde xdg-desktop-portal-gtk ]'';
         description = "Xdg extra portals list";
       };
     };
     xwayland = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
+      example = true;
       description = "Enable xwayland";
     };
     kdeconnect = mkOption {
@@ -58,6 +56,10 @@ in {
       {
         assertion = cfg.defaultDesktop == "plasma" -> cfg.plasma.enable;
         message = "plasma need to be enabled to be default desktop";
+      }
+      {
+        assertion = cfg.xwayland -> cfg.xserver;
+        message = "xserver need to be enabled to use xwayland";
       }
     ];
 

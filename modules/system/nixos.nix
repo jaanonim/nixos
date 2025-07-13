@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  pkgs,
   ...
 }:
 with lib; let
@@ -50,7 +49,7 @@ in {
     libraries = mkOption {
       type = types.listOf types.package;
       default = [];
-      example = [pkgs.hello];
+      example = lib.literalExpression "[pkgs.hello]";
       description = "Extra libraries to be linked globally";
     };
     allowUnfree = mkOption {
@@ -61,8 +60,8 @@ in {
     };
     cuda = mkOption {
       type = types.bool;
-      default = true;
-      example = false;
+      default = false;
+      example = true;
       description = "Enable cuda support in nixpkgs";
     };
   };
