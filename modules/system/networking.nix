@@ -19,25 +19,22 @@ in {
     ssh = mkEnableOption "ssh server";
   };
 
-  config =
-    {
-      networking = {
-        enableIPv6 = true;
-        firewall.enable = cfg.firewall;
-        nameservers = cfg.dns;
-        hostName = my.hostname;
-      };
-
-      services.openssh = {
-        enable = cfg.ssh;
-        settings.PasswordAuthentication = false;
-      };
-    }
-    // mkIf my.boot.optimize {
-      systemd.services.NetworkManager-wait-online.enable = false;
-    }
-    // mkIf cfg.networkmanager {
-      networking.networkmanager.enable = true;
-      users.extraGroups.networkmanager.members = [my.mainUser];
+  config = {
+    networking = {
+      enableIPv6 = true;
+      firewall.enable = cfg.firewall;
+      nameservers = cfg.dns;
+      hostName = my.hostname;
     };
+
+    services.openssh = {
+      enable = cfg.ssh;
+      settings.PasswordAuthentication = false;
+    };
+
+    systemd.services.NetworkManager-wait-online.enable = my.boot.optimize;
+
+    networking.networkmanager.enable = cfg.networkmanager;
+    users.extraGroups = mkIf cfg.networkmanager {networkmanager.members = [my.mainUser];};
+  };
 }

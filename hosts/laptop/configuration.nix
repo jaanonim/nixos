@@ -6,7 +6,7 @@
     homeDirectory = "/home/jaaonim";
     extraUserGroups = ["wheel"];
     hostname = "Laptop";
-    setPassword = true;
+    setPassword = false;
     sops = true;
     homeManager = true;
     shell = {
@@ -37,7 +37,7 @@
       "discord"
       "obsidian"
       "gpu-screen-recorder"
-      # "syncthing" #TODO: fix
+      "syncthing"
       "activitywatch"
       "plasma"
       "ghostty"
@@ -82,7 +82,7 @@
     };
     docker = {
       enable = true;
-      nvidia = false; # TODO fix
+      nvidia = true;
     };
     flatpak = true;
     locale = {

@@ -16,15 +16,15 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable {
-      services.tailscale = {
-        enable = true;
-        extraSetFlags = ["--accept-routes=true" "--operator=jaanonim"];
-      };
-    }
-    // mkIf (cfg.enable && cfg.withTailTray) {
-      environment.systemPackages = with pkgs; [tail-tray];
-      environment.etc."xdg/autostart/tail-tray.desktop".source = "${pkgs.tail-tray}/share/applications/tail-tray.desktop";
+  config = mkIf cfg.enable {
+    services.tailscale = {
+      enable = true;
+      extraSetFlags = ["--accept-routes=true" "--operator=jaanonim"];
     };
+
+    environment = mkIf cfg.withTailTray {
+      systemPackages = with pkgs; [tail-tray];
+      etc."xdg/autostart/tail-tray.desktop".source = "${pkgs.tail-tray}/share/applications/tail-tray.desktop";
+    };
+  };
 }

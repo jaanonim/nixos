@@ -16,16 +16,13 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable {
-      virtualisation.docker = {
-        enable = true;
-        enableOnBoot = false;
-        autoPrune.enable = true;
-      };
-      users.extraGroups.docker.members = [my.mainUser];
-    }
-    // mkIf (cfg.enable && cfg.nvidia) {
-      hardware.nvidia-container-toolkit.enable = true;
+  config = mkIf cfg.enable {
+    virtualisation.docker = {
+      enable = true;
+      enableOnBoot = false;
+      autoPrune.enable = true;
     };
+    users.extraGroups.docker.members = [my.mainUser];
+    hardware.nvidia-container-toolkit.enable = cfg.nvidia;
+  };
 }

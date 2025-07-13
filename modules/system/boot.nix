@@ -33,26 +33,24 @@ in {
     };
   };
 
-  config =
-    {
-      boot = {
-        loader = {
-          timeout = cfg.bootloaderTimeout;
-          systemd-boot.enable = false;
-          efi.canTouchEfiVariables = true;
-          grub = {
-            efiSupport = true;
-            device = "nodev";
-            configurationLimit = cfg.grubConfigurationLimit;
-          };
+  config = {
+    boot = {
+      loader = {
+        timeout = cfg.bootloaderTimeout;
+        systemd-boot.enable = false;
+        efi.canTouchEfiVariables = true;
+        grub = {
+          efiSupport = true;
+          device = "nodev";
+          configurationLimit = cfg.grubConfigurationLimit;
         };
       };
-    }
-    // mkIf cfg.optimize {
-      services.journald.extraConfig = "SystemMaxUse=512M";
-      systemd.extraConfig = "DefaultTimeoutStopSec=16s";
-    }
-    // mkIf cfg.quietBoot {
-      boot.kernelParams = ["quiet"];
+      kernelParams =
+        if cfg.quietBoot
+        then ["quiet"]
+        else [];
     };
+    services.journald = mkIf cfg.optimize {extraConfig = "SystemMaxUse=512M";};
+    systemd = mkIf cfg.optimize {extraConfig = "DefaultTimeoutStopSec=16s";};
+  };
 }
