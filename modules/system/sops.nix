@@ -30,9 +30,8 @@ in {
     };
 
     users = mkIf my.setPassword {
-      # mutableUsers = false;
-      # users.${my.mainUser}.hashedPasswordFile = config.sops.secrets."${my.mainUser}-password".path;
-      users.${my.mainUser}.hashedPassword = "$y$j9T$CEENnZFWSSZy9uQOPkxpa0$sYTbOomy2Q4h13cVdqUwyvQPK9nGlYGy4XoE6WhtBp9";
+      mutableUsers = false;
+      users.${my.mainUser}.hashedPasswordFile = config.sops.secrets."${my.mainUser}-password".path;
     };
 
     home-manager.users.${my.mainUser} = mkIf my.homeManager {

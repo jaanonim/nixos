@@ -31,6 +31,12 @@ in {
       example = [];
       description = "Main user extra groups";
     };
+    mainUserPassword = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "password";
+      description = "Don't set this is unsafe. Just for testing.";
+    };
     homeManager = mkEnableOption "home-manager";
   };
 
@@ -42,6 +48,7 @@ in {
       description = cfg.mainUser;
       extraGroups = cfg.extraUserGroups;
       home = cfg.homeDirectory;
+      password = cfg.mainUserPassword;
     };
 
     security.sudo.extraRules = [
