@@ -3,8 +3,8 @@
   self,
   ...
 }: {
-  flakePart.nixosConfigurations.test = lib.makeConfig {
-    osConfig = self.nixosConfigurations.test.config;
+  flakePart.nixosConfigurations.minimal = lib.makeConfig {
+    osConfig = self.nixosConfigurations.minimal.config;
 
     system = "x86_64-linux";
     hardwareModules = [];

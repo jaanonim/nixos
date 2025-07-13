@@ -1,16 +1,15 @@
 {
-  modulesPath,
-  configLib,
+  lib,
+  self,
   ...
 }: {
-  imports = [
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+  flakePart.nixosConfigurations.iso = lib.makeConfig {
+    osConfig = self.nixosConfigurations.iso.config;
 
-    (configLib.some_core /localization.nix)
-    (configLib.some_core /nixos.nix)
-    (configLib.some_core /zsh.nix)
-    # (configLib.optional /teminal.nix)
-  ];
-
-  hardware.enableRedistributableFirmware = true;
+    system = "x86_64-linux";
+    hardwareModules = [];
+    profileModules = [
+      ./configuration.nix
+    ];
+  };
 }

@@ -34,6 +34,3 @@ iso:
 
 update-secrets:
 	nix flake lock --update-input jaanonim-secrets
-
-test path:
-	nix eval --impure --verbose --expr 'let flake = builtins.getFlake (toString ./.); pkgs = flake.inputs.nixpkgs.legacyPackages.x86_64-linux; in pkgs.lib.evalModules { modules = [ {{ path }} ]; specialArgs = { inputs = flake.inputs; }; } '
