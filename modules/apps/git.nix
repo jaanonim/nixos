@@ -15,7 +15,7 @@ in {
       lfs.enable = true;
     };
 
-    home-manager.users.${my.mainUser} = mkIf my.mainUser {
+    home-manager.users.${my.mainUser} = mkIf my.homeManager {
       programs.git = {
         enable = true;
         userName = "jaanonim";

@@ -3,7 +3,7 @@
 
   my = {
     mainUser = "jaanonim";
-    homeDirectory = "/home/jaaonim";
+    homeDirectory = "/home/jaanonim";
     extraUserGroups = ["wheel"];
     hostname = "Laptop";
     setPassword = false;
@@ -29,20 +29,23 @@
       };
     };
     apps = [
-      "basic"
-      "tools"
-      "terminal"
-      "media"
-      "gaming"
-      "discord"
-      "obsidian"
-      "gpu-screen-recorder"
-      "syncthing"
       "activitywatch"
-      "plasma"
-      "ghostty"
+      "basic"
       "dev"
+      "discord"
+      "gaming"
+      "ghostty"
+      "git"
+      "gpu-screen-recorder"
+      "media"
       "nix_dev"
+      "obsidian"
+      "plasma"
+      "syncthing"
+      "terminal"
+      "tmux"
+      "tools"
+      "wakatime"
     ];
     audio.enable = true;
     bluetooth.enable = true;
