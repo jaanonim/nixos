@@ -1,10 +1,10 @@
-# nixos
+# NixOS Configuration
 
-My nixos configuration
+My NixOS configuration
 
 ## Docs
 
-https://jaanonim.github.io/nixos/
+My modules are documented at [jaanonim.github.io/nixos](https://jaanonim.github.io/nixos/).
 
 ## Usage
 
@@ -25,3 +25,5 @@ Build iso image:
 ```bash
 just iso
 ```
+
+For more commands, see `just` file.

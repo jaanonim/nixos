@@ -1,22 +1,17 @@
-TAG:="laptop"
-
 default:
-  @just --list
-
-rebuild-pre:
-	git add .
+    @just --list
 
 rebuild:
-	just rebuild-pre
-	sudo nixos-rebuild switch --impure --flake ./#{{TAG}}
+	git add .
+	nh os switch .
 
 repair:
-	just rebuild-pre
-	sudo nixos-rebuild switch --repair --impure --flake ./#{{TAG}}
+	git add .
+	nh os switch . -- --repair
 
 rebuild-trace:
-	just rebuild-pre
-	sudo nixos-rebuild switch --impure --flake ./#{{TAG}} --show-trace
+	git add .
+	nh os switch . -- --show-trace
 
 checks:
 	. scripts/checks.sh
@@ -25,12 +20,16 @@ update:
 	nix flake update --no-warn-dirty
 
 rebuild-update:
-	just update
-	just rebuild
+	git add .
+	nh os switch . -u
 
 iso:
-	just rebuild-pre
+	git add .
 	nix build .#nixosConfigurations.iso.config.system.build.isoImage
 
 update-secrets:
 	nix flake lock --update-input jaanonim-secrets
+
+docs:
+	git add .
+	nix build .#docs

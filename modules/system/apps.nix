@@ -9,7 +9,7 @@ in {
   options.my = {
     apps = mkOption {
       type = types.listOf types.str;
-      default = ["git" "terminal" "tmux"];
+      default = ["git" "terminal" "tmux" "nix_dev"];
       example = [];
       description = "What apps packages to use";
     };
