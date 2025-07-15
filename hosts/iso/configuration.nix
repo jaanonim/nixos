@@ -32,7 +32,6 @@
     networking = {
       firewall = false;
       networkmanager = true;
-      ssh = true;
     };
     nix = {
       allowUnfree = true;

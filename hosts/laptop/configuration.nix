@@ -101,7 +101,10 @@
       ];
       firewall = true;
       networkmanager = true;
-      ssh = true;
+    };
+    ssh = {
+      enable = false;
+      insertPrivKeys = true;
     };
     nix = {
       allowUnfree = true;

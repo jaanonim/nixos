@@ -15,7 +15,6 @@ in {
       default = ["1.1.1.1" "1.0.0.1"];
       description = "List of DNS servers to use";
     };
-    ssh = mkEnableOption "ssh server";
   };
 
   config = {
@@ -24,11 +23,6 @@ in {
       firewall.enable = cfg.firewall;
       nameservers = cfg.dns;
       hostName = my.hostname;
-    };
-
-    services.openssh = {
-      enable = cfg.ssh;
-      settings.PasswordAuthentication = false;
     };
 
     systemd.services.NetworkManager-wait-online.enable = my.boot.optimize;
