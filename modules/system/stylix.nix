@@ -1,6 +1,5 @@
 {
   lib,
-  inputs,
   config,
   ...
 }:
@@ -10,8 +9,6 @@ in {
   options.my.stylix = {
     enable = mkEnableOption "stylix";
   };
-
-  imports = [inputs.stylix.nixosModules.stylix];
 
   config = mkIf cfg.enable {
     stylix = {

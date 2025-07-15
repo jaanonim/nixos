@@ -6,7 +6,7 @@
   system,
   osConfig,
   baseModules ? [
-    ../modules/system
+    ../modules
   ],
   hardwareModules ? [],
   profileModules ? [],
@@ -21,7 +21,7 @@ inputs.nixpkgs.lib.nixosSystem rec {
       cudaSupport = osConfig.my.nix.cuda;
     };
   };
-  modules = baseModules ++ hardwareModules ++ profileModules;
+  modules = (import ../modules/imports.nix {inherit system inputs;}) ++ baseModules ++ hardwareModules ++ profileModules;
   specialArgs = {
     inherit inputs;
     # pass re-extend lib with system info

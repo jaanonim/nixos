@@ -40,8 +40,6 @@ in {
     homeManager = mkEnableOption "home-manager";
   };
 
-  imports = [inputs.home-manager.nixosModules.default];
-
   config = {
     users.users.${cfg.mainUser} = {
       isNormalUser = true;

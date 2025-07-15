@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   config,
   ...
@@ -7,8 +6,6 @@
 with lib; let
   cfg = config.my.udev;
 in {
-  imports = [inputs.probe-rs-rules.nixosModules.x86_64-linux.default]; # TODO: fix hardcoded system
-
   options.my.udev = {
     enable = mkEnableOption "Extra udev rules";
   };

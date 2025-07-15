@@ -13,8 +13,6 @@ in {
     setPassword = mkEnableOption "password for main user from sops";
   };
 
-  imports = [inputs.sops-nix.nixosModules.sops];
-
   config = mkIf my.sops {
     sops = {
       defaultSopsFile = "${secrets-path}/secrets.yaml";
