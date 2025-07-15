@@ -5,7 +5,7 @@
     mainUser = "jaanonim";
     homeDirectory = "/home/jaanonim";
     extraUserGroups = ["wheel"];
-    hostname = "Laptop";
+    hostname = "laptop";
     setPassword = false;
     sops = true;
     homeManager = true;
@@ -95,7 +95,7 @@
     };
     networking = {
       dns = [
-        "192.168.1.150"
+        # "192.168.1.150"
         "1.1.1.1"
         "1.0.0.1"
       ];
@@ -135,6 +135,7 @@
     };
     virtualbox.enable = true;
     vpn.tailscale.enable = true;
+    crossCompileSystems = ["aarch64-linux"];
   };
 
   system.stateVersion = "24.05"; # Don't touch
