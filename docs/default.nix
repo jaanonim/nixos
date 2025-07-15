@@ -93,5 +93,5 @@ in
       echo ""; \
       cat ${docsMarkdown}; \
     } > $out/docs.md
-    sed -i 's/file:\/\///' $out/docs.md # Remove 'file://' prefix from links
+    sed -i 's/file:\/\//https:\/\/github.com\/jaanonim\/nixos\/tree\/master/' $out/docs.md # Remove 'file://' prefix from links
   ''
