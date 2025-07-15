@@ -49,6 +49,7 @@
     ];
     audio.enable = true;
     bluetooth.enable = true;
+    stylix.enable = true;
     boot = {
       bootloaderTimeout = 1;
       grubConfigurationLimit = 16;

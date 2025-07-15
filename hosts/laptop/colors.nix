@@ -9,12 +9,7 @@
     name = "wallpaper.jpg";
   };
 in {
-  imports = [inputs.stylix.nixosModules.stylix];
-
   stylix = {
-    enable = true;
-    autoEnable = true;
-
     image = wallpaper;
 
     base16Scheme = "${inputs.tt-schemes}/base16/material-darker.yaml";

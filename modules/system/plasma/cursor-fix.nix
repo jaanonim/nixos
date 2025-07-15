@@ -9,7 +9,10 @@ idk if it's needed
 }: {
   config = lib.mkIf config.my.desktop.enable (
     let
-      cursor = config.stylix.cursor.package;
+      cursor =
+        if config.my.stylix.enable
+        then config.stylix.cursor.package
+        else null;
     in {
       system.fsPackages = [pkgs.bindfs];
       fileSystems = let

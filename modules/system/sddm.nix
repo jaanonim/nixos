@@ -23,6 +23,13 @@ in {
   };
 
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.useStylix -> my.stylix.enable;
+        message = "to use stylix in sddm, stylix need to be enabled";
+      }
+    ];
+
     services.displayManager.sddm = {
       enable = true;
       enableHidpi = false;
