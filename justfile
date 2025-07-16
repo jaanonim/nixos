@@ -33,3 +33,7 @@ update-secrets:
 docs:
 	git add .
 	nix build .#docs
+
+homepi:
+	git add .
+	nh os switch . -H homepi --target-host 192.168.1.150

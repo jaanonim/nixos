@@ -23,11 +23,12 @@ in {
       enable = cfg.enable;
       settings.PasswordAuthentication = !(my.sops && my.homeManager);
     };
-    users.users.${my.mainUser} = mkIf cfg.enable {
-      openssh.authorizedKeys.keyFiles = [
-        "${my.homeDirectory}/.ssh/id_ed25519.pub"
-      ];
-    };
+    #TODO: fix
+    # users.users.${my.mainUser} = mkIf cfg.enable {
+    #   openssh.authorizedKeys.keyFiles = [
+    #     "${my.homeDirectory}/.ssh/id_ed25519.pub"
+    #   ];
+    # };
 
     home-manager.users.${my.mainUser} = mkIf (my.sops && my.homeManager) {
       sops.secrets = {
