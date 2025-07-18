@@ -58,7 +58,7 @@
   transformedOptions = walkAttrs "declarations" storeToRelativePath options;
 
   docs = nixosOptionsDoc {
-    options = lib.traceVal transformedOptions;
+    options = transformedOptions;
   };
 
   optionsJson = pkgs.runCommand "options-json" {} ''

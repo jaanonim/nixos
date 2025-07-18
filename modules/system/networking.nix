@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -27,7 +28,13 @@ in {
 
     systemd.services.NetworkManager-wait-online.enable = my.boot.optimize;
 
-    networking.networkmanager.enable = cfg.networkmanager;
-    users.extraGroups = mkIf cfg.networkmanager {networkmanager.members = [my.mainUser];};
+    networking.networkmanager = mkIf cfg.networkmanager {
+      enable = true;
+      dns = "none";
+      plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
+    };
+    users.extraGroups.networkmanager = mkIf cfg.networkmanager {members = [my.mainUser];};
   };
 }
