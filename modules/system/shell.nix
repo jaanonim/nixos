@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.my.shell;
-  my = config.my;
+  inherit (config) my;
 in {
   options.my.shell = {
     zsh = {

@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  my = config.my;
+  inherit (config) my;
   cfg = config.my.nix;
   allowedUsers = [
     "root"

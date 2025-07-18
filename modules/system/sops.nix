@@ -6,7 +6,7 @@
 }:
 with lib; let
   secrets-path = builtins.toString inputs.jaanonim-secrets;
-  my = config.my;
+  inherit (config) my;
 in {
   options.my = {
     sops = mkEnableOption "sops";

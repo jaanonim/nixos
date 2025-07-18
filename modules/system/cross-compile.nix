@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  my = config.my;
+  inherit (config) my;
 in {
   options.my = {
     crossCompileSystems = mkOption {

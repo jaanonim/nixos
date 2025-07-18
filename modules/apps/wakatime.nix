@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  my = config.my;
+  inherit (config) my;
 in {
   config = mkIf (builtins.any (ele: (ele == (lib.removeSuffix ".nix" (baseNameOf __curPos.file)))) my.apps) {
     home-manager.users.${my.mainUser} = mkIf my.homeManager {

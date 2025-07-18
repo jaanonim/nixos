@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  my = config.my;
+  inherit (config) my;
   cfg = config.my.docker;
 in {
   options.my.docker = {

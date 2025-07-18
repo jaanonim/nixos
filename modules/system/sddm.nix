@@ -6,7 +6,7 @@
   ...
 } @ args:
 with lib; let
-  my = config.my;
+  inherit (config) my;
   cfg = config.my.sddm;
   base16Scheme = (inputs.stylix.inputs.base16.lib args).mkSchemeAttrs config.stylix.base16Scheme;
   wallpaper = config.stylix.image;

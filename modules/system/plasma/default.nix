@@ -5,7 +5,7 @@
   ...
 } @ args:
 with lib; let
-  my = config.my;
+  inherit (config) my;
   cfg = config.my.desktop.plasma;
 in {
   options.my.desktop.plasma = {

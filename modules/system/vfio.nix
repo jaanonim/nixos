@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  my = config.my;
+  inherit (config) my;
   cfg = config.my.vfio;
 in {
   options.my.vfio = {
@@ -125,23 +125,25 @@ in {
       wait ''${SWITCH_PID}
     '';
   in {
-    boot.extraModulePackages = with config.boot.kernelPackages; [
-      kvmfr
-    ];
+    boot = {
+      extraModulePackages = with config.boot.kernelPackages; [
+        kvmfr
+      ];
 
-    boot.kernelParams = [
-      "amd_iommu=on"
-      "iommu=pt"
-      "kvmfr.static_size_mb=32"
-    ];
+      kernelParams = [
+        "amd_iommu=on"
+        "iommu=pt"
+        "kvmfr.static_size_mb=32"
+      ];
 
-    boot.kernelModules = [
-      "vfio"
-      "vfio_iommu_type1"
-      "vfio_pci"
-      "vfio_virqfd"
-      "kvmfr"
-    ];
+      kernelModules = [
+        "vfio"
+        "vfio_iommu_type1"
+        "vfio_pci"
+        "vfio_virqfd"
+        "kvmfr"
+      ];
+    };
 
     virtualisation.libvirtd.qemu = {
       package = pkgs.qemu_kvm;
