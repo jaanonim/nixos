@@ -17,7 +17,7 @@ inputs.nixpkgs.lib.nixosSystem rec {
     inherit system;
     overlays = builtins.attrValues (import ../overlays {inherit inputs;});
     config = {
-      allowUnfree = osConfig.my.nix.allowUnfree;
+      inherit (osConfig.my.nix) allowUnfree;
       cudaSupport = osConfig.my.nix.cuda;
     };
   };

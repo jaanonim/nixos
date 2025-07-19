@@ -96,7 +96,7 @@ in {
 
     programs.nix-ld = mkIf (builtins.length cfg.libraries != 0) {
       enable = true;
-      libraries = cfg.libraries;
+      inherit (cfg) libraries;
     };
   };
 }

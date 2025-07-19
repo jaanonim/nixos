@@ -68,7 +68,7 @@ in {
 
         home = {
           username = cfg.mainUser;
-          homeDirectory = cfg.homeDirectory;
+          inherit (cfg) homeDirectory;
 
           stateVersion = "23.11"; # Don't touch
         };

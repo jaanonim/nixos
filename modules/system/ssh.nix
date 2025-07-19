@@ -20,7 +20,7 @@ in {
       }
     ];
     services.openssh = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       settings.PasswordAuthentication = !(my.sops && my.homeManager);
     };
     #TODO: fix

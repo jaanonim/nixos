@@ -87,7 +87,7 @@ in {
         ];
         oh-my-zsh = mkIf cfg.zsh.ohMyZsh.enable {
           enable = true;
-          plugins = cfg.zsh.ohMyZsh.plugins;
+          inherit (cfg.zsh.ohMyZsh) plugins;
         };
       };
 
