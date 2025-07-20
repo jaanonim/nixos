@@ -1,11 +1,17 @@
 {
   lib,
   config,
+  inputs,
+  pkgs,
   ...
 }:
 with lib; let
   inherit (config) my;
   cfg = config.my.ssh;
+  secrets-path = builtins.toString inputs.jaanonim-secrets;
+  ssh-path = "${secrets-path}/ssh/${my.mainUser}";
+  ssh-filenames = builtins.attrNames (builtins.readDir ssh-path);
+  ssh-files = builtins.map (name: "${ssh-path}/${name}") ssh-filenames;
 in {
   options.my.ssh = {
     enable = mkEnableOption "ssh server";
@@ -23,28 +29,23 @@ in {
       inherit (cfg) enable;
       settings.PasswordAuthentication = !(my.sops && my.homeManager);
     };
-    #TODO: fix
-    # users.users.${my.mainUser} = mkIf cfg.enable {
-    #   openssh.authorizedKeys.keyFiles = [
-    #     "${my.homeDirectory}/.ssh/id_ed25519.pub"
-    #   ];
-    # };
+
+    environment.systemPackages = [pkgs.ghostty.terminfo];
+
+    users.users.${my.mainUser} = mkIf cfg.enable {
+      openssh.authorizedKeys.keys = builtins.map builtins.readFile ssh-files;
+    };
 
     home-manager.users.${my.mainUser} = mkIf (my.sops && my.homeManager) {
       sops.secrets = {
-        "ssh-keys/jaanonim/rsa/private" = mkIf cfg.insertPrivKeys {
+        "ssh-keys/${my.mainUser}/rsa/private" = mkIf cfg.insertPrivKeys {
           path = "${my.homeDirectory}/.ssh/id_rsa";
         };
-        "ssh-keys/jaanonim/rsa/public" = {
-          path = "${my.homeDirectory}/.ssh/id_rsa.pub";
-        };
-        "ssh-keys/jaanonim/ed25519/private" = mkIf cfg.insertPrivKeys {
+        "ssh-keys/${my.mainUser}/ed25519/private" = mkIf cfg.insertPrivKeys {
           path = "${my.homeDirectory}/.ssh/id_ed25519";
         };
-        "ssh-keys/jaanonim/ed25519/public" = {
-          path = "${my.homeDirectory}/.ssh/id_ed25519.pub";
-        };
       };
+      home.file = recursiveMergeAttrs (builtins.map (name: {".ssh/${name}" = {source = "${ssh-path}/${name}";};}) ssh-filenames);
     };
   };
 }
