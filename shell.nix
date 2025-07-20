@@ -29,5 +29,6 @@ pkgs.mkShell {
     home-manager
     nix-inspect
     sops
+    deploy-rs
   ];
 }

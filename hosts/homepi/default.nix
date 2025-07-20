@@ -4,11 +4,17 @@
   inputs,
   ...
 }: {
-  flakePart.nixosConfigurations.homepi = lib.makeConfig {
-    osConfig = self.nixosConfigurations.homepi.config;
-
+  flakePart = lib.makeHost {
+    inherit self;
+    deploy = true;
     system = "aarch64-linux";
-    hardwareModules = [];
+    hostname = "homepi";
+
+    hardwareModules = [
+      inputs.nixos-hardware.nixosModules.raspberry-pi-3
+      ./hardware-configuration.nix
+    ];
+
     profileModules = [
       ./configuration.nix
     ];

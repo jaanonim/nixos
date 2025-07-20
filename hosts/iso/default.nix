@@ -3,10 +3,11 @@
   self,
   ...
 }: {
-  flakePart.nixosConfigurations.iso = lib.makeConfig {
-    osConfig = self.nixosConfigurations.iso.config;
-
+  flakePart = lib.makeHost {
+    inherit self;
     system = "x86_64-linux";
+    hostname = "iso";
+
     hardwareModules = [];
     profileModules = [
       ./configuration.nix

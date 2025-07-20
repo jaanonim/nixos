@@ -5,7 +5,6 @@
     mainUser = "jaanonim";
     homeDirectory = "/home/jaanonim";
     extraUserGroups = ["wheel"];
-    hostname = "laptop";
     setPassword = false;
     sops = true;
     homeManager = true;

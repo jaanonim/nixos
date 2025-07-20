@@ -35,6 +35,11 @@
       flake = false;
     };
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     probe-rs-rules.url = "github:jneem/probe-rs-rules";
 
     ### My packages
@@ -80,9 +85,19 @@
 
       systems = ["x86_64-linux" "aarch64-linux"];
 
-      perSystem = {pkgs, ...}: {
-        devShells.default = import ./shell.nix pkgs;
-        checks = import ./checks inputs;
+      perSystem = {
+        pkgs,
+        inputs',
+        system,
+        ...
+      }: {
+        devShells.default = import ./shell.nix {
+          inherit pkgs;
+          inputs = inputs';
+        };
+        checks = import ./checks {
+          inherit system pkgs inputs;
+        };
         packages = {docs = pkgs.callPackage ./docs {} {inherit inputs pkgs;};};
       };
     };
