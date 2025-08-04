@@ -53,6 +53,6 @@ in {
         else [];
     };
     services.journald = mkIf cfg.optimize {extraConfig = "SystemMaxUse=512M";};
-    systemd = mkIf cfg.optimize {extraConfig = "DefaultTimeoutStopSec=16s";};
+    systemd.settings.Manager = mkIf cfg.optimize {DefaultTimeoutStopSec = "16s";};
   };
 }
