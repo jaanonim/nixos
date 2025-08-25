@@ -82,11 +82,18 @@
           ];
           hidden = [
             "org.kde.plasma.bluetooth"
-            "org.kde.plasma.nightcolorcontrol"
             "org.kde.plasma.clipboard"
             "org.kde.plasma.brightness"
+            "org.kde.plasma.keyboardlayout"
+            "org.kde.plasma.manage-inputmethod"
+            "org.kde.plasma.weather"
+            "org.kde.kscreen"
             "aw-qt"
             "tail-tray"
+          ];
+          extra = [
+            "org.kde.plasma.devicenotifier"
+            "org.kde.plasma.mediacontroller"
           ];
         };
       }
