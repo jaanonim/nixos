@@ -330,10 +330,10 @@
     "jaanonim-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1753031513,
-        "narHash": "sha256-tF45lsQVX/kc3w9HJxXl8JLo6r7fjTPFCHy2tuNqjek=",
+        "lastModified": 1756383732,
+        "narHash": "sha256-Xedki5jTkppu48goAFoIzKgdGrxAVLfTYRb5APYNFnE=",
         "ref": "refs/heads/main",
-        "rev": "6c1479ef9de67c01fc1e9a42cbd73e4c3d73fab1",
+        "rev": "2feb7323e356458a0746b7e5baa0dff8f8a4761a",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/jaanonim/nixos-secrets.git"
