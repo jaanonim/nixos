@@ -56,23 +56,26 @@ in {
       }
     ];
 
-    home-manager = mkIf cfg.homeManager {
-      inherit extraSpecialArgs;
-      backupFileExtension = "backup";
+    home-manager = mkMerge [
+      (mkIf cfg.homeManager {
+        inherit extraSpecialArgs;
+        backupFileExtension = "backup";
 
-      useGlobalPkgs = true;
-      useUserPackages = true;
+        useGlobalPkgs = true;
+        useUserPackages = true;
 
-      users.${cfg.mainUser} = {
-        programs.home-manager.enable = true;
+        users.${cfg.mainUser} = {
+          programs.home-manager.enable = true;
 
-        home = {
-          username = cfg.mainUser;
-          inherit (cfg) homeDirectory;
-
-          stateVersion = "23.11"; # Don't touch
+          home = {
+            username = cfg.mainUser;
+            inherit (cfg) homeDirectory;
+          };
         };
-      };
-    };
+      })
+      {
+        users.${cfg.mainUser}.home.stateVersion = "23.11"; # Don't touch
+      }
+    ];
   };
 }
