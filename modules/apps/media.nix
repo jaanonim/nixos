@@ -12,6 +12,7 @@ in {
       gimp
       # blender
       obs-studio
+      davinci-resolve
     ];
   };
 }
