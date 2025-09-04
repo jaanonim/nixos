@@ -54,7 +54,7 @@ switchCategoryOnHover=true
 
 [Containments][6503][Applets][6504][Configuration][General]
 favoritesPortedToKAstats=true
-icon=/nix/store/viyaj4rgashvm74v5qccghqx1s7h9hzs-profile-image/profile.png
+icon=@@ICON@@
 showActionButtonCaptions=false
 switchCategoryOnHover=true
 
@@ -269,7 +269,7 @@ switchCategoryOnHover=true
 
 [Containments][6523][Applets][6524][Configuration][General]
 favoritesPortedToKAstats=true
-icon=/nix/store/viyaj4rgashvm74v5qccghqx1s7h9hzs-profile-image/profile.png
+icon=@@ICON@@
 showActionButtonCaptions=false
 switchCategoryOnHover=true
 
