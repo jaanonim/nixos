@@ -15,5 +15,6 @@ in {
       enable = true;
       autoEnable = true;
     };
+    qt.platformTheme = lib.mkForce "kde"; # fix for https://github.com/nix-community/stylix/issues/1865
   };
 }
