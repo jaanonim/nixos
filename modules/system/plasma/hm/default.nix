@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    inputs.plasma-manager.homeManagerModules.plasma-manager
+    inputs.plasma-manager.homeModules.plasma-manager
     # ./panels.nix
     # Broken due to missing nesting container support in plasma scripts.
     # Wait for https://github.com/nix-community/plasma-manager/pull/501
