@@ -6,6 +6,7 @@
 }: {
   hostname = target;
   interactiveSudo = true;
+  magicRollback = false; # not working for me
   profiles.system = {
     inherit sshUser;
 

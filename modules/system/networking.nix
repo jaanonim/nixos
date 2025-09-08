@@ -29,9 +29,10 @@ in {
       description = "Interface that will have static ip";
     };
     ip = mkOption {
-      type = types.str;
+      type = types.nullOr types.str;
+      default = null;
       example = "192.168.1.5";
-      description = "Static IPv4 for specified interface";
+      description = "Static IPv4 for specified interface. If null will take IP from infrastructure.";
     };
     gateway = mkOption {
       type = types.str;
@@ -53,7 +54,10 @@ in {
         ${cfg.interface} = {
           ipv4.addresses = [
             {
-              address = cfg.ip;
+              address =
+                if cfg.ip == null
+                then config.my.infrastructure.hosts.${config.my.hostname}.ip
+                else cfg.ip;
               prefixLength = cfg.mask;
             }
           ];

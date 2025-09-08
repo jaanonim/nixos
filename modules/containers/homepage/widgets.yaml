@@ -1,0 +1,21 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+
+- resources:
+    cpu: true
+    memory: true
+    cputemp: true
+    tempmin: 20
+    tempmax: 80
+    uptime: true
+
+- openmeteo:
+    label: Kraków
+    latitude: 50.0614
+    longitude: 19.9366
+    timezone: Europe/Berlin
+    units: metric # or imperial
+    cache: 5 # Time in minutes to cache API responses, to stay within limits
+    format: # optional, Intl.NumberFormat options
+      maximumFractionDigits: 1

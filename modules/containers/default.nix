@@ -3,26 +3,24 @@
   config,
   ...
 }:
-with lib; {
+with lib; let
+  inherit (config) my;
+in {
   imports = builtins.map (path: ./. + /${path}) (builtins.attrNames (builtins.removeAttrs (builtins.readDir ./.) ["default.nix"]));
 
   options.my.containers = {
-    domain = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      example = "server.local";
-      description = "Domain name for this host";
-    };
-    _domain = mkOption {
+    _hostDomain = mkOption {
       type = types.str;
-      description = "Internal don't change";
+      internal = true;
+      description = "Real domain name used";
     };
   };
 
   config = {
-    my.containers._domain =
-      if domain == null
-      then "${config.my.hostname}.local"
-      else domain;
+    my.containers._hostDomain = "${my.hostname}.${my.infrastructure.domain}";
+    virtualisation.oci-containers.backend =
+      if my.docker.enable
+      then "docker"
+      else "podman";
   };
 }

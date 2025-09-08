@@ -132,7 +132,7 @@
       gpuPciId = "10de 25a2";
       vm = {
         cpu = "6";
-        ram = "16G";
+        ram = "12G";
         defaultImage = "/mnt/dane/Virtual/windows10.qcow2";
       };
     };

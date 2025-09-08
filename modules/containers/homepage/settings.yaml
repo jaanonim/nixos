@@ -1,0 +1,28 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+  
+title: HomePi
+
+layout:
+  Top:
+    style: row
+    columns: 2
+
+background: 
+  image: https://unsplash.com/photos/ddLiNMqWAOM/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzQ1ODIxOTYzfA&force=true&w=2400
+  blur: sm 
+
+headerStyle: clean
+
+quicklaunch:
+  searchDescriptions: true
+  showSearchSuggestions: true
+  provider: google
+
+theme: dark
+color: slate
+hideVersion: false
+showStats: true
+disableUpdateCheck: true
+disableCollapse: true

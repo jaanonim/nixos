@@ -1,0 +1,39 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Top:
+  - Temps:
+      widget:
+        type: prometheusmetric
+        url: https://prometheus.homepi.ja
+        refreshInterval: 10000 
+        metrics:
+          - label: Inside
+            query: temp_in
+            format:
+              type: number
+              suffix: °C
+              options:
+                maximumFractionDigits: 2
+          - label: Outside
+            query: temp_out
+            format:
+              type: number
+              suffix: °C
+              options:
+                maximumFractionDigits: 2
+  - Internet:
+      widget:
+        type: prometheusmetric
+        url: https://prometheus.homepi.ja
+        refreshInterval: 10000 
+        metrics:
+          - label: Down
+            query: last_over_time(speedtest_download_bits_per_second[2h])
+            format:
+              type: bitrate
+          - label: Up
+            query: last_over_time(speedtest_upload_bits_per_second[2h])
+            format:
+              type: bitrate

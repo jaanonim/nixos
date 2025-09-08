@@ -15,9 +15,18 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 1024; # 1 GB
+      size = 4096; # 4 GB
     }
   ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50; # 1/2 of RAM becomes compressed
+  };
+
+  nix.settings = {
+    max-jobs = 2;
+    cores = 1;
+  };
 
   hardware.deviceTree = {
     enable = true;

@@ -22,6 +22,8 @@
   _target =
     if target != null
     then target
+    else if cfgVal.my.networking.ip == null
+    then cfgVal.my.infrastructure.hosts.${hostname}.ip
     else cfgVal.my.networking.ip;
   _sshUser =
     if sshUser != null
