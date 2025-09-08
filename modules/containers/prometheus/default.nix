@@ -78,7 +78,7 @@ in {
             static_configs = [
               {
                 targets = [
-                  "localhost:${toString config.services.prometheus.exporters.ping.port}"
+                  "localhost:9798"
                 ];
               }
             ];
