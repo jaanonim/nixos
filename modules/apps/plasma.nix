@@ -15,6 +15,7 @@ in {
         kdePackages.akonadi
         kdePackages.kdepim-addons
         kdePackages.kdepim-runtime
+        kdePackages.kwallet
       ]
       ++ (with jaanonim-pkgs; [bible-runner]);
   };
