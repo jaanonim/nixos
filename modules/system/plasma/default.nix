@@ -11,6 +11,12 @@ in {
   options.my.desktop.plasma = {
     enable = mkEnableOption "plasma";
     plasmaManager = mkEnableOption "plasma manager";
+    kwallet = mkOption {
+      type = types.bool;
+      default = true;
+      example = false;
+      description = "Whether to enable kwallet for secrets store";
+    };
   };
 
   imports = [./cursor-fix.nix];
@@ -33,6 +39,11 @@ in {
       xwaylandvideobridge
       konsole
     ];
+
+    security.pam.services.${my.mainUser}.kwallet = mkIf cfg.kwallet {
+      enable = true;
+      package = pkgs.kdePackages.kwallet-pam;
+    };
 
     home-manager.users.${my.mainUser} = mkIf (cfg.plasmaManager && my.homeManager) (import ./hm args);
   };
