@@ -25,6 +25,7 @@ with lib; {
         }
       );
       default = {};
+      description = "List of hosts, where key is hostname";
     };
   };
 }
