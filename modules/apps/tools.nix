@@ -26,6 +26,7 @@ in {
       helvum
       normcap
       normcapDesktop
+      gramps
     ];
   });
 }
