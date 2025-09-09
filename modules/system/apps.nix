@@ -21,7 +21,7 @@ in {
     _packages = mkOption {
       type = types.listOf types.package;
       default = [];
-      description = "Internal don't touch :)";
+      internal = true;
     };
   };
 
