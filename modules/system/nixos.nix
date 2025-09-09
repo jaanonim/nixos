@@ -62,7 +62,7 @@ in {
       type = types.bool;
       default = false;
       example = true;
-      description = "Enable cuda support in nixpkgs";
+      description = "Enable cuda support in nixpkgs (DO NOT ENABLE)";
     };
   };
 

@@ -108,7 +108,7 @@
     };
     nix = {
       allowUnfree = true;
-      cuda = true;
+      cuda = false;
       gc = true;
       gcDates = "weekly";
       optimize = true;
