@@ -12,7 +12,7 @@ in {
       gimp
       # blender
       obs-studio
-      kdePackages.kdenlive
+      # kdePackages.kdenlive
     ];
   };
 }
