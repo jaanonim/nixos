@@ -22,8 +22,10 @@ in {
       gnugrep
       lsof
       htop
-      btop
       bat
+      (btop.override {
+        cudaSupport = true;
+      })
       # nvtopPackages.nvidia
     ];
 
