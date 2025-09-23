@@ -30,5 +30,6 @@ pkgs.mkShell {
     nix-inspect
     sops
     deploy-rs
+    nix-output-monitor
   ];
 }
