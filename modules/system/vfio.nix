@@ -61,7 +61,9 @@ in {
       qemu-system-x86_64 \
         -enable-kvm \
         -m ${cfg.vm.ram} \
-        -cpu host,kvm=on,+topoext \
+        -smbios type=0,vendor="LENOVO",version="H3CN36WW(V2.06)",date="09/30/2022" \
+        -smbios type=1,manufacturer="LENOVO",product="LNVNB161216",version="No DPK",serial="35B3AF1S",uuid="1ff561e5-4f61-43de-8754-9479d949ca0a",family="IdeaPad Gaming 3 15ACH6" \
+        -cpu host,kvm=on,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id="AuthenticAMD",+topoext \
         -smp ${cfg.vm.cpu} \
         -device vfio-pci,host=${cfg.gpuPciAddress},rombar=0 \
         -drive cache=none,file=''${DISK_IMAGE},format=qcow2 \
