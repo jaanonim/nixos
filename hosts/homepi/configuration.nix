@@ -46,7 +46,11 @@
       ism = {
         enable = true;
         exporter = true;
-        ntp.enable = true;
+      };
+      chrony = {
+        enable = true;
+        allow = "192.168.1.0/24";
+        exporter = true;
       };
       homepage = {
         enable = true;

@@ -10,22 +10,6 @@ in {
   options.my.containers.ism = {
     enable = mkEnableOption "ism";
     exporter = mkEnableOption "ism exporter";
-    ntp = {
-      enable = mkEnableOption "NTP server with chrony";
-      upstream = mkOption {
-        type = types.listOf types.str;
-        default = [
-          "0.pl.pool.ntp.org"
-          "1.pl.pool.ntp.org"
-          "2.pl.pool.ntp.org"
-          "3.pl.pool.ntp.org"
-        ];
-        example = [
-          "ntp-example.com"
-        ];
-        description = "NTP servers form witch to get time";
-      };
-    };
   };
 
   config = mkIf cfg.enable {
@@ -35,6 +19,10 @@ in {
         message = "to use ism, sops need to be enabled";
       }
     ];
+    warnings =
+      if !my.containers.chrony.enable
+      then ["ISM requires local ntp server to work. Make sure you provide one or eneble chrony"]
+      else [];
 
     sops = {
       secrets = {
@@ -86,11 +74,6 @@ in {
     ];
 
     services = {
-      chrony = mkIf cfg.ntp.enable {
-        enable = true;
-        servers = cfg.ntp.upstream;
-      };
-
       nginx.virtualHosts."ism.${my.containers._hostDomain}" = mkMerge [
         {
           locations."/" = {
