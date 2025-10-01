@@ -15,7 +15,7 @@ in {
       type = types.listOf types.str;
       default = ["1.1.1.1" "1.0.0.1"];
       example = ["8.8.8.8"];
-      description = "List of DNS servers to use";
+      description = "List of DNS servers to use. If empty uses network manger for DNS.";
     };
     mask = mkOption {
       type = types.int;
@@ -74,7 +74,10 @@ in {
 
     networking.networkmanager = mkIf cfg.networkmanager {
       enable = true;
-      dns = "none";
+      dns =
+        if (builtins.length cfg.dns > 0)
+        then "none"
+        else "default";
       plugins = with pkgs; [
         networkmanager-openvpn
       ];

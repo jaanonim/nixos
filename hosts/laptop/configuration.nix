@@ -94,11 +94,7 @@
       timeZone = "Europe/Warsaw";
     };
     networking = {
-      dns = [
-        "192.168.1.150"
-        "1.1.1.1"
-        "1.0.0.1"
-      ];
+      dns = [];
       firewall = true;
       networkmanager = true;
     };
