@@ -13,6 +13,9 @@ in {
       [
         kdePackages.korganizer
         kdePackages.akonadi
+        kdePackages.akonadi-contacts
+        kdePackages.akonadi-calendar
+        kdePackages.akonadi-calendar-tools
         kdePackages.kdepim-addons
         kdePackages.kdepim-runtime
         kdePackages.kwallet
