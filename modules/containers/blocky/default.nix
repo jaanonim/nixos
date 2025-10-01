@@ -52,10 +52,11 @@ in {
             denylists = {
               ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
               adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
+              extra = [(root /config/blocklist.txt)];
             };
 
             clientGroupsBlock = {
-              default = ["ads" "adult"];
+              default = ["ads" "adult" "extra"];
             };
           };
 
