@@ -18,9 +18,11 @@ in {
     home-manager.users.${my.mainUser} = mkIf my.homeManager {
       programs.git = {
         enable = true;
-        userName = "jaanonim";
-        userEmail = "mat8mro@gmail.com";
-        extraConfig = {
+        settings = {
+          user = {
+            name = "jaanonim";
+            email = "mat8mro@gmail.com";
+          };
           init.defaultBranch = "main";
           core.autocrlf = "input";
           github.user = "jaanonim";
