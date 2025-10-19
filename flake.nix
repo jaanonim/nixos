@@ -42,6 +42,8 @@
 
     probe-rs-rules.url = "github:jneem/probe-rs-rules";
 
+    hyprland.url = "github:hyprwm/Hyprland";
+
     ### My packages
 
     jaanonim-secrets = {

@@ -16,7 +16,7 @@ in {
       description = "Enable xserver";
     };
     defaultDesktop = mkOption {
-      type = types.enum ["plasma"];
+      type = types.enum ["plasma" "hyperland"];
       default = "plasma";
       description = "default desktop";
     };
@@ -56,6 +56,10 @@ in {
       {
         assertion = cfg.defaultDesktop == "plasma" -> cfg.plasma.enable;
         message = "plasma need to be enabled to be default desktop";
+      }
+      {
+        assertion = cfg.defaultDesktop == "hyperland" -> cfg.hyperland.enable;
+        message = "hyperland need to be enabled to be default desktop";
       }
       {
         assertion = cfg.xwayland -> cfg.xserver;

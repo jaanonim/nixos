@@ -80,6 +80,10 @@ in {
 
         allowed-users = allowedUsers ++ cfg.extraAllowedUsers;
         trusted-users = allowedUsers ++ cfg.extraAllowedUsers;
+
+        substituters = ["https://hyprland.cachix.org" "https://cache.nixos.org/"];
+        trusted-substituters = ["https://hyprland.cachix.org"];
+        trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
       };
 
       optimise = mkIf cfg.optimize {

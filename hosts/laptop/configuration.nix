@@ -74,6 +74,8 @@
         enable = true;
         plasmaManager = true;
       };
+
+      hyperland.enable = false;
     };
     devices = {
       printer = true;
