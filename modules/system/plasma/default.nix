@@ -36,7 +36,7 @@ in {
       elisa
       krdp
       discover
-      xwaylandvideobridge
+      # xwaylandvideobridge
       konsole
     ];
 
