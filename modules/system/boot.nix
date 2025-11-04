@@ -31,6 +31,11 @@ in {
           default = false;
           description = "Disable printing kernel logs on boot";
         };
+        secureBoot = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Enable Secure Boot support";
+        };
       };
     };
   };
@@ -47,11 +52,17 @@ in {
           configurationLimit = cfg.grubConfigurationLimit;
         };
       };
+      lanzaboote = mkIf cfg.secureBoot {
+        enable = true;
+        pkiBundle = "/var/lib/sbctl";
+      };
+
       kernelParams =
         if cfg.quietBoot
         then ["quiet"]
         else [];
     };
+
     services.journald = mkIf cfg.optimize {extraConfig = "SystemMaxUse=512M";};
     systemd.settings.Manager = mkIf cfg.optimize {DefaultTimeoutStopSec = "16s";};
   };

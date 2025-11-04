@@ -53,6 +53,7 @@
       bootloaderTimeout = 1;
       grubConfigurationLimit = 16;
       optimize = true;
+      secureBoot = false;
     };
     desktop = {
       enable = true;

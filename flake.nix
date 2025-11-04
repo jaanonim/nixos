@@ -2,7 +2,6 @@
   description = "Jaanonim's nixos config flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -14,6 +13,11 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
