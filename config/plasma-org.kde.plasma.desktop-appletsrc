@@ -223,10 +223,10 @@ DialogWidth=720
 
 [Containments][6503][Applets][6508][General]
 extraItems=org.kde.plasma.clipboard,org.kde.plasma.weather,org.kde.plasma.notifications,org.kde.plasma.mediacontroller,org.kde.plasma.battery,org.kde.kscreen,org.kde.plasma.keyboardindicator,org.kde.plasma.networkmanagement,org.kde.kdeconnect,org.kde.plasma.brightness,org.kde.plasma.volume,org.kde.plasma.devicenotifier,org.kde.plasma.printmanager,org.kde.plasma.bluetooth
-hiddenItems=tail-tray,org.kde.plasma.clipboard,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.brightness,org.kde.plasma.bluetooth,aw-qt,chrome_status_icon_1
+hiddenItems=tail-tray,org.kde.plasma.clipboard,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.brightness,org.kde.plasma.bluetooth,aw-qt
 knownItems=org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.battery,org.kde.plasma.keyboardindicator,org.kde.plasma.printmanager,org.kde.plasma.brightness,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.weather,org.kde.plasma.bluetooth,org.kde.plasma.mediacontroller,org.kde.plasma.volume,org.kde.kscreen
 showAllItems=false
-shownItems=discord,org.kde.plasma.battery,org.kde.plasma.networkmanagement,org.kde.plasma.volume
+shownItems=discord,org.kde.plasma.battery,org.kde.plasma.networkmanagement,org.kde.plasma.volume,chrome_status_icon_1
 
 [Containments][6503][Applets][6521]
 immutability=1
@@ -435,10 +435,10 @@ DialogWidth=720
 
 [Containments][6523][Applets][6528][General]
 extraItems=org.kde.plasma.bluetooth,org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.volume,org.kde.plasma.brightness,org.kde.kdeconnect,org.kde.plasma.networkmanagement,org.kde.plasma.keyboardindicator,org.kde.kscreen,org.kde.plasma.battery,org.kde.plasma.weather,org.kde.plasma.notifications,org.kde.plasma.mediacontroller,org.kde.plasma.clipboard
-hiddenItems=tail-tray,aw-qt,org.kde.plasma.bluetooth,org.kde.plasma.brightness,org.kde.kscreen,org.kde.plasma.weather,org.kde.plasma.clipboard,chrome_status_icon_1
+hiddenItems=tail-tray,aw-qt,org.kde.plasma.bluetooth,org.kde.plasma.brightness,org.kde.kscreen,org.kde.plasma.weather,org.kde.plasma.clipboard
 knownItems=org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.battery,org.kde.plasma.keyboardindicator,org.kde.plasma.printmanager,org.kde.plasma.brightness,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.weather,org.kde.plasma.bluetooth,org.kde.plasma.mediacontroller,org.kde.plasma.volume,org.kde.kscreen
 showAllItems=false
-shownItems=discord,org.kde.plasma.volume,org.kde.plasma.networkmanagement,org.kde.plasma.battery
+shownItems=discord,chrome_status_icon_1,org.kde.plasma.volume,org.kde.plasma.networkmanagement,org.kde.plasma.battery
 
 [Containments][6523][Applets][6541]
 immutability=1
