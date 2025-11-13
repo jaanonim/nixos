@@ -23,6 +23,7 @@ in {
       lsof
       htop
       bat
+      systemctl-tui
       (btop.override {
         cudaSupport = true;
       })
