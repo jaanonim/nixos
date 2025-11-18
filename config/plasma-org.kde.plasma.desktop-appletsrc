@@ -238,6 +238,7 @@ popupWidth=560
 
 [Containments][6503][Applets][6521][Configuration][Appearance]
 autoFontAndSize=true
+dateDisplayFormat=BelowTime
 enabledCalendarPlugins=pimevents
 firstDayOfWeek=1
 use24hFormat=2
@@ -450,6 +451,7 @@ popupWidth=560
 
 [Containments][6523][Applets][6541][Configuration][Appearance]
 autoFontAndSize=true
+dateDisplayFormat=BelowTime
 enabledCalendarPlugins=pimevents
 firstDayOfWeek=1
 use24hFormat=2
