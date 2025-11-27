@@ -5,3 +5,5 @@ play.max.com
 hbomax.com
 nekos.moe
 www.waifu.im
+www.facebook.com
+facebook.com
