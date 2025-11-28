@@ -13,7 +13,7 @@ in {
       [
         # jetbrains.clion
         jetbrains.pycharm-professional
-        jetbrains.idea-ultimate
+        # jetbrains.idea-ultimate
         # jetbrains.goland
         # jetbrains.rider
         vscode

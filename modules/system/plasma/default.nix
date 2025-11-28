@@ -19,7 +19,7 @@ in {
     };
   };
 
-  imports = [./cursor-fix.nix];
+  # imports = [./cursor-fix.nix];
 
   config = mkIf cfg.enable {
     services = {
