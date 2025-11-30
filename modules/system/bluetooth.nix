@@ -20,11 +20,11 @@ in {
         General = {
           Name = my.hostname;
           ControllerMode = "dual";
-          FastConnectable = "true";
-          Experimental = "true";
+          FastConnectable = true;
+          Experimental = true;
         };
         Policy = {
-          AutoEnable = "true";
+          AutoEnable = true;
         };
       };
     };
