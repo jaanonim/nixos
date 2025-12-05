@@ -22,16 +22,19 @@ idk if it's needed
           options = ["ro" "resolve-symlinks" "x-gvfs-hide"];
         };
         aggregatedFonts = pkgs.buildEnv {
+          ignoreCollisions = true;
           name = "system-fonts";
           paths = config.fonts.packages;
           pathsToLink = ["/share/fonts"];
         };
         aggregatedIcons = pkgs.buildEnv {
+          ignoreCollisions = true;
           name = "system-icons";
           paths = [pkgs.kdePackages.breeze-icons pkgs.kdePackages.breeze pkgs.kdePackages.breeze-gtk cursor];
           pathsToLink = ["/share/icons"];
         };
         aggregatedThemes = pkgs.buildEnv {
+          ignoreCollisions = true;
           name = "system-themes";
           paths = [pkgs.kdePackages.breeze pkgs.kdePackages.breeze-gtk cursor];
           pathsToLink = ["/share/themes"];
