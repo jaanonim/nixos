@@ -13,6 +13,6 @@
   nsearch = inputs.nsearch.packages.${system}.default;
 }
 // (
-  builtins.foldl' (a: b: a // b) {} (builtins.map (path: import "${./.}/${path}" {inherit pkgs lib;})
+  lib.foldl (a: b: a // b) {} (builtins.map (path: import "${./.}/${path}" {inherit pkgs lib;})
     (builtins.attrNames (builtins.removeAttrs (builtins.readDir ./.) ["default.nix"])))
 )
