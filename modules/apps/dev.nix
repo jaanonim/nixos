@@ -12,7 +12,7 @@ in {
     my._packages = with pkgs;
       [
         # jetbrains.clion
-        jetbrains.pycharm-professional
+        jetbrains.pycharm
         # jetbrains.idea-ultimate
         # jetbrains.goland
         # jetbrains.rider
