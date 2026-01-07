@@ -26,6 +26,9 @@ in {
           init.defaultBranch = "main";
           core.autocrlf = "input";
           github.user = "jaanonim";
+          credential.helper = "${
+            pkgs.git.override {withLibsecret = true;}
+          }/bin/git-credential-libsecret";
         };
         signing = {
           signByDefault = true;
