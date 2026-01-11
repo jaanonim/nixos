@@ -108,7 +108,7 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.oci-containers.containers.homepage = {
-      image = "ghcr.io/gethomepage/homepage:v1.5@sha256:b82bba1c67e06ceb3d2b6d874e7bd1a6fb50e9cb8532651aa2fca5b25e5269cd";
+      image = "ghcr.io/gethomepage/homepage:v1.8@sha256:657d4622605961d8a1cf294494a3bc0ede2df1e69ba10c58b57e4dd968a264fe";
       ports = ["3000:3000"];
       pull = "always";
       volumes = [
