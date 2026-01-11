@@ -17,7 +17,7 @@ in {
       libvlc
       brave
       gnome-calculator
-      youtube-music
+      pear-desktop
     ];
     programs.chromium.extraOpts.IncognitoModeAvailability = 1;
   };
