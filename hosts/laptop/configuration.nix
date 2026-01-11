@@ -35,7 +35,6 @@
       "gaming"
       "ghostty"
       "git"
-      "gpu-screen-recorder"
       "media"
       "nix_dev"
       "obsidian"
@@ -134,6 +133,7 @@
       };
     };
     virtualbox.enable = true;
+    yubikey.enable = true;
     vpn.tailscale.enable = true;
     crossCompileSystems = ["aarch64-linux"];
   };
