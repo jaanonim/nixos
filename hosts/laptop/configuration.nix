@@ -44,6 +44,7 @@
       "tmux"
       "tools"
       "wakatime"
+      "work"
     ];
     audio.enable = true;
     bluetooth.enable = true;
