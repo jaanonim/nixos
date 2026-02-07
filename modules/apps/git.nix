@@ -6,18 +6,19 @@
 }:
 with lib; let
   inherit (config) my;
+  gitPkg = pkgs.gitFull;
 in {
   config = mkIf (builtins.any (ele: (ele == (lib.removeSuffix ".nix" (baseNameOf __curPos.file)))) my.apps) {
-    my._packages = with pkgs; [git];
-
     programs.git = {
       enable = true;
+      package = gitPkg;
       lfs.enable = true;
     };
 
     home-manager.users.${my.mainUser} = mkIf my.homeManager {
       programs.git = {
         enable = true;
+        package = gitPkg;
         settings = {
           user = {
             name = "jaanonim";
@@ -26,9 +27,7 @@ in {
           init.defaultBranch = "main";
           core.autocrlf = "input";
           github.user = "jaanonim";
-          credential.helper = "${
-            pkgs.git.override {withLibsecret = true;}
-          }/bin/git-credential-libsecret";
+          credential.helper = "libsecret";
         };
         signing = {
           signByDefault = true;
