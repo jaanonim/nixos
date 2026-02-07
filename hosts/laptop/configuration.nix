@@ -135,7 +135,10 @@
     };
     virtualbox.enable = true;
     yubikey.enable = true;
-    vpn.tailscale.enable = true;
+    vpn.tailscale = {
+      enable = true;
+      systray = true;
+    };
     crossCompileSystems = ["aarch64-linux"];
   };
 

@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -10,10 +9,10 @@ with lib; let
 in {
   options.my.vpn.tailscale = {
     enable = mkEnableOption "Tailscale vpn";
-    withTailTray = mkOption {
+    systray = mkOption {
       type = types.bool;
       default = false;
-      description = "Add tail-tray GUI for tailscale";
+      description = "Enable systray for tailscale";
     };
     useAuthKey = mkEnableOption "auth key form sops";
     advertiseRoutes = lib.mkOption {
@@ -38,6 +37,7 @@ in {
       {
         enable = true;
         extraSetFlags = ["--accept-routes=true" "--operator=${my.mainUser}"];
+        extraDaemonFlags = ["--no-logs-no-support"];
       }
       // lib.optionalAttrs cfg.useAuthKey {
         authKeyFile = config.sops.secrets.tailscale-auth-key.path;
@@ -48,9 +48,8 @@ in {
         ];
       };
 
-    environment = mkIf cfg.withTailTray {
-      systemPackages = with pkgs; [tail-tray];
-      etc."xdg/autostart/tail-tray.desktop".source = "${pkgs.tail-tray}/share/applications/tail-tray.desktop";
+    home-manager.users.${my.mainUser} = mkIf (cfg.systray && my.homeManager) {
+      services.tailscale-systray.enable = true;
     };
   };
 }
