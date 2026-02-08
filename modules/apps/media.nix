@@ -11,7 +11,7 @@ in {
     my._packages = with pkgs; [
       gimp
       # blender
-      obs-studio
+      # obs-studio
       # kdePackages.kdenlive
     ];
   };
