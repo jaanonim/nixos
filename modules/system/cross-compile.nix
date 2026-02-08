@@ -17,5 +17,6 @@ in {
 
   config = mkIf ((builtins.length my.crossCompileSystems) > 0) {
     boot.binfmt.emulatedSystems = my.crossCompileSystems;
+    nix.settings.extra-platforms = my.crossCompileSystems;
   };
 }

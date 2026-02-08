@@ -69,7 +69,6 @@ in {
   config = {
     environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
     nix = {
-      # warn-dirty = false;
       channel.enable = false; # use flakes
       registry.nixpkgs.flake = inputs.nixpkgs;
 
@@ -80,6 +79,9 @@ in {
 
         allowed-users = allowedUsers ++ cfg.extraAllowedUsers;
         trusted-users = allowedUsers ++ cfg.extraAllowedUsers;
+
+        warn-dirty = false;
+        use-xdg-base-directories = true;
       };
 
       optimise = mkIf cfg.optimize {
