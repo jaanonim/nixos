@@ -51,6 +51,7 @@
         enable = true;
         allow = "192.168.1.0/24";
         exporter = true;
+        syncOnStart = true;
       };
       homepage = {
         enable = true;

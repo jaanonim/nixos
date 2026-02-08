@@ -29,6 +29,7 @@ in {
       description = "Allowed range of ips that can ask for time";
     };
     exporter = mkEnableOption "chrony exporter";
+    syncOnStart = mkEnableOption "Sync time on container start";
   };
 
   config = mkIf cfg.enable {
@@ -47,6 +48,17 @@ in {
             static_configs = [{targets = ["localhost:${toString config.services.prometheus.exporters.chrony.port}"];}];
           }
         ];
+      };
+    };
+    systemd.services.chrony-sync = mkIf cfg.syncOnStart {
+      description = "Sync time on chrony container start";
+      after = ["network.target" "chrony.service"];
+      wants = ["chrony.service"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "sleep 60; ${config.services.chrony.package}/bin/chronyc -a makestep";
+        RemainAfterExit = "yes";
       };
     };
   };
