@@ -18,6 +18,6 @@ in {
         # jetbrains.rider
         vscode
       ]
-      ++ (with jaanonim-pkgs; [creator forklab]);
+      ++ (with jaanonim-pkgs; [forklab]);
   };
 }

@@ -102,7 +102,14 @@
         checks = import ./checks {
           inherit system pkgs inputs;
         };
-        packages = {docs = pkgs.callPackage ./docs {} {inherit inputs pkgs;};};
+        packages =
+          {
+            docs = pkgs.callPackage ./docs {} {inherit inputs pkgs;};
+          }
+          // import ./pkgs {
+            inherit inputs pkgs system;
+            inherit (pkgs) lib;
+          };
       };
     };
 }
