@@ -13,6 +13,15 @@ in {
   };
 
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = my.sops;
+        message = "to use grafana, sops need to be enabled";
+      }
+    ];
+
+    sops.secrets."containers/grafana/secret_key" = {};
+
     services.grafana = {
       enable = true;
       settings = {
@@ -24,6 +33,7 @@ in {
         panels = {
           disable_sanitize_html = true;
         };
+        security.secret_key = "$__file{${config.sops.secrets."containers/grafana/secret_key".path}}";
       };
       declarativePlugins = with pkgs.grafanaPlugins; [grafana-piechart-panel];
     };
