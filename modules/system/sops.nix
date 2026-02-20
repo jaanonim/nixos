@@ -2,10 +2,11 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
-  secrets-path = builtins.toString inputs.jaanonim-secrets;
+  secrets-path = toString inputs.jaanonim-secrets;
   inherit (config) my;
 in {
   options.my = {
@@ -16,6 +17,14 @@ in {
   config = mkIf my.sops {
     sops = {
       defaultSopsFile = "${secrets-path}/secrets.yaml";
+
+      package =
+        inputs.sops-nix.packages.${pkgs.stdenv.hostPlatform.system}.sops-install-secrets.overrideAttrs
+        {
+          enableParallelBuilding = false;
+          enableParallelChecking = false;
+          enableParallelInstalling = false;
+        };
 
       age = {
         sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];

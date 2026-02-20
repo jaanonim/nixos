@@ -8,10 +8,10 @@
 with lib; let
   inherit (config) my;
   cfg = config.my.ssh;
-  secrets-path = builtins.toString inputs.jaanonim-secrets;
+  secrets-path = toString inputs.jaanonim-secrets;
   ssh-path = "${secrets-path}/ssh/${my.mainUser}";
   ssh-filenames = builtins.attrNames (builtins.readDir ssh-path);
-  ssh-files = builtins.map (name: "${ssh-path}/${name}") ssh-filenames;
+  ssh-files = map (name: "${ssh-path}/${name}") ssh-filenames;
 in {
   options.my.ssh = {
     enable = mkEnableOption "ssh server";
@@ -33,7 +33,7 @@ in {
     environment.systemPackages = [pkgs.ghostty.terminfo];
 
     users.users.${my.mainUser} = mkIf cfg.enable {
-      openssh.authorizedKeys.keys = builtins.map builtins.readFile ssh-files;
+      openssh.authorizedKeys.keys = map builtins.readFile ssh-files;
     };
 
     home-manager.users.${my.mainUser} = mkIf (my.sops && my.homeManager) {
@@ -45,7 +45,7 @@ in {
           path = "${my.homeDirectory}/.ssh/id_ed25519";
         };
       };
-      home.file = recursiveMergeAttrs (builtins.map (name: {".ssh/${name}" = {source = "${ssh-path}/${name}";};}) ssh-filenames);
+      home.file = recursiveMergeAttrs (map (name: {".ssh/${name}" = {source = "${ssh-path}/${name}";};}) ssh-filenames);
     };
   };
 }

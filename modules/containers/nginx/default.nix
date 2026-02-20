@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  secrets-path = builtins.toString inputs.jaanonim-secrets;
+  secrets-path = toString inputs.jaanonim-secrets;
   inherit (config) my;
   cfg = my.containers.nginx;
 in {
