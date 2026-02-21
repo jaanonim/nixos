@@ -20,7 +20,9 @@ in {
       }
     ];
 
-    sops.secrets."containers/grafana/secret_key" = {};
+    sops.secrets."containers/grafana/secret-key" = {
+      owner = "grafana";
+    };
 
     services.grafana = {
       enable = true;
@@ -33,7 +35,7 @@ in {
         panels = {
           disable_sanitize_html = true;
         };
-        security.secret_key = "$__file{${config.sops.secrets."containers/grafana/secret_key".path}}";
+        security.secret_key = "$__file{${config.sops.secrets."containers/grafana/secret-key".path}}";
       };
       declarativePlugins = with pkgs.grafanaPlugins; [grafana-piechart-panel];
     };
