@@ -14,6 +14,8 @@
       insertPrivKeys = true;
     };
 
+    boot.optimize = false;
+
     shell.zsh = {
       enable = true;
       ohMyZsh.enable = true;
@@ -24,7 +26,7 @@
     networking = {
       networkmanager = false;
       interface = "enu1u1";
-      dns = ["127.0.0.1" "1.1.1.1"];
+      dns = ["127.0.0.1" "1.1.1.1" "1.1.2.2"];
     };
 
     containers = {
@@ -50,6 +52,14 @@
       chrony = {
         enable = true;
         allow = "192.168.1.0/24";
+        upstream = [
+          "0.pl.pool.ntp.org"
+          "1.pl.pool.ntp.org"
+          "2.pl.pool.ntp.org"
+          "3.pl.pool.ntp.org"
+          "194.146.251.100" # tempus1.gum.gov.pl
+          "194.146.251.101" # tempus2.gum.gov.pl
+        ];
         exporter = true;
         syncOnStart = true;
       };

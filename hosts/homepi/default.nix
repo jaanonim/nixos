@@ -9,6 +9,7 @@
     deploy = true;
     system = "aarch64-linux";
     hostname = "homepi";
+    fastConnection = true;
 
     hardwareModules = [
       inputs.nixos-hardware.nixosModules.raspberry-pi-3

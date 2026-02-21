@@ -12,6 +12,7 @@
   deploy ? false,
   target ? null,
   sshUser ? null,
+  fastConnection ? false,
 }: let
   cfgVal = self.nixosConfigurations.${hostname}.config;
   cfg = makeConfig {
@@ -36,7 +37,7 @@ in
   // lib.optionalAttrs deploy
   {
     deploy.nodes.${hostname} = makeDeploy {
-      inherit system;
+      inherit system fastConnection;
       target = _target;
       sshUser = _sshUser;
       nixosConfig = cfg;
