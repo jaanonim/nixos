@@ -37,3 +37,31 @@
             query: last_over_time(speedtest_upload_bits_per_second[2h])
             format:
               type: bitrate
+
+  - Air Quality:
+      widget:
+        type: customapi
+        url: https://api.waqi.info/feed/@3407/?token={{HOMEPAGE_VAR_AQICN_TOKEN}}
+        refreshInterval: 300000  
+        method: GET
+        mappings:
+          - field:
+              data: aqi
+            label: AQI
+            format: number
+
+          - field:
+              data:
+                iaqi:
+                  pm25: v
+            label: PM2.5
+            format: float
+            suffix: " µg/m³"
+
+          - field:
+              data:
+                iaqi:
+                  pm10: v
+            label: PM10
+            format: float
+            suffix: " µg/m³"

@@ -44,7 +44,7 @@ with lib; let
         host.services;
     })
     cfg.hosts;
-  servicesYaml = pkgs.writeText "services.yaml" ''
+  servicesYamlStr = ''
     ${builtins.readFile ./services.yaml}
     ${builtins.readFile ((pkgs.formats.yaml {}).generate "services.yaml" servicesList)}
   '';
@@ -107,12 +107,26 @@ in {
   };
 
   config = mkIf cfg.enable {
+    sops = mkIf my.sops {
+      secrets = {
+        "containers/homepage/aqicn-token" = {};
+      };
+
+      templates."homepage-widgets" = {
+        content =
+          builtins.replaceStrings
+          ["{{HOMEPAGE_VAR_AQICN_TOKEN}}"]
+          [config.sops.placeholder."containers/homepage/aqicn-token"]
+          servicesYamlStr;
+      };
+    };
+
     virtualisation.oci-containers.containers.homepage = {
-      image = "ghcr.io/gethomepage/homepage:v1.8@sha256:657d4622605961d8a1cf294494a3bc0ede2df1e69ba10c58b57e4dd968a264fe";
+      image = "ghcr.io/gethomepage/homepage:v1.10.1@sha256:4815be05c8abf3503272b7ff1ac40c5f7364602a1ed807b0fc5a4cf69df0b15b";
       ports = ["3000:3000"];
       pull = "always";
       volumes = [
-        "${servicesYaml}:/app/config/services.yaml:ro"
+        "${config.sops.templates."homepage-widgets".path}:/app/config/services.yaml:ro"
         "${./bookmarks.yaml}:/app/config/bookmarks.yaml:ro"
         "${./settings.yaml}:/app/config/settings.yaml:ro"
         "${./widgets.yaml}:/app/config/widgets.yaml:ro"
