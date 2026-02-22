@@ -44,6 +44,7 @@
       "tmux"
       "tools"
       "wakatime"
+      "opencode"
       "work"
     ];
     audio.enable = true;
