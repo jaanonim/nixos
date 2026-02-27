@@ -33,6 +33,10 @@ in {
           signByDefault = true;
           key = "933AF32D3ABD5CAF";
         };
+        ignores = [
+          ".envrc"
+          ".direnv/"
+        ];
       };
       programs.gpg = {
         enable = true;

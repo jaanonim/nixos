@@ -150,7 +150,6 @@ in {
 
           # General behavior
           - Keep changes minimal and focused. Do not refactor unless explicitly asked.
-          - Show a diff summary before editing more than 2 files at once.
           - When uncertain about intent, ask rather than assume.
         '';
       };
