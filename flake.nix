@@ -53,21 +53,6 @@
       flake = false;
     };
 
-    bible-runner = {
-      url = "github:jaanonim/BibleRunner-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    creator = {
-      url = "github:jaanonim/creator";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    forklab = {
-      url = "github:jaanonim/forklab";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nsearch = {
       url = "github:niksingh710/nsearch";
       inputs.nixpkgs.follows = "nixpkgs";
