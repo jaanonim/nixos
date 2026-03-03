@@ -35,6 +35,6 @@ in {
 
   config = mkIf cfg.enable {
     hardware.probe-rs.enable = cfg.probe-rs;
-    services.udev.extraRules = builtins.concatStringsSep "\n" (builtins.map (name: udevRules.${name}) cfg.rules);
+    services.udev.extraRules = builtins.concatStringsSep "\n" (map (name: udevRules.${name}) cfg.rules);
   };
 }
