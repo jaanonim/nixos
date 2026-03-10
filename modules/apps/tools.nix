@@ -23,7 +23,6 @@ in {
     my._packages = with pkgs; [
       emote
       pika-backup
-      helvum
       normcap
       normcapDesktop
       gramps
