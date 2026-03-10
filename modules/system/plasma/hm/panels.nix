@@ -77,8 +77,8 @@
             "org.kde.plasma.battery"
             "org.kde.plasma.networkmanagement"
             "org.kde.plasma.volume"
-            "org.kde.kdeconnect"
             "discord"
+            "chrome_status_icon_1"
           ];
           hidden = [
             "org.kde.plasma.bluetooth"
@@ -94,6 +94,7 @@
           extra = [
             "org.kde.plasma.devicenotifier"
             "org.kde.plasma.mediacontroller"
+            "org.kde.kdeconnect"
           ];
         };
       }
@@ -102,6 +103,11 @@
           calendar.firstDayOfWeek = "monday";
           calendar.plugins = ["pimevents"];
           time.format = "24h";
+          date = {
+            enable = true;
+            format = "shortDate";
+            position = "belowTime";
+          };
         };
       }
       "org.kde.plasma.showdesktop"
