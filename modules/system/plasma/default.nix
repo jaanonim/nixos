@@ -19,8 +19,6 @@ in {
     };
   };
 
-  imports = [./cursor-fix.nix];
-
   config = mkIf cfg.enable {
     services = {
       desktopManager.plasma6.enable = true;
