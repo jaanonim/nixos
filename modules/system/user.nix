@@ -49,12 +49,18 @@ in {
       password = cfg.mainUserPassword;
     };
 
-    security.sudo.extraRules = [
-      {
-        users = [cfg.mainUser];
-        commands = ["ALL"];
-      }
-    ];
+    security.sudo = {
+      extraRules = [
+        {
+          users = [cfg.mainUser];
+          commands = ["ALL"];
+        }
+      ];
+      extraConfig = ''
+        Defaults insults
+        Defaults pwfeedback
+      '';
+    };
 
     home-manager = mkMerge [
       (mkIf cfg.homeManager {
