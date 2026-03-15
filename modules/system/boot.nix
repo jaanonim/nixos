@@ -61,6 +61,8 @@ in {
         if cfg.quietBoot
         then ["quiet"]
         else [];
+
+      tmp.cleanOnBoot = true;
     };
 
     services.journald = mkIf cfg.optimize {extraConfig = "SystemMaxUse=512M";};
