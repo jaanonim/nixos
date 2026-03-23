@@ -22,6 +22,14 @@ in {
           autoupdate = false;
           model = "github-copilot/gpt-4.1";
 
+          agent = {
+            general.model = "github-copilot/gpt-5-mini";
+            explore.model = "github-copilot/gpt-4.1";
+            plan.model = "github-copilot/gpt-5-mini";
+            code.model = "github-copilot/gpt-4.1";
+            review.model = "github-copilot/gpt-4.1";
+          };
+
           permission = {
             bash = {
               # Default: ask for approval on everything
