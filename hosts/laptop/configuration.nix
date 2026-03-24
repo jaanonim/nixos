@@ -31,6 +31,7 @@
       "activitywatch"
       "basic"
       "dev"
+      "android_dev"
       "discord"
       "gaming"
       "ghostty"
