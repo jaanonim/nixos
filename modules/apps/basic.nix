@@ -18,7 +18,9 @@ in {
       brave
       gnome-calculator
       pear-desktop
+      onlyoffice-desktopeditors
+      caprine
     ];
-    programs.chromium.extraOpts.IncognitoModeAvailability = 1;
+    # programs.chromium.extraOpts.IncognitoModeAvailability = 1;
   };
 }
