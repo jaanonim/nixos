@@ -16,7 +16,6 @@ in {
       vlc
       libvlc
       brave
-      gnome-calculator
       pear-desktop
       onlyoffice-desktopeditors
       caprine
