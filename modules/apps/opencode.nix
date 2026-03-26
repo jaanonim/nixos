@@ -30,6 +30,8 @@ in {
             review.model = "github-copilot/gpt-4.1";
           };
 
+          plugin = ["@alergeek-ventures/opencode"];
+
           permission = {
             bash = {
               # Default: ask for approval on everything
