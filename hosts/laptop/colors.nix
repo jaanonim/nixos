@@ -46,9 +46,9 @@ in {
     opacity.popups = 0.7;
 
     cursor = {
-      package = pkgs.capitaine-cursors;
-      name = "capitaine-cursors";
-      size = 32;
+      package = pkgs.phinger-cursors;
+      name = "phinger-cursors-dark";
+      size = 24;
     };
   };
 }
