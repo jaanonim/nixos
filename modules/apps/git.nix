@@ -32,6 +32,7 @@ in {
         signing = {
           signByDefault = true;
           key = "933AF32D3ABD5CAF";
+          format = "openpgp";
         };
         ignores = [
           ".envrc"
