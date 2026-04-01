@@ -17,7 +17,7 @@ in {
     services = {
       printing = mkIf cfg.printer {
         enable = true;
-        drivers = [pkgs.brlaser];
+        drivers = [pkgs.brlaser pkgs.hplip];
       };
       libinput.enable = cfg.touchpad;
     };
