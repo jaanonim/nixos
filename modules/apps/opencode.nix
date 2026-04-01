@@ -30,7 +30,7 @@ in {
             review.model = "github-copilot/gpt-4.1";
           };
 
-          plugin = ["@alergeek-ventures/opencode"];
+          plugin = ["@alergeek-ventures/opencode" "opencode-wakatime"];
 
           permission = {
             bash = {
@@ -340,7 +340,7 @@ in {
             type = "stdio";
             command = "${nodeBin}/npx";
             args = ["-y" "@sylphx/pdf-reader-mcp"];
-            enabled = true;
+            enabled = false;
             env = {
               PATH = "${nodeBin}:/usr/bin:/bin";
             };
