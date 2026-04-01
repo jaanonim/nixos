@@ -126,7 +126,7 @@
     };
     udev.enable = true;
     vfio = {
-      enable = true;
+      enable = false;
       gpuPciAddress = "0000:01:00.0";
       gpuPciId = "10de 25a2";
       vm = {
