@@ -6,6 +6,8 @@ _: {
     sops = false; # decryption keys for sops will not be available on iso image
     homeManager = true;
 
+    boot.bootloader = "none";
+
     ssh = {
       enable = true;
       insertPrivKeys = false;

@@ -36,6 +36,11 @@ in {
           default = false;
           description = "Enable Secure Boot support";
         };
+        bootloader = mkOption {
+          type = types.enum ["grub" "systemd" "none"];
+          default = "grub";
+          description = "Bootloader that will be used";
+        };
       };
     };
   };
@@ -44,9 +49,13 @@ in {
     boot = {
       loader = {
         timeout = cfg.bootloaderTimeout;
-        systemd-boot.enable = false;
         efi.canTouchEfiVariables = true;
+        systemd-boot = {
+          enable = cfg.bootloader == "systemd";
+          configurationLimit = cfg.grubConfigurationLimit;
+        };
         grub = {
+          enable = cfg.bootloader == "grub";
           efiSupport = true;
           device = "nodev";
           configurationLimit = cfg.grubConfigurationLimit;

@@ -14,7 +14,10 @@
       insertPrivKeys = true;
     };
 
-    boot.optimize = false;
+    boot = {
+      bootloader = "none";
+      optimize = false;
+    };
 
     shell.zsh = {
       enable = true;

@@ -56,6 +56,7 @@
       grubConfigurationLimit = 16;
       optimize = true;
       secureBoot = false;
+      bootloader = "grub";
     };
     desktop = {
       enable = true;
