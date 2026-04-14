@@ -21,10 +21,10 @@ in {
           example = 1;
           description = "Grub system picker timeout";
         };
-        grubConfigurationLimit = mkOption {
+        configurationLimit = mkOption {
           type = types.int;
           default = 16;
-          description = "Grub max configuration count";
+          description = "Max configuration count";
         };
         quietBoot = mkOption {
           type = types.bool;
@@ -52,13 +52,13 @@ in {
         efi.canTouchEfiVariables = true;
         systemd-boot = {
           enable = cfg.bootloader == "systemd";
-          configurationLimit = cfg.grubConfigurationLimit;
+          configurationLimit = cfg.configurationLimit;
         };
         grub = {
           enable = cfg.bootloader == "grub";
           efiSupport = true;
           device = "nodev";
-          configurationLimit = cfg.grubConfigurationLimit;
+          configurationLimit = cfg.configurationLimit;
         };
       };
       lanzaboote = mkIf cfg.secureBoot {

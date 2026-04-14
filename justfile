@@ -5,6 +5,10 @@ rebuild:
 	git add .
 	nh os switch .
 
+rebuild-boot:
+	git add .
+	nh os boot .
+
 repair:
 	git add .
 	nh os switch . -- --repair

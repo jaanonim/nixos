@@ -53,7 +53,7 @@
     stylix.enable = true;
     boot = {
       bootloaderTimeout = 1;
-      grubConfigurationLimit = 16;
+      configurationLimit = 16;
       optimize = true;
       secureBoot = false;
       bootloader = "grub";
