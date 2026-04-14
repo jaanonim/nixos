@@ -36,6 +36,7 @@ in {
       discover
       # xwaylandvideobridge
       konsole
+      qrca
     ];
 
     security.pam.services.${my.mainUser}.kwallet = mkIf cfg.kwallet {
