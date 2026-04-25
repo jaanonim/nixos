@@ -56,7 +56,7 @@
       configurationLimit = 16;
       optimize = true;
       secureBoot = false;
-      bootloader = "grub";
+      bootloader = "systemd";
     };
     desktop = {
       enable = true;
