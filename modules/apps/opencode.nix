@@ -102,7 +102,7 @@ in {
           };
         };
 
-        rules = ''
+        context = ''
           # 1. Environment
 
           * OS: NixOS
