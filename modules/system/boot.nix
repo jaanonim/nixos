@@ -52,13 +52,13 @@ in {
         efi.canTouchEfiVariables = true;
         systemd-boot = {
           enable = cfg.bootloader == "systemd";
-          configurationLimit = cfg.configurationLimit;
+          inherit (cfg) configurationLimit;
         };
         grub = {
           enable = cfg.bootloader == "grub";
           efiSupport = true;
           device = "nodev";
-          configurationLimit = cfg.configurationLimit;
+          inherit (cfg) configurationLimit;
         };
       };
       lanzaboote = mkIf cfg.secureBoot {
