@@ -15,7 +15,6 @@ in {
     environment.systemPackages = [
       pkgs.yubikey-manager
       pkgs.pam_u2f
-      pkgs.yubioath-flutter
     ];
 
     services.pcscd.enable = true;
