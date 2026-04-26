@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  imports = builtins.map (path: ./. + "/${path}") (builtins.attrNames (builtins.removeAttrs (builtins.readDir ./.) ["default.nix"]));
+  imports = map (path: ./. + "/${path}") (builtins.attrNames (removeAttrs (builtins.readDir ./.) ["default.nix"]));
 
   options = {
     flakePart = {
