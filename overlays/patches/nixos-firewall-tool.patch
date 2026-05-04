@@ -1,0 +1,29 @@
+--- a/nixos-firewall-tool	2026-05-04 14:31:16.181436225 +0200
++++ b/nixos-firewall-tool	2026-05-04 14:32:52.481742402 +0200
+@@ -29,6 +29,9 @@
+ Open UDP port:
+   nixos-firewall-tool open udp 51820
+ 
++Allow all traffic (temporary):
++  nixos-firewall-tool allow-all
++
+ Show all firewall rules:
+   nixos-firewall-tool show
+ 
+@@ -60,6 +63,16 @@
+         ;;
+     esac
+   ;;
++  "allow-all")
++    case $BACKEND in
++      iptables)
++        ip46tables -I nixos-fw -j ACCEPT
++        ;;
++      nftables)
++        nft insert rule inet nixos-fw input counter accept
++        ;;
++    esac
++  ;;
+   "show")
+     case $BACKEND in
+       iptables)
