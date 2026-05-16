@@ -64,7 +64,6 @@
           "194.146.251.101" # tempus2.gum.gov.pl
         ];
         exporter = true;
-        syncOnStart = true;
       };
       homepage = {
         enable = true;
