@@ -28,7 +28,6 @@
       };
     };
     apps = [
-      "activitywatch"
       "basic"
       "dev"
       "android_dev"
@@ -42,7 +41,6 @@
       "plasma"
       "syncthing"
       "terminal"
-      "tmux"
       "tools"
       "wakatime"
       "opencode"
