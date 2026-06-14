@@ -42,6 +42,7 @@
       "syncthing"
       "terminal"
       "tools"
+      "university"
       "wakatime"
       "opencode"
       "work"
