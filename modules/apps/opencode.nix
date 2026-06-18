@@ -6,6 +6,7 @@
 }:
 with lib; let
   inherit (config) my;
+  llama-swap-ip = "localhost"; # Hardcoded for now, could be made configurable if needed
 in {
   config = mkIf (builtins.any (ele: (ele == (lib.removeSuffix ".nix" (baseNameOf __curPos.file)))) my.apps) {
     my._packages = with pkgs; [
@@ -24,86 +25,29 @@ in {
 
           plugin = ["@alergeek-ventures/opencode" "opencode-wakatime"];
 
-          permission = {
-            bash = {
-              # Default: ask for approval on everything
-              "*" = "ask";
+          permission = builtins.fromJSON (builtins.readFile (lib.root /config/opencode/permissions.json));
 
-              # Safe read-only commands — always allow
-              "git status" = "allow";
-              "git log *" = "allow";
-              "git diff *" = "allow";
-              "git diff" = "allow";
-              "git show *" = "allow";
-              "git branch *" = "allow";
-              "git branch" = "allow";
-              "cat *" = "allow";
-              "ls *" = "allow";
-              "ls" = "allow";
-              "echo *" = "allow";
-              "rg *" = "allow";
-              "grep *" = "allow";
-              "find *" = "allow";
-              "fd *" = "allow";
-              "jq *" = "allow";
-              "command -v *" = "allow";
-              "which *" = "allow";
-              "type *" = "allow";
-              "nix flake check *" = "allow";
-              "nix flake check" = "allow";
-              "nix build *" = "allow";
-              "nix eval *" = "allow";
-
-              # Ephemeral shells — ask (fall through to "*" = "ask", listed
-              # explicitly here for clarity in the permission prompt)
-              # nix-shell --run *   → "ask"
-              # nix develop *       → "ask"
-              # nix run *           → "ask"
-
-              # Destructive git — ask explicitly (not auto-approved)
-              # git commit *, git push *, git reset * → "ask"
-
-              # Hard denies — imperative package installation, never allowed
-              "nix-env *" = "deny";
-              "nix-env --install *" = "deny";
-              "cargo install *" = "deny";
-              "npm install -g *" = "deny";
-              "npm i -g *" = "deny";
-              "yarn global add *" = "deny";
-              "pnpm add -g *" = "deny";
-              "gem install *" = "deny";
-              "go install *" = "deny";
+          provider = mkIf (my.containers.llama.enable) {
+            llama-swap = {
+              npm = "@ai-sdk/openai-compatible";
+              name = "llama-swap";
+              options = {
+                baseURL = "http://${llama-swap-ip}:${toString my.containers.llama.port}/v1";
+              };
+              models =
+                mapAttrs (modelName: modelCfg: {
+                  name = modelName;
+                  limit = {
+                    context = modelCfg.context;
+                    output = modelCfg.output;
+                  };
+                })
+                my.containers.llama.models;
             };
-
-            # File edits: ask by default, allow within project
-            edit = {
-              "*" = "ask";
-            };
-
-            # Reads are fine, but never read secrets
-            read = {
-              "*" = "allow";
-              "*.env" = "deny";
-              "*.envrc" = "deny";
-              "*.env.*" = "deny";
-              ".env.example" = "allow"; # example files are fine
-            };
-
-            # Web fetching: ask (agents should justify why they need external URLs)
-            webfetch = "allow";
-            websearch = "allow";
-            codesearch = "allow";
-
-            todoread = "allow";
-            todowrite = "allow";
-
-            # These default to "ask" already, but explicit is better
-            doom_loop = "ask";
-            external_directory = "ask";
           };
         };
 
-        context = builtins.readFile (lib.root /config/opencode_agent.md);
+        context = builtins.readFile (lib.root /config/opencode/agent.md);
       };
 
       programs.mcp = let
