@@ -33,24 +33,26 @@ in {
 
     models = mkOption {
       type = types.attrsOf (types.submodule {
-        options.hfId = mkOption {
-          type = types.str;
-          description = "Hugging Face model ID";
-        };
-        options.context = mkOption {
-          type = types.int;
-          description = "Context length";
-          default = 8192;
-        };
-        options.output = mkOption {
-          type = types.int;
-          description = "Output length limit";
-          default = 4096;
-        };
-        options.extraArgs = mkOption {
-          type = types.listOf types.str;
-          description = "Extra command line arguments for llama-swap";
-          default = [];
+        options = {
+          hfId = mkOption {
+            type = types.str;
+            description = "Hugging Face model ID";
+          };
+          context = mkOption {
+            type = types.int;
+            description = "Context length";
+            default = 8192;
+          };
+          output = mkOption {
+            type = types.int;
+            description = "Output length limit";
+            default = 4096;
+          };
+          extraArgs = mkOption {
+            type = types.listOf types.str;
+            description = "Extra command line arguments for llama-swap";
+            default = [];
+          };
         };
       });
       description = "Models to be used with llama-swap";

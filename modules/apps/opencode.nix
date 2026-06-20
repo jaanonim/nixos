@@ -27,7 +27,7 @@ in {
 
           permission = builtins.fromJSON (builtins.readFile (lib.root /config/opencode/permissions.json));
 
-          provider = mkIf (my.containers.llama.enable) {
+          provider = mkIf my.containers.llama.enable {
             llama-swap = {
               npm = "@ai-sdk/openai-compatible";
               name = "llama-swap";
@@ -38,8 +38,7 @@ in {
                 mapAttrs (modelName: modelCfg: {
                   name = modelName;
                   limit = {
-                    context = modelCfg.context;
-                    output = modelCfg.output;
+                    inherit (modelCfg) context output;
                   };
                 })
                 my.containers.llama.models;

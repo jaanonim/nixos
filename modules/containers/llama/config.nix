@@ -1,4 +1,4 @@
-{...}: {
+_: {
   my.containers.llama = {
     models = {
       "gemma-4-e4b" = {
