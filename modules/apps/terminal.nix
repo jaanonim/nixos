@@ -26,9 +26,7 @@ in {
         htop
         bat
         systemctl-tui
-        (btop.override {
-          cudaSupport = true;
-        })
+        btop-cuda
         # nvtopPackages.nvidia
       ]
       ++ (with jaanonim-pkgs; [
