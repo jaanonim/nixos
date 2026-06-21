@@ -4,7 +4,20 @@
   nixosConfig,
   fastConnection ? false,
   sshUser ? "root",
-}: {
+}: let
+  # Magic for using cache - https://github.com/serokell/deploy-rs/issues/163#issuecomment-2991603313
+  deployPkgs = import inputs.nixpkgs {
+    inherit system;
+    overlays = [
+      (self: super: {
+        deploy-rs = {
+          inherit ((inputs.deploy-rs.overlays.default self super).deploy-rs) lib;
+          inherit (super) deploy-rs;
+        };
+      })
+    ];
+  };
+in {
   hostname = target;
   interactiveSudo = true;
   autoRollback = false;
@@ -14,6 +27,6 @@
     inherit sshUser;
 
     user = "root";
-    path = inputs.deploy-rs.lib.${system}.activate.nixos nixosConfig;
+    path = deployPkgs.deploy-rs.lib.activate.nixos nixosConfig;
   };
 }

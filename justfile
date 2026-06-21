@@ -39,4 +39,4 @@ docs:
 	nix build .#docs
 
 homepi:
-	deploy -- .#homepi --log-format internal-json -v |& nom --json
+	deploy .#homepi -c -- --log-format internal-json -v |& nom --json

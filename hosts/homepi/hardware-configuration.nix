@@ -5,6 +5,9 @@
 }: {
   environment.systemPackages = with pkgs; [libraspberrypi];
 
+  # use mainline kernel as raspberry pi kernel is not cached
+  boot.kernelPackages = pkgs.linuxPackages;
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
