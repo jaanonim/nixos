@@ -18,7 +18,7 @@ rebuild-trace:
 	nh os switch . -- --show-trace
 
 checks:
-	. scripts/checks.sh
+	nix flake check --all-systems
 
 update:
 	nix flake update --no-warn-dirty
