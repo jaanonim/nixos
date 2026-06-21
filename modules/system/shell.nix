@@ -26,9 +26,7 @@ in {
 
     aliases = mkOption {
       type = types.attrsOf types.str;
-      default = {
-        ns = "NIXPKGS_ALLOW_UNFREE=1 nix-shell -p $(nsearch)";
-      };
+      default = {};
       example = {
         name = "command";
       };

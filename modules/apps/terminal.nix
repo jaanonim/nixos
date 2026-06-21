@@ -2,33 +2,38 @@
   pkgs,
   config,
   lib,
+  jaanonim-pkgs,
   ...
 }:
 with lib; let
   inherit (config) my;
 in {
   config = mkIf (builtins.any (ele: (ele == (lib.removeSuffix ".nix" (baseNameOf __curPos.file)))) my.apps) {
-    my._packages = with pkgs; [
-      fzf
-      vim
-      wget
-      tlrc #TODO: add config to hm
-      zoxide
-      zsh-autosuggestions
-      zsh-powerlevel10k
-      imagemagick
-      ffmpeg_7
-      unzip
-      gnugrep
-      lsof
-      htop
-      bat
-      systemctl-tui
-      (btop.override {
-        cudaSupport = true;
-      })
-      # nvtopPackages.nvidia
-    ];
+    my._packages = with pkgs;
+      [
+        fzf
+        vim
+        wget
+        tlrc #TODO: add config to hm
+        zoxide
+        zsh-autosuggestions
+        zsh-powerlevel10k
+        imagemagick
+        ffmpeg_7
+        unzip
+        gnugrep
+        lsof
+        htop
+        bat
+        systemctl-tui
+        (btop.override {
+          cudaSupport = true;
+        })
+        # nvtopPackages.nvidia
+      ]
+      ++ (with jaanonim-pkgs; [
+        ns
+      ]);
 
     home-manager.users.${my.mainUser}.programs = mkIf my.homeManager {
       zoxide = {

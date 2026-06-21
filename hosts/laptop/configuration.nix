@@ -13,7 +13,6 @@
         homepi = "ssh 192.168.1.150";
         nas = "ssh 192.168.1.102";
         nd = "nix develop -c zsh";
-        ns = "NIXPKGS_ALLOW_UNFREE=1 nix-shell -p $(nsearch)";
         ports = "lsof -i -P -n | grep LISTEN";
       };
       historySize = 10000000;

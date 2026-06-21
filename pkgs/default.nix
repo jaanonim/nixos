@@ -1,6 +1,4 @@
 {
-  inputs,
-  system,
   pkgs,
   lib,
   ...
@@ -16,12 +14,7 @@
     then packageFiles
     else builtins.filter (path: !(builtins.elem path unfreeFiles)) packageFiles;
 in
-  {
-    nsearch = inputs.nsearch.packages.${system}.default;
-  }
-  // (
-    lib.foldl (a: b: a // b) {}
-    (
-      map (path: import "${./.}/${path}" {inherit pkgs lib;}) filteredPackageFiles
-    )
+  lib.foldl (a: b: a // b) {}
+  (
+    map (path: import "${./.}/${path}" {inherit pkgs lib;}) filteredPackageFiles
   )

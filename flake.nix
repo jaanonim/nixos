@@ -52,11 +52,6 @@
       url = "git+ssh://git@github.com/jaanonim/nixos-secrets.git?shallow=1";
       flake = false;
     };
-
-    nsearch = {
-      url = "github:niksingh710/nsearch";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   ### Outputs
