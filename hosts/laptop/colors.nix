@@ -43,7 +43,11 @@ in {
       };
     };
 
-    opacity.popups = 0.7;
+    opacity = {
+      popups = 0.7;
+      desktop = 0.7;
+      terminal = 0.9;
+    };
 
     cursor = {
       package = pkgs.phinger-cursors;
