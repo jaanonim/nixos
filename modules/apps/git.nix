@@ -28,6 +28,7 @@ in {
           core.autocrlf = "input";
           github.user = "jaanonim";
           credential.helper = "libsecret";
+          push.autoSetupRemote = true;
         };
         signing = {
           signByDefault = true;
