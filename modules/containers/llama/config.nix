@@ -29,6 +29,17 @@ _: {
           "--top-p 0.95"
         ];
       };
+      "gpt-oss-20b" = {
+        hfId = "ggml-org/gpt-oss-20b-GGUF";
+        context = 32768;
+        output = 8192;
+        extraArgs = [
+          "--threads 8"
+          "--n-cpu-moe 22"
+          "--batch-size 2048"
+          "--ubatch-size 2048"
+        ];
+      };
     };
     extraConfig = ''
       healthCheckTimeout: 600

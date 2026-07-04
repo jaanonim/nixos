@@ -50,7 +50,7 @@ in {
           };
           extraArgs = mkOption {
             type = types.listOf types.str;
-            description = "Extra command line arguments for llama-swap";
+            description = "Extra command line arguments for llama";
             default = [];
           };
         };
@@ -78,6 +78,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [llama-cpp];
+
     systemd.services.llama-swap = {
       description = "llama-swap - OpenAI compatible proxy with automatic model swapping";
       after = ["network.target"];
