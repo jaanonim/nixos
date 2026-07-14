@@ -42,7 +42,7 @@ in {
     '';
 
     environment.etc."uv/uv.toml".text = ''
-      exclude-newer = P${toString minimumReleaseAgeDays}D
+      exclude-newer = "${toString minimumReleaseAgeDays} days"
     '';
 
     home-manager.users.${my.mainUser} = mkIf my.homeManager {

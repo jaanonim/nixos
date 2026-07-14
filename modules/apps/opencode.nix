@@ -21,7 +21,6 @@ in {
         settings = {
           autoshare = false;
           autoupdate = false;
-          model = "github-copilot/gpt-5-mini";
 
           plugin = ["@alergeek-ventures/opencode" "opencode-wakatime"];
 
