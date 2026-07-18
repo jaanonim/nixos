@@ -24,39 +24,43 @@ in {
 
     # Config for protection against supply chain attacks in package managers
 
-    environment.etc."npmrc".text = ''
-      ignore-scripts=true
-      audit=true
-      fund=false
-      save-exact=true
-      update-notifier=false
-      min-release-age=${toString minimumReleaseAgeDays}
-    '';
+    environment.etc = {
+      "npmrc".text = ''
+        ignore-scripts=true
+        audit=true
+        fund=false
+        save-exact=true
+        update-notifier=false
+        min-release-age=${toString minimumReleaseAgeDays}
+      '';
 
-    environment.etc."pip.conf".text = ''
-      [global]
-      require-virtualenv = true
+      "pip.conf".text = ''
+        [global]
+        require-virtualenv = true
 
-      [install]
-      uploaded-prior-to = P${toString minimumReleaseAgeDays}D
-    '';
+        [install]
+        uploaded-prior-to = P${toString minimumReleaseAgeDays}D
+      '';
 
-    environment.etc."uv/uv.toml".text = ''
-      exclude-newer = "${toString minimumReleaseAgeDays} days"
-    '';
+      "uv/uv.toml".text = ''
+        exclude-newer = "${toString minimumReleaseAgeDays} days"
+      '';
+    };
 
     home-manager.users.${my.mainUser} = mkIf my.homeManager {
-      xdg.configFile."pnpm/config.yaml".text = ''
-        ignore-scripts: true
-        minimumReleaseAge: ${toString minimumReleaseAgeMinutes}
-        verifyStoreIntegrity: true
-      '';
+      xdg.configFile = {
+        "pnpm/config.yaml".text = ''
+          ignore-scripts: true
+          minimumReleaseAge: ${toString minimumReleaseAgeMinutes}
+          verifyStoreIntegrity: true
+        '';
 
-      xdg.configFile.".bunfig.toml".text = ''
-        [install]
-        ignoreScripts = true
-        minimumReleaseAge = ${toString minimumReleaseAgeMinutes}
-      '';
+        ".bunfig.toml".text = ''
+          [install]
+          ignoreScripts = true
+          minimumReleaseAge = ${toString minimumReleaseAgeMinutes}
+        '';
+      };
     };
   };
 }

@@ -5,6 +5,7 @@ rebuild:
 	git add .
 	nh os switch .
 
+alias boot := rebuild-boot
 rebuild-boot:
 	git add .
 	nh os boot .
@@ -17,6 +18,7 @@ rebuild-trace:
 	git add .
 	nh os switch . -- --show-trace
 
+alias check := checks
 checks:
 	nix flake check --all-systems
 
