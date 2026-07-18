@@ -12,8 +12,11 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod"];
-    initrd.kernelModules = [];
+    initrd = {
+      includeDefaultModules = false;
+      availableKernelModules = ["nvme" "xhci_pci" "usbhid"];
+      kernelModules = [];
+    };
     kernelModules = ["kvm-amd"];
     extraModulePackages = [];
   };

@@ -75,6 +75,17 @@ in {
     };
 
     services.journald = mkIf cfg.optimize {extraConfig = "SystemMaxUse=512M";};
-    systemd.settings.Manager = mkIf cfg.optimize {DefaultTimeoutStopSec = "16s";};
+
+    systemd.settings.Manager = mkIf cfg.optimize {
+      DefaultTimeoutStopSec = "16s";
+      DefaultDeviceTimeoutSec = "15s";
+    };
+
+    systemd.services = mkIf cfg.optimize {
+      fwupd.enable = false;
+      ModemManager.enable = false;
+      accounts-daemon.enable = false;
+      NetworkManager-wait-online.enable = false;
+    };
   };
 }

@@ -70,8 +70,6 @@ in {
       };
     };
 
-    systemd.services.NetworkManager-wait-online.enable = my.boot.optimize;
-
     networking.networkmanager = mkIf cfg.networkmanager {
       enable = true;
       dns =
