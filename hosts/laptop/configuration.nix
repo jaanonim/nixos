@@ -45,6 +45,7 @@
       "wakatime"
       "opencode"
       "work"
+      "worktrunk"
     ];
     audio.enable = true;
     bluetooth.enable = true;
