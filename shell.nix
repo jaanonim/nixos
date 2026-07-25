@@ -17,6 +17,7 @@ pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     git
     just
+    just-lsp
     jq
     direnv
     statix
