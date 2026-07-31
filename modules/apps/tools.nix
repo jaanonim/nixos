@@ -27,5 +27,8 @@ in {
       normcapDesktop
       gramps
     ];
+
+    # For pika-backup to work properly, gvfs must be enabled, otherwise it will fail to mount remote locations like smb://
+    services.gvfs.enable = true;
   });
 }

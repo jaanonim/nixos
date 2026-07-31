@@ -41,4 +41,9 @@ docs:
 	nix build .#docs
 
 homepi:
+	git add .
 	deploy .#homepi -c -- --log-format internal-json -v |& nom --json
+
+nas:
+	git add .
+	deploy .#nas -c -- --log-format internal-json -v |& nom --json

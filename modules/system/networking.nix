@@ -40,6 +40,12 @@ in {
       example = "192.168.0.1";
       description = "Default gateway for specified interface";
     };
+    wakeOnLan = mkOption {
+      type = types.bool;
+      default = false;
+      example = true;
+      description = "Enable Wake on LAN for specified interface";
+    };
   };
 
   config = {
@@ -48,10 +54,12 @@ in {
       firewall.enable = cfg.firewall;
       nameservers = cfg.dns;
       hostName = my.hostname;
+      hostId = builtins.substring 0 8 (builtins.hashString "md5" my.hostname);
       useDHCP = !cfg.networkmanager;
 
       interfaces = mkIf (!cfg.networkmanager) {
         ${cfg.interface} = {
+          wakeOnLan.enable = cfg.wakeOnLan;
           ipv4.addresses = [
             {
               address =

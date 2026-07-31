@@ -65,12 +65,12 @@ in {
         enable = true;
         pkiBundle = "/var/lib/sbctl";
       };
-
       kernelParams =
         if cfg.quietBoot
         then ["quiet"]
         else [];
 
+      zfs.forceImportRoot = false;
       tmp.cleanOnBoot = true;
     };
 
