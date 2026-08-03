@@ -1,5 +1,10 @@
 .vscode
+
 .env
 .direnv
+
 result
-/*.qcow2
+
+*.qcow2
+
+.agents/plans

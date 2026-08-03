@@ -40,10 +40,12 @@ docs:
 	git add .
 	nix build .#docs
 
+# -- --log-format internal-json -v |& nom --json
+
 homepi:
 	git add .
-	deploy .#homepi -c -- --log-format internal-json -v |& nom --json
+	deploy .#homepi -c
 
 nas:
 	git add .
-	deploy .#nas -c -- --log-format internal-json -v |& nom --json
+	deploy .#nas -c

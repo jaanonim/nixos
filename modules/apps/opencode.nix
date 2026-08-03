@@ -22,6 +22,8 @@ in {
           autoshare = false;
           autoupdate = false;
 
+          subagent_depth = 2;
+
           plugin = ["@alergeek-ventures/opencode" "opencode-wakatime"];
 
           permission = builtins.fromJSON (builtins.readFile (lib.root /config/opencode/permissions.json));
