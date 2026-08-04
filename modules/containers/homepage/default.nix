@@ -2,11 +2,18 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   inherit (config) my;
   cfg = my.containers.homepage;
+
+  getHostServices = hostname:
+    if (hostname == my.hostname)
+    then cfg.hosts.${hostname}.services
+    else inputs.self.nixosConfigurations.${hostname}.config.my.containers.homepage.hosts.${hostname}.services;
+
   servicesList =
     mapAttrsToList (hostname: host: {
       ${toSentenceCase hostname} =
@@ -41,7 +48,7 @@ with lib; let
               inherit (service) description;
             };
         }))
-        host.services;
+        (getHostServices hostname);
     })
     cfg.hosts;
   servicesYamlStr = ''

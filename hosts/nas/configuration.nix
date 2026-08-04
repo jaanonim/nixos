@@ -62,6 +62,7 @@ _: {
           };
         };
       };
+      nodeExporter.enable = true;
       nginx.enable = true;
       immich = {
         enable = true;

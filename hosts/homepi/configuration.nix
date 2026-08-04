@@ -39,6 +39,7 @@
         pingTargets = ["1.1.1.1" "8.8.8.8"] ++ (lib.mapAttrsToList (_: v: v.ip) config.my.infrastructure.hosts);
         speedtest = true;
       };
+      nodeExporter.enable = true;
       nginx = {
         enable = true;
         exporter = true;
@@ -75,18 +76,6 @@
           nas = {
             description = "Main nas sever for heavy tasks.";
             icon = "sh-truenas-scale";
-            services = {
-              immich = {
-                description = "High performance self-hosted photo and video management solution.";
-              };
-              metube = {
-                description = "Self-hosted YouTube downloader.";
-              };
-              kasm = {
-                description = "A platform for streaming desktops, apps, and browsers securely.";
-                icon = "sh-kasm-workspaces";
-              };
-            };
           };
         };
       };
