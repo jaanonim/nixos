@@ -55,7 +55,7 @@ in {
       nameservers = cfg.dns;
       hostName = my.hostname;
       hostId = builtins.substring 0 8 (builtins.hashString "md5" my.hostname);
-      useDHCP = !cfg.networkmanager;
+      useDHCP = !cfg.networkmanager && cfg.interface == null;
 
       interfaces = mkIf (!cfg.networkmanager) {
         ${cfg.interface} = {
