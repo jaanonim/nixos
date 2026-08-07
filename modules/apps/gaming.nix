@@ -14,11 +14,9 @@ in {
     ];
 
     programs = {
-      gamescope.enable = true;
       steam = {
         enable = true;
         extest.enable = true;
-        gamescopeSession.enable = true;
       };
     };
   };
