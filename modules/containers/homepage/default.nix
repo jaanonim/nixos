@@ -51,9 +51,12 @@ with lib; let
         (getHostServices hostname);
     })
     cfg.hosts;
+
+  removeYamlHeader = yamlStr: lib.concatStringsSep "\n" (lib.drop 2 (lib.splitString "\n" yamlStr));
+  generatedServicesYamlStr = builtins.readFile ((pkgs.formats.yaml {}).generate "services.yaml" servicesList);
   servicesYamlStr = ''
     ${builtins.readFile ./services.yaml}
-    ${builtins.readFile ((pkgs.formats.yaml {}).generate "services.yaml" servicesList)}
+    ${removeYamlHeader generatedServicesYamlStr}
   '';
 in {
   options.my.containers.homepage = let
