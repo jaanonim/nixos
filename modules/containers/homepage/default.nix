@@ -132,7 +132,7 @@ in {
     };
 
     virtualisation.oci-containers.containers.homepage = {
-      image = "ghcr.io/gethomepage/homepage:v1.13.2@sha256:7a916ce0641618777a3091d7836ba4831dd08b09b12dfd957d8066fa9479891b";
+      image = "ghcr.io/gethomepage/homepage:v2.1.2@sha256:e422a1ec7834b5cfac54e9cb1804475f7a4d61bb0c04002ebc59542bd8b3350d";
       ports = ["3000:3000"];
       pull = "always";
       volumes = [
