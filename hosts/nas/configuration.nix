@@ -70,6 +70,10 @@ _: {
         mediaLocation = "/main/dane/Immich";
       };
       cockpit.enable = true;
+      metube = {
+        enable = true;
+        downloadDir = "/main/dane/Metube";
+      };
     };
   };
 

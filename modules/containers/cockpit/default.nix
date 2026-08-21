@@ -54,9 +54,5 @@ in {
         my.containers.nginx._extraConf
       ];
     };
-
-    my.containers.homepage.hosts.${my.hostname}.services.cockpit = {
-      description = "The easy-to-use, integrated, glanceable, and open web-based interface for your servers.";
-    };
   };
 }
