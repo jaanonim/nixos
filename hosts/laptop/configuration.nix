@@ -136,7 +136,6 @@
       };
     };
     virtualbox.enable = true;
-    yubikey.enable = true;
     vpn.tailscale = {
       enable = true;
       systray = true;

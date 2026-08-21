@@ -34,6 +34,7 @@ _: {
       interface = "enp2s0";
       dns = ["192.168.1.150" "1.1.1.1" "1.1.2.2"];
     };
+    crossCompileSystems = ["aarch64-linux"];
 
     containers = {
       samba = {
