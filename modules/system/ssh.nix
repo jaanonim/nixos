@@ -10,7 +10,9 @@ with lib; let
   cfg = config.my.ssh;
   secrets-path = toString inputs.jaanonim-secrets;
   ssh-path = "${secrets-path}/ssh/${my.mainUser}";
-  ssh-filenames = builtins.attrNames (builtins.readDir ssh-path);
+  ssh-filenames =
+    builtins.filter (lib.hasSuffix ".pub")
+    (builtins.attrNames (builtins.readDir ssh-path));
   ssh-files = map (name: "${ssh-path}/${name}") ssh-filenames;
 in {
   options.my.ssh = {

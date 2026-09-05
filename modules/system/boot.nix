@@ -74,7 +74,7 @@ in {
       tmp.cleanOnBoot = true;
     };
 
-    services.journald = mkIf cfg.optimize {extraConfig = "SystemMaxUse=512M";};
+    services.journald = mkIf cfg.optimize {settings.Journal.SystemMaxUse = "512M";};
 
     systemd.settings.Manager = mkIf cfg.optimize {
       DefaultTimeoutStopSec = "16s";
