@@ -15,22 +15,13 @@ pkgs.mkShell {
   # NIX_BUILD_SHELL = "zsh";
   NIX_CONFIG = "extra-experimental-features = nix-command flakes";
   nativeBuildInputs = with pkgs; [
-    git
     just
     just-lsp
-    jq
-    direnv
-    statix
-    nix
-    nixd
-    nurl
-    nix-tree
-    alejandra
     nh
-    home-manager
-    nix-inspect
-    sops
     deploy-rs
     nix-output-monitor
+    nurl
+    nix-tree
+    nix-inspect
   ];
 }
