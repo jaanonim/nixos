@@ -27,7 +27,6 @@ in {
         bat
         systemctl-tui
         btop-cuda
-        # nvtopPackages.nvidia
       ]
       ++ (with jaanonim-pkgs; [
         ns
@@ -44,14 +43,6 @@ in {
         settings = {
           number = true;
         };
-      };
-      direnv = {
-        enable = true;
-        config = {
-          hide_env_diff = true;
-        };
-        enableZshIntegration = true;
-        nix-direnv.enable = true;
       };
     };
   };

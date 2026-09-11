@@ -15,7 +15,6 @@ in {
       alejandra
       nixd
       nil
-      direnv
     ];
   };
 }

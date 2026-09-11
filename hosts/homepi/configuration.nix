@@ -25,6 +25,7 @@
       powerlevel10k = true;
       zshNixShell = true;
     };
+    direnv.enable = true;
 
     networking = {
       networkmanager = false;

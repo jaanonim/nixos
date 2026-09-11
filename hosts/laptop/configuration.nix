@@ -140,6 +140,7 @@
       enable = true;
       systray = true;
     };
+    direnv.enable = true;
     crossCompileSystems = ["aarch64-linux"];
   };
 
