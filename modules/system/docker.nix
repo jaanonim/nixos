@@ -5,7 +5,7 @@
 }:
 with lib; let
   inherit (config) my;
-  cfg = config.my.docker;
+  cfg = my.docker;
 in {
   options.my.docker = {
     enable = mkEnableOption "Docker";
@@ -18,11 +18,14 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.docker = {
-      enable = true;
-      enableOnBoot = false;
-      autoPrune.enable = true;
+      enable = false;
+
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+        daemon.settings.features.cdi = cfg.nvidia;
+      };
     };
-    users.extraGroups.docker.members = [my.mainUser];
     hardware.nvidia-container-toolkit.enable = cfg.nvidia;
   };
 }
