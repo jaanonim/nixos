@@ -13,7 +13,11 @@ in {
     allowFrom = mkOption {
       type = types.listOf types.str;
       default = ["all"];
-      example = ["127.0.0.1" "192.168.1.*" "192.168.0.*"];
+      example = [
+        "127.0.0.1"
+        "192.168.1.0/24"
+        "192.168.0.0/24"
+      ];
       description = "List of IP addresses or CIDR ranges allowed to access the printer service.";
     };
   };
