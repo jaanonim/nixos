@@ -18,6 +18,14 @@ in {
         enable = true;
         enableMcpIntegration = true;
 
+        agents = {
+          save-plan = lib.root /config/opencode/agents/save-plan.md;
+        };
+
+        skills = {
+          save-plan = lib.root /config/opencode/skills/save-plan.md;
+        };
+
         settings = {
           autoshare = false;
           autoupdate = false;
