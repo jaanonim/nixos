@@ -19,6 +19,13 @@ in {
         enable = true;
         drivers = [pkgs.brlaser pkgs.hplip];
       };
+
+      avahi = mkIf cfg.printer {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
+
       libinput.enable = cfg.touchpad;
     };
 
