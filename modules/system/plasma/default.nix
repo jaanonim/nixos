@@ -39,6 +39,12 @@ in {
       qrca
     ];
 
+    environment.systemPackages = [
+      (pkgs.kdePackages.spectacle.override {
+        tesseractLanguages = ["pol" "eng"];
+      })
+    ];
+
     security.pam.services.${my.mainUser}.kwallet = mkIf cfg.kwallet {
       enable = true;
       package = pkgs.kdePackages.kwallet-pam;
