@@ -74,7 +74,7 @@ in {
 
       settings = {
         experimental-features = ["nix-command" "flakes"];
-        nix-path = lib.mkForce "nixpkgs=${inputs.nixpkgs}";
+        nix-path = ["nixpkgs=${inputs.nixpkgs}"];
         download-buffer-size = 524288000; # 500 MB
 
         allowed-users = allowedUsers ++ cfg.extraAllowedUsers;
