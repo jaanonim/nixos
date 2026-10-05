@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -70,6 +71,7 @@ in {
           layout = my.locale.keyMap;
           variant = "";
         };
+        excludePackages = [pkgs.xterm];
       };
 
       displayManager.defaultSession = cfg.defaultDesktop;
