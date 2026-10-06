@@ -13,6 +13,6 @@ in {
       git
     ];
 
-    environment.etc."xdg/autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
+    environment.etc."xdg/autostart/md.obsidian.Obsidian.desktop".source = "${pkgs.obsidian}/share/applications/md.obsidian.Obsidian.desktop";
   };
 }
