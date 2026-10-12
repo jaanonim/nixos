@@ -1,0 +1,26 @@
+From 283f2b29c22e82eeb49f691de923d9bfc8eb234c Mon Sep 17 00:00:00 2001
+From: jaanonim <mat8mro@gmail.com>
+Date: Tue, 6 Oct 2026 14:02:26 +0200
+Subject: [PATCH 2/2] Don't require authentication for setting battery
+ conservation mode
+
+Toggling the charge limit from the battery applet or System Settings
+should not prompt for an administrator password.
+---
+ daemon/chargethreshold_helper_actions.actions | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/daemon/chargethreshold_helper_actions.actions b/daemon/chargethreshold_helper_actions.actions
+index 607c0a0ab..967c92b97 100644
+--- a/daemon/chargethreshold_helper_actions.actions
++++ b/daemon/chargethreshold_helper_actions.actions
+@@ -431,5 +431,5 @@ Description[tr]=Pil tasarrufu kipini ayarlamak için kimliğinizi doğrulayın.
+ Description[uk]=Пройдіть розпізнавання для встановлення режиму консервації акумулятора.
+ Description[zh_CN]=进行身份验证以设置节电模式。
+ Description[zh_TW]=認證以設定電池保護模式。
+-Policy=auth_admin
++Policy=yes
+ Persistence=session
+-- 
+2.55.0
+

@@ -1,0 +1,315 @@
+From 2b26a578ac6cfb114b35dfbac869508ac146fbc6 Mon Sep 17 00:00:00 2001
+From: jaanonim <mat8mro@gmail.com>
+Date: Tue, 6 Oct 2026 13:59:00 +0200
+Subject: [PATCH 1/2] applets/batterymonitor: Add working battery conservation
+ mode switch
+
+Wire the BatteryItem charge-limit switch to the chargethresholdhelper
+KAuth helper via a new BatteryChargeControl, same path the KCM uses.
+---
+ applets/batterymonitor/BatteryItem.qml        |  21 ++++
+ applets/batterymonitor/PopupDialog.qml        |  11 ++
+ applets/batterymonitor/main.qml               |  11 ++
+ applets/batterymonitor/plugin/CMakeLists.txt  |   2 +
+ .../plugin/batterychargecontrol.cpp           | 105 ++++++++++++++++++
+ .../plugin/batterychargecontrol.h             |  45 ++++++++
+ 6 files changed, 195 insertions(+)
+ create mode 100644 applets/batterymonitor/plugin/batterychargecontrol.cpp
+ create mode 100644 applets/batterymonitor/plugin/batterychargecontrol.h
+
+diff --git a/applets/batterymonitor/BatteryItem.qml b/applets/batterymonitor/BatteryItem.qml
+index 0b194440e..cad23a7f2 100644
+--- a/applets/batterymonitor/BatteryItem.qml
++++ b/applets/batterymonitor/BatteryItem.qml
+@@ -45,6 +45,12 @@ PlasmaComponents3.ItemDelegate {
+ 
+     property int chargeStopThreshold: 0
+ 
++    property bool batteryConservationModeSupported: false
++    property bool batteryConservationModeEnabled: false
++    property bool batteryConservationModeBusy: false
++
++    signal conservationModeChangeRequested(bool enabled)
++
+     // Existing instance of a slider to use as a reference to calculate extra
+     // margins for a progress bar, so that the row of labels on top of it
+     // could visually look as if it were on the same distance from the bar as
+@@ -229,6 +235,21 @@ PlasmaComponents3.ItemDelegate {
+                 }
+             }
+ 
++            PlasmaComponents3.Switch {
++                id: batteryConservationModeSwitch
++                Layout.fillWidth: true
++                Layout.topMargin: Kirigami.Units.smallSpacing
++
++                visible: root.batteryConservationModeSupported && root.batteryIsPowerSupply
++                checked: root.batteryConservationModeEnabled
++                enabled: !root.batteryConservationModeBusy
++                text: i18nc("@action:button", "Limit the maximum battery charge")
++
++                Accessible.onPressAction: toggled()
++
++                onToggled: root.conservationModeChangeRequested(checked)
++            }
++
+             InhibitionHint {
+                 Layout.fillWidth: true
+                 Layout.topMargin: Kirigami.Units.smallSpacing
+diff --git a/applets/batterymonitor/PopupDialog.qml b/applets/batterymonitor/PopupDialog.qml
+index 89c88f792..53cba88f2 100644
+--- a/applets/batterymonitor/PopupDialog.qml
++++ b/applets/batterymonitor/PopupDialog.qml
+@@ -18,6 +18,9 @@ PlasmaExtras.Representation {
+     property alias model: batteryRepeater.model
+     property bool pluggedIn
+     property int chargeStopThreshold
++    property bool batteryConservationModeSupported: false
++    property bool batteryConservationModeEnabled: false
++    property bool batteryConservationModeBusy: false
+     property bool isManuallyInhibited
+     property bool isManuallyInhibitedError
+ 
+@@ -52,6 +55,7 @@ PlasmaExtras.Representation {
+ 
+     signal inhibitionChangeRequested(bool inhibit)
+     signal activateProfileRequested(string profile)
++    signal conservationModeChangeRequested(bool enabled)
+ 
+     collapseMarginsHint: true
+ 
+@@ -130,6 +134,13 @@ PlasmaExtras.Representation {
+ 
+                 pluggedIn: dialog.pluggedIn
+                 chargeStopThreshold: dialog.chargeStopThreshold
++                batteryConservationModeSupported: dialog.batteryConservationModeSupported
++                batteryConservationModeEnabled: dialog.batteryConservationModeEnabled
++                batteryConservationModeBusy: dialog.batteryConservationModeBusy
++
++                onConservationModeChangeRequested: enabled => {
++                    dialog.conservationModeChangeRequested(enabled);
++                }
+ 
+                 KeyNavigation.backtab: KeyNavigation.up
+                 KeyNavigation.tab: KeyNavigation.down
+diff --git a/applets/batterymonitor/main.qml b/applets/batterymonitor/main.qml
+index 4bb1b42a8..6d8126f98 100644
+--- a/applets/batterymonitor/main.qml
++++ b/applets/batterymonitor/main.qml
+@@ -47,6 +47,10 @@ PlasmoidItem {
+         id: inhibitionControl
+     }
+ 
++    BatteryChargeControl {
++        id: batteryChargeControl
++    }
++
+     readonly property bool kcmAuthorized: KConfig.KAuthorized.authorizeControlModule("kcm_powerdevilprofilesconfig")
+     readonly property bool kcmEnergyInformationAuthorized: KConfig.KAuthorized.authorizeControlModule("kcm_energyinfo")
+ 
+@@ -277,6 +281,9 @@ PlasmoidItem {
+         isManuallyInhibitedError: inhibitionControl.isManuallyInhibitedError
+         pluggedIn: batteryControl.pluggedIn
+         chargeStopThreshold: batteryControl.chargeStopThreshold
++        batteryConservationModeSupported: batteryChargeControl.supported
++        batteryConservationModeEnabled: batteryChargeControl.enabled
++        batteryConservationModeBusy: batteryChargeControl.busy
+         remainingTime: batteryControl.remainingTime
+         activeProfile: powerProfilesControl.activeProfile
+         activeProfileError: powerProfilesControl.profileError
+@@ -293,6 +300,10 @@ PlasmoidItem {
+             batterymonitor.activateProfileRequested(profile);
+         }
+ 
++        onConservationModeChangeRequested: enabled => {
++            batteryChargeControl.enabled = enabled;
++        }
++
+         onInhibitionChangeRequested: inhibit => {
+             batterymonitor.inhibitionChangeRequested(inhibit);
+         }
+diff --git a/applets/batterymonitor/plugin/CMakeLists.txt b/applets/batterymonitor/plugin/CMakeLists.txt
+index d841070df..679cdbdea 100644
+--- a/applets/batterymonitor/plugin/CMakeLists.txt
++++ b/applets/batterymonitor/plugin/CMakeLists.txt
+@@ -6,6 +6,7 @@ ecm_add_qml_module(batterymonitorplugin URI org.kde.plasma.private.batterymonito
+ target_sources(batterymonitorplugin PRIVATE
+         powerprofilescontrol.cpp powerprofilescontrol.h
+         inhibitioncontrol.cpp inhibitioncontrol.h
++        batterychargecontrol.cpp batterychargecontrol.h
+         applicationdata_p.cpp applicationdata_p.h
+         inhibitmonitor_p.cpp inhibitmonitor_p.h
+ )
+@@ -15,6 +16,7 @@ target_link_libraries(batterymonitorplugin PRIVATE
+         Qt::DBus
+         Qt::Qml
+         Qt::Gui
++        KF6::AuthCore
+         KF6::Service
+         KF6::I18n
+ )
+diff --git a/applets/batterymonitor/plugin/batterychargecontrol.cpp b/applets/batterymonitor/plugin/batterychargecontrol.cpp
+new file mode 100644
+index 000000000..07c35f8cf
+--- /dev/null
++++ b/applets/batterymonitor/plugin/batterychargecontrol.cpp
+@@ -0,0 +1,105 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Contributors
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++
++#include "batterychargecontrol.h"
++
++#include "batterymonitor_debug.h"
++
++#include <KAuth/Action>
++#include <KAuth/ExecuteJob>
++
++BatteryChargeControl::BatteryChargeControl(QObject *parent)
++    : QObject(parent)
++{
++    refresh();
++}
++
++bool BatteryChargeControl::isSupported() const
++{
++    return m_supported;
++}
++
++bool BatteryChargeControl::isEnabled() const
++{
++    return m_enabled;
++}
++
++bool BatteryChargeControl::isBusy() const
++{
++    return m_busy;
++}
++
++void BatteryChargeControl::setSupported(bool supported)
++{
++    if (m_supported == supported) {
++        return;
++    }
++    m_supported = supported;
++    Q_EMIT supportedChanged(m_supported);
++}
++
++void BatteryChargeControl::updateEnabled(bool enabled)
++{
++    if (m_enabled == enabled) {
++        return;
++    }
++    m_enabled = enabled;
++    Q_EMIT enabledChanged(m_enabled);
++}
++
++void BatteryChargeControl::setBusy(bool busy)
++{
++    if (m_busy == busy) {
++        return;
++    }
++    m_busy = busy;
++    Q_EMIT busyChanged(m_busy);
++}
++
++void BatteryChargeControl::refresh()
++{
++    KAuth::Action action(QStringLiteral("org.kde.powerdevil.chargethresholdhelper.getconservationmode"));
++    action.setHelperId(QStringLiteral("org.kde.powerdevil.chargethresholdhelper"));
++    KAuth::ExecuteJob *job = action.execute();
++    connect(job, &KJob::result, this, [this, job] {
++        if (job->error()) {
++            setSupported(false);
++            return;
++        }
++        setSupported(true);
++        updateEnabled(job->data().value(QStringLiteral("batteryConservationModeEnabled")).toBool());
++    });
++    job->start();
++}
++
++void BatteryChargeControl::setEnabled(bool enabled)
++{
++    if (!m_supported || m_busy || m_enabled == enabled) {
++        return;
++    }
++
++    const bool previous = m_enabled;
++    updateEnabled(enabled);
++    setBusy(true);
++
++    KAuth::Action action(QStringLiteral("org.kde.powerdevil.chargethresholdhelper.setconservationmode"));
++    action.setHelperId(QStringLiteral("org.kde.powerdevil.chargethresholdhelper"));
++    action.addArgument(QStringLiteral("batteryConservationModeEnabled"), enabled);
++    KAuth::ExecuteJob *job = action.execute();
++    connect(job, &KJob::result, this, [this, job, previous] {
++        setBusy(false);
++        if (job->error()) {
++            qCDebug(APPLETS::BATTERYMONITOR) << "Failed to set conservation mode:" << job->errorText();
++            updateEnabled(previous);
++            return;
++        }
++        // Re-read to confirm the value actually stuck.
++        refresh();
++    });
++    job->start();
++}
++
++#include "moc_batterychargecontrol.cpp"
+diff --git a/applets/batterymonitor/plugin/batterychargecontrol.h b/applets/batterymonitor/plugin/batterychargecontrol.h
+new file mode 100644
+index 000000000..3445aae84
+--- /dev/null
++++ b/applets/batterymonitor/plugin/batterychargecontrol.h
+@@ -0,0 +1,45 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Contributors
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++
++#pragma once
++
++#include <QObject>
++#include <qqmlregistration.h>
++
++class BatteryChargeControl : public QObject
++{
++    Q_OBJECT
++    QML_ELEMENT
++
++    Q_PROPERTY(bool supported READ isSupported NOTIFY supportedChanged)
++    Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled NOTIFY enabledChanged)
++    Q_PROPERTY(bool busy READ isBusy NOTIFY busyChanged)
++
++public:
++    explicit BatteryChargeControl(QObject *parent = nullptr);
++
++    bool isSupported() const;
++    bool isEnabled() const;
++    bool isBusy() const;
++
++public Q_SLOTS:
++    void setEnabled(bool enabled);
++
++Q_SIGNALS:
++    void supportedChanged(bool supported);
++    void enabledChanged(bool enabled);
++    void busyChanged(bool busy);
++
++private:
++    void refresh();
++    void setSupported(bool supported);
++    void updateEnabled(bool enabled);
++    void setBusy(bool busy);
++
++    bool m_supported = false;
++    bool m_enabled = false;
++    bool m_busy = false;
++};
+-- 
+2.55.0
+
