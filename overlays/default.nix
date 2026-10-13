@@ -14,5 +14,18 @@ _: {
           ];
       });
     });
+
+    jetbrains =
+      prev.jetbrains
+      // {
+        clion = prev.jetbrains.clion.overrideAttrs (oldAttrs: {
+          postFixup =
+            (oldAttrs.postFixup or "")
+            + ''
+              wrapProgram $out/bin/clion \
+                --prefix PATH : ${final.lib.makeBinPath [final.gcc final.gnumake final.cmake]}
+            '';
+        });
+      };
   };
 }
