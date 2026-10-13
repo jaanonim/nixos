@@ -18,7 +18,6 @@ in {
       brave
       pear-desktop
       onlyoffice-desktopeditors
-      caprine
     ];
     # programs.chromium.extraOpts.IncognitoModeAvailability = 1;
   };
