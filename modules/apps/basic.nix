@@ -15,7 +15,12 @@ in {
       kdePackages.gwenview
       vlc
       libvlc
-      brave
+      (brave.override {
+        # https://github.com/brave/brave-browser/issues/55805
+        commandLineArgs = [
+          "--ozone-platform=x11"
+        ];
+      })
       pear-desktop
       onlyoffice-desktopeditors
     ];
