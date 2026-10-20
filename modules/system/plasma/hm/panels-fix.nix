@@ -9,7 +9,7 @@
     installPhase = ''
       mkdir -p $out
       cp plasma-org.kde.plasma.desktop-appletsrc $out/plasma-org.kde.plasma.desktop-appletsrc
-      sed -i"" 's,@@ICON@@,${lib.profileImage}/profile.png,g' $out/plasma-org.kde.plasma.desktop-appletsrc
+      sed -i"" 's,@@ICON@@,${lib.wrapImage "profile.png"},g' $out/plasma-org.kde.plasma.desktop-appletsrc
     '';
   };
 in {

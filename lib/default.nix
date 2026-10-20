@@ -16,5 +16,5 @@ in rec {
   makeDeploy = import ./make-deploy.nix {inherit inputs lib;};
   makePort = import ./make-port.nix {inherit lib;};
   makeHost = import ./make-host.nix {inherit makeConfig makeDeploy lib;};
-  profileImage = import ./profile-image.nix {inherit pkgs;};
+  wrapImage = import ./wrap-image.nix {inherit pkgs;};
 }

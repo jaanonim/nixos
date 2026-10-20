@@ -132,7 +132,7 @@ in {
     };
 
     virtualisation.oci-containers.containers.homepage = {
-      image = "ghcr.io/gethomepage/homepage:v2.1.2@sha256:e422a1ec7834b5cfac54e9cb1804475f7a4d61bb0c04002ebc59542bd8b3350d";
+      image = "ghcr.io/gethomepage/homepage:v2.6.0@sha256:a6a28328b485d60bfa58b502b46749e85b6262fc6c6180ef26468e34abd371c2";
       ports = ["3000:3000"];
       pull = "always";
       volumes = [
@@ -141,6 +141,7 @@ in {
         "${./settings.yaml}:/app/config/settings.yaml:ro"
         "${./widgets.yaml}:/app/config/widgets.yaml:ro"
         "${./custom.css}:/app/config/custom.css:ro"
+        "${lib.wrapImage "wallpaper.jpg"}:/app/public/images/wallpaper.jpg:ro"
       ];
       extraOptions = [
         "--mount"

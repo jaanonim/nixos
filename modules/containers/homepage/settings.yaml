@@ -10,7 +10,7 @@ layout:
     columns: 3
 
 background: 
-  image: https://unsplash.com/photos/ddLiNMqWAOM/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzQ1ODIxOTYzfA&force=true&w=2400
+  image: /images/wallpaper.jpg
   blur: sm 
 
 headerStyle: clean

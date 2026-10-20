@@ -22,7 +22,7 @@
       # ~/.config/plasma-org.kde.plasma.desktop-appletsrc.
       {
         kickoff = {
-          icon = "${lib.profileImage}/profile.png";
+          icon = lib.profileImage "profile.png";
           showActionButtonCaptions = false;
           settings = {
             switchCategoryOnHover = true;
