@@ -14,7 +14,7 @@ with lib; let
       // {
         python3Packages = old.passthru.python3Packages.overrideScope (pyfinal: pyprev: {
           py-libzfs = pkgs.python312Packages.py-libzfs.override {
-            cython_0 = pkgs.python312Packages.cython_0.overrideAttrs (old: {
+            cython = pkgs.python312Packages.cython.overrideAttrs (old: {
               dontCheckPythonMetadata = true;
             });
           };
