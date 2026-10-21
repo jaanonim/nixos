@@ -5,7 +5,7 @@
       if value
       then "true"
       else "false"
-    else builtins.toString value;
+    else toString value;
 
   formatSection = path: data: let
     header = lib.concatStrings (map (p: "[${p}]") path);

@@ -8,7 +8,7 @@
 with lib; let
   inherit (config) my;
   localPkgs = import inputs.nixpkgs {
-    inherit (pkgs) system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config = {
       allowUnfree = true;
       permittedInsecurePackages = [

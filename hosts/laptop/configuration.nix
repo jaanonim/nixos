@@ -135,7 +135,7 @@
         defaultImage = "/mnt/dane/Virtual/windows10.qcow2";
       };
     };
-    virtualbox.enable = true;
+    virtualbox.enable = false;
     vpn.tailscale = {
       enable = true;
       systray = true;

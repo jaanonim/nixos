@@ -151,33 +151,35 @@ in {
       package = pkgs.qemu_kvm;
     };
 
-    environment.systemPackages = with pkgs; [
-      qemu_kvm
-      looking-glass-client
-      vm-run
-      vm-bind
-      vm-unbind
-      vm-kill-gpu
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        qemu_kvm
+        looking-glass-client
+        vm-run
+        vm-bind
+        vm-unbind
+        vm-kill-gpu
+      ];
 
-    environment.etc."looking-glass-client.ini".text = ''
-      [win]
-      showFPS = yes
-      [input]
-      escapeKey = KEY_RIGHTCTRL
-    '';
+      etc."looking-glass-client.ini".text = ''
+        [win]
+        showFPS = yes
+        [input]
+        escapeKey = KEY_RIGHTCTRL
+      '';
+
+      # Bind integrated GPU to kwin so nvidia GPU can be unbound while running plasma
+      sessionVariables = {
+        KWIN_DRM_DEVICES = "/dev/dri/amd-igpu";
+        __GLX_VENDOR_LIBRARY_NAME = "mesa";
+        __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
+      };
+    };
 
     services.udev.extraRules = ''
       SUBSYSTEM=="kvmfr", OWNER="${my.mainUser}", GROUP="kvm", MODE="0660"
       SUBSYSTEM=="drm", KERNEL=="card[0-9]*", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x1002", SYMLINK+="dri/amd-igpu"
     '';
-
-    # Bind integrated GPU to kwin so nvidia GPU can be unbound while running plasma
-    environment.sessionVariables = {
-      KWIN_DRM_DEVICES = "/dev/dri/amd-igpu";
-      __GLX_VENDOR_LIBRARY_NAME = "mesa";
-      __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
-    };
 
     users.extraGroups.kvm.members = [my.mainUser];
   });
