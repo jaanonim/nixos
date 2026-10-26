@@ -26,17 +26,24 @@ in {
           save-plan = lib.root /config/opencode/skills/save-plan.md;
         };
 
+        cli = {
+          keybinds = {
+            "agent.cycle" = "tab";
+          };
+        };
+
         settings = {
-          autoshare = false;
-          autoupdate = false;
+          update = "disable";
+          experimental = {
+            todo = true;
+            subagent_depth = 2;
+          };
 
-          subagent_depth = 2;
+          plugins = ["opencode-wakatime"]; # Broken: "@alergeek-ventures/opencode"
 
-          plugin = ["@alergeek-ventures/opencode" "opencode-wakatime"];
+          permissions = builtins.fromJSON (builtins.readFile (lib.root /config/opencode/permissions.json));
 
-          permission = builtins.fromJSON (builtins.readFile (lib.root /config/opencode/permissions.json));
-
-          provider = mkIf my.containers.llama.enable {
+          providers = mkIf my.containers.llama.enable {
             llama-swap = {
               npm = "@ai-sdk/openai-compatible";
               name = "llama-swap";
@@ -55,6 +62,7 @@ in {
           };
         };
 
+        # Is this correct?
         context = builtins.readFile (lib.root /config/opencode/agent.md);
       };
 

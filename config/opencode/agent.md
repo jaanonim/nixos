@@ -21,20 +21,21 @@ At session start, inspect available MCP tools via `tools/list`. Use them accordi
 
 # Execution Rules
 
+- Follow KISS (Keep It Simple, Stupid): choose the simplest solution that meets the requirements. Avoid unnecessary complexity, abstractions, and overengineering.
 - Minimal, scoped changes only. No unsolicited refactoring. Ask when intent is ambiguous.
 
 # Decision Priority
 
 1. Inherited environment — use available tools; consult `shell.nix` / `flake.nix` when needed
-2. MCP doc tool (e.g. context7) — ALL docs & API usage; never guess APIs
+2. MCP doc tool (e.g. context7) — ALL docs & API usage; if Context7 is unavailable or fails, use web search to find official documentation instead; never guess APIs
 3. MCP package search (e.g. nixpkgs-search) — package/option resolution
 4. Inherited environment — direct execution; project devShell only when needed
 5. `nix run` — fallback execution
-6. Web search — **last resort only**
+6. Web search — fallback when Context7 is unavailable or fails; otherwise **last resort only**
 
 # Hard Failures
 
-- Using web docs when an MCP doc tool applies
+- Using web docs when an applicable MCP doc tool is available and working
 - Coding against guessed/unverified APIs
 - Installing global tools
 - Refactoring beyond task scope
