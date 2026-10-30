@@ -43,6 +43,7 @@ in {
 
           permissions = builtins.fromJSON (builtins.readFile (lib.root /config/opencode/permissions.json));
 
+          # disabled_providers = ["openai"];
           providers = mkIf my.containers.llama.enable {
             llama-swap = {
               npm = "@ai-sdk/openai-compatible";
@@ -62,7 +63,6 @@ in {
           };
         };
 
-        # Is this correct?
         context = builtins.readFile (lib.root /config/opencode/agent.md);
       };
 
