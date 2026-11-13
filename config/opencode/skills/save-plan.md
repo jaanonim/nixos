@@ -9,7 +9,8 @@ When the user says something like "save the plan", "write the plan to a file", "
 
 ## Directory & Naming
 
-- Default plans directory: `.agents/plans/` (create it if it does not exist).
+- Default plans directory: `<project-root>/.agents/plans/` (create it if it does not exist). Save plans inside the current project, not in the user's home directory or any global OpenCode directory.
+- Determine the project root from the current workspace/repository root, and resolve `.agents/plans/` relative to that root.
 - If the project already has a different convention for plan files, use that instead.
 - Filename format: `plan-{YYYY-MM-DD}-{slug}.md`
   - `{slug}`: a short kebab-case description of the task, e.g. `add-user-search`, `refactor-auth-flow`, `fix-race-condition-in-checkout`
@@ -182,8 +183,8 @@ If the user says "update the plan", "edit the plan", or references an existing p
 ```
 User: "Plan how to add user search, then save the plan"
 → Agent: (explores codebase, designs solution)
-→ Agent: (writes plan file to .agents/plans/plan-{date}-{slug}.md)
+→ Agent: (writes plan file to <project-root>/.agents/plans/plan-{date}-{slug}.md)
 → User: (reviews plan, maybe asks to edit)
-→ User: "Implement the plan in .agents/plans/plan-2024-01-15-add-user-search.md"
+→ User: "Implement the plan in .agents/plans/plan-2024-01-15-add-user-search.md" (resolved relative to the project root)
 → Next Agent: (reads plan file, implements step-by-step, checks boxes)
 ```

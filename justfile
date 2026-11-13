@@ -1,9 +1,15 @@
+remote_ip := "192.168.1.102"
+
 default:
     @just --list
 
 rebuild:
 	git add .
 	nh os switch .
+
+rebuild-remote:
+	git add .
+	nh os switch . --build-host {{remote_ip}}
 
 alias boot := rebuild-boot
 rebuild-boot:
