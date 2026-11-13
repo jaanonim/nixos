@@ -18,7 +18,7 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.oci-containers.containers.ism = {
-      image = "ghcr.io/alexta69/metube:2026.08.21@sha256:4d3a085f874c39615fa2e3ca529f3131a22056aa9f1fddcb656dd58160f37814";
+      image = "ghcr.io/alexta69/metube:2026.11.10@sha256:6b28bbbf8500359515c7a241843a777d050de4e93a3560cb36bae8b9cfe36385";
       hostname = "metube";
 
       ports = ["8081:8081"];
