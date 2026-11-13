@@ -1,90 +1,64 @@
 {
+  clangStdenv,
+  gcc,
+  cmake,
+  ninja,
   lib,
-  pkg-config,
-  dbus,
-  rustPlatform,
-  makeDesktopItem,
-  ...
+  kdePackages,
+  qt6,
+  boost,
+  fetchFromGitHub,
 }: let
-  srcInfo = fetchTree {
-    type = "github";
+  gccVer = gcc.cc.version;
+  headerFlags = lib.concatStringsSep " " [
+    "-stdlib=libstdc++"
+    "-isystem ${gcc.cc}/include/c++/${gccVer}"
+    "-isystem ${gcc.cc}/include/c++/${gccVer}/x86_64-unknown-linux-gnu"
+    "-isystem ${clangStdenv.cc.libc.dev}/include"
+    "-isystem ${qt6.qtbase.out}/include"
+    "-isystem ${qt6.qtbase.out}/mkspecs/linux-g++"
+  ];
+  repo = fetchFromGitHub {
     owner = "jaanonim";
-    repo = "BibleRunner-rs";
-    rev = "fd80e22b31058140fdb10195890f16630b352993";
-    narHash = "sha256-S8cuEt0eke5dJ2ZrsBGupdvz1Gx6V+YDMhlhNfutHas=";
+    repo = "BibleRunner";
+    rev = "f3af2541de2159c1c7933c22ff83a07da1190f6d";
+    hash = "sha256-AEYcyuHwdcxzNTWyKWTSO0+GqL1zAu+iUhJK1YXRo1U=";
   };
-  src = srcInfo.outPath;
-
-  inherit (builtins) readFile head match length elemAt;
-
-  cargoToml = fromTOML (readFile "${src}/Cargo.toml");
-  inherit (cargoToml) package;
-  inherit (package) version description authors repository;
-  inherit (package.metadata.krunner) service path;
-  toml_name = package.name;
-
-  primaryAuthor =
-    if (authors != [])
-    then match "(.+) <(.*)>" (head authors)
-    else [];
 in
-  rustPlatform.buildRustPackage rec {
-    inherit version src;
-    pname = toml_name;
+  clangStdenv.mkDerivation {
     name = "bible-runner";
+    version = "1.0.0";
 
-    cargoLock.lockFile = "${src}/Cargo.lock";
+    env.CXXFLAGS = headerFlags;
+    env.NIX_LDFLAGS = "-L${gcc.cc.lib}/lib -rpath ${gcc.cc.lib}/lib";
 
-    nativeBuildInputs = [pkg-config];
-    buildInputs = [dbus];
+    passthru.headerFlags = headerFlags;
 
-    desktopItem = makeDesktopItem {
-      name = "plasma-runner-${toml_name}";
-      desktopName = "BibleRunner";
-      type = "Service";
-      icon = toml_name;
-      comment = description;
+    src = "${repo}/src";
 
-      extraConfig =
-        {
-          X-KDE-PluginInfo-Name = pname;
-          X-KDE-PluginInfo-Version = version;
-          X-KDE-PluginInfo-EnabledByDefault = "true";
-          X-KDE-ServiceTypes = "Plasma/Runner";
-          X-Plasma-API = "DBus";
-          X-Plasma-DBusRunner-Service = service;
-          X-Plasma-DBusRunner-Path = path;
-        }
-        // lib.optionalAttrs (length meta.license >= 1) {
-          X-KDE-PluginInfo-License = (head meta.license).spdxId;
-        }
-        // lib.optionalAttrs (length primaryAuthor >= 1) {
-          X-KDE-PluginInfo-Author = head primaryAuthor;
-        }
-        // lib.optionalAttrs (length primaryAuthor >= 2) {
-          X-KDE-PluginInfo-Email = elemAt primaryAuthor 1;
-        };
-    };
+    nativeBuildInputs = [
+      cmake
+      ninja
+      gcc
+      kdePackages.extra-cmake-modules
+      qt6.wrapQtAppsHook
+    ];
 
-    postInstall = ''
-      mkdir -p $out/share/icons
-      cp ./resources/${toml_name}.png $out/share/icons/${toml_name}.png
+    buildInputs = [
+      kdePackages.kcoreaddons
+      kdePackages.ki18n
+      kdePackages.kconfig
+      kdePackages.krunner
+      kdePackages.kio
+      kdePackages.knotifications
+      kdePackages.kcmutils
+      kdePackages.kwidgetsaddons
+      qt6.qtbase
+      boost
+    ];
 
-      mkdir -p $out/share/krunner/dbusplugins
-      cp $desktopItem/share/applications/* $out/share/krunner/dbusplugins
+    doCheck = true;
+    checkPhase = "ctest";
 
-      mkdir -p $out/share/dbus-1/services
-      cat<<EOF > $out/share/dbus-1/services/plasma-runner-${toml_name}.service
-      [D-BUS Service]
-      Name=${service}
-      Exec=$out/bin/${toml_name}
-      EOF
-    '';
-
-    meta = with lib; {
-      inherit description;
-
-      homepage = repository;
-      license = with licenses; [mit];
-    };
+    cmakeFlags = ["-GNinja" "-DBUILD_TESTING=ON"];
   }
