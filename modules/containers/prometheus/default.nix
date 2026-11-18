@@ -106,14 +106,18 @@ in {
           my.containers.nginx._extraConf
         ];
 
-        grafana.provision.datasources.settings.datasources = [
-          {
-            name = "Prometheus";
-            type = "prometheus";
-            access = "proxy";
-            url = "https://prometheus.${my.containers._hostDomain}";
-          }
-        ];
+        grafana = {
+          declarativePlugins = with pkgs.grafanaPlugins; [prometheus];
+
+          provision.datasources.settings.datasources = [
+            {
+              name = "Prometheus";
+              type = "prometheus";
+              access = "proxy";
+              url = "https://prometheus.${my.containers._hostDomain}";
+            }
+          ];
+        };
       };
     })
     (mkIf nodeCfg.enable {
