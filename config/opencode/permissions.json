@@ -10,6 +10,7 @@
   { "action": "shell", "resource": "git merge-base *", "effect": "allow" },
   { "action": "shell", "resource": "git rev-list *", "effect": "allow" },
   { "action": "shell", "resource": "cat *", "effect": "allow" },
+  { "action": "shell", "resource": "nl *", "effect": "allow" },
   { "action": "shell", "resource": "ls *", "effect": "allow" },
   { "action": "shell", "resource": "ls", "effect": "allow" },
   { "action": "shell", "resource": "echo *", "effect": "allow" },
@@ -49,6 +50,14 @@
   { "action": "websearch", "resource": "*", "effect": "allow" },
   { "action": "question", "resource": "*", "effect": "allow" },
   { "action": "external_directory", "resource": "*", "effect": "ask" },
-  { "action": "external_directory", "resource": "/tmp/opencode", "effect": "allow" },
-  { "action": "external_directory", "resource": "/tmp/opencode/*", "effect": "allow" }
+  {
+    "action": "external_directory",
+    "resource": "/tmp/opencode",
+    "effect": "allow"
+  },
+  {
+    "action": "external_directory",
+    "resource": "/tmp/opencode/*",
+    "effect": "allow"
+  }
 ]
